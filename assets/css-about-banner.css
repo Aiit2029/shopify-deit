@@ -1,0 +1,39 @@
+.bwp-about-banner .featured-banner {
+    position: relative;
+}
+.bwp-about-banner .banner-wrapper-infor {
+    width: 100%;
+    display: flex;
+}
+.bwp-about-banner .banner-wrapper-infor .info {
+    background: var(--white);
+    padding: 15px;
+    width: 100%;
+}
+.bwp-about-banner .banner-wrapper-infor.position-absolute {
+    position: absolute;
+}
+.bwp-about-banner .bwp-button {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    transition: all 0.2s ease;
+    overflow: hidden;
+}
+.bwp-about-banner .bwp-button:before {
+    content: "";
+    width: 0;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+}
+.bwp-about-banner .bwp-button:hover:before {
+    width: 100%;
+}
+.bwp-about-banner .row--banners {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+}

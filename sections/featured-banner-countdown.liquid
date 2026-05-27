@@ -1,0 +1,1975 @@
+{{ 'css-section-banner-countdown.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.fullwidth -%}
+	{%- assign container = 'container-full' -%}
+{%- elsif section.settings.max_width != blank -%}
+	{%- assign container = 'bwp-container' -%}
+{%- else -%}
+	{%- assign container = 'container' -%}
+{%- endif -%}
+
+{%- assign max_width = '' -%}
+{%- if section.settings.fullwidth == blank and section.settings.max_width != blank -%}
+	{%- assign width_container = section.settings.max_width | plus: 0 -%}
+	{%- capture max_width -%}style="max-width: {{ section.settings.max_width }};"{%- endcapture -%}
+{%- endif -%}
+
+{% assign margin 	= section.settings.margin | split: "|" %}
+{% assign padding 	= section.settings.padding | split: "|" %}
+{%- assign mailchimp = section.settings.mailchimp -%}
+{%- assign mailchimp_action = section.settings.form_action | replace: '/post?', '/post-json?' | append: '&amp;c=?' -%}
+{%- style -%}
+	{%- if section.settings.fullwidth == blank and section.settings.max_width != blank and width_container > 1200 -%}
+		@media (max-width: {{ section.settings.max_width }}) and (min-width: 1200px){
+			#shopify-section-{{ section.id }} .bwp-container{
+				padding-left:30px;
+				padding-right:30px;
+			}
+		}
+	{%- endif -%}
+	{%- if section.settings.color_newsletter != blank -%}
+		#shopify-section-{{ section.id }} .bwp-widget-countdown .newsletter-form__wrap {
+			border-color: {{ section.settings.color_newsletter }};
+		}
+		#shopify-section-{{ section.id }} .bwp-widget-countdown .newsletter-form__wrap input::placeholder,
+		#shopify-section-{{ section.id }}  .bwp-widget-countdown .newsletter-form__wrap .newsletter-form__submit {
+			color: {{ section.settings.color_newsletter }};
+		}
+	{%- endif -%}
+	{%- if margin[0] != blank or padding[0] != blank -%}
+		#shopify-section-{{ section.id }} .bwp-widget-countdown{
+			{%- if margin[0] != blank -%}margin: {{ margin[0] }};{%- endif -%}
+			{%- if padding[0] != blank -%}padding:{{ padding[0] }};{%- endif -%}
+		}
+	{%- endif -%}
+	@media (max-width:1200px){
+		{%- if margin[1] != blank or padding[1] != blank -%}
+			#shopify-section-{{ section.id }} .bwp-widget-countdown{
+				{%- if margin[1] != blank -%}margin: {{ margin[1] }};{%- endif -%}
+				{%- if padding[1] != blank -%}padding:{{ padding[1] }};{%- endif -%}
+			}
+		{%- endif -%}
+	}
+	@media (max-width:991px){
+		{%- if margin[2] != blank or padding[2] != blank -%}
+			#shopify-section-{{ section.id }} .bwp-widget-countdown{
+				{%- if margin[2] != blank -%}margin: {{ margin[2] }};{%- endif -%}
+				{%- if padding[2] != blank -%}padding:{{ padding[2] }};{%- endif -%}
+			}
+		{%- endif -%}
+	}
+	@media (max-width:767px){
+		{%- if margin[3] != blank or padding[3] != blank -%}
+			#shopify-section-{{ section.id }} .bwp-widget-countdown{
+				{%- if margin[3] != blank -%}margin: {{ margin[3] }};{%- endif -%}
+				{%- if padding[3] != blank -%}padding:{{ padding[3] }};{%- endif -%}
+			}
+		{%- endif -%}
+	}
+	{%- for block in section.blocks -%}
+		{%- if block.type == 'css' -%}
+			#shopify-section-{{ section.id }} .bwp-widget-countdown .title-countdown{
+				font-size: {{ block.settings.font_size_title }}px;
+				letter-spacing:{{ block.settings.letter_spacing_title }}px;
+				color:{{ block.settings.color_title }};
+				margin:{{ block.settings.margin_title }};
+				text-align:{{ block.settings.align }};
+			}
+			#shopify-section-{{ section.id }} .bwp-widget-countdown .description-countdown{
+				font-size: {{ block.settings.font_size_desc }}px;
+				letter-spacing:{{ block.settings.letter_spacing_desc }}px;
+				color:{{ block.settings.color_desc }};
+				margin:{{ block.settings.margin_desc }};
+				text-align:{{ block.settings.align }};
+			}
+
+			#shopify-section-{{ section.id }} .bwp-widget-countdown .title-newsletter{
+				font-size: {{ block.settings.font_size_title_newsletter }}px;
+				letter-spacing:{{ block.settings.letter_spacing_title_newsletter }}px;
+				color:{{ block.settings.color_title_newsletter }};
+				margin:{{ block.settings.margin_title_newsletter }};
+				text-align:{{ block.settings.align_newsletter }};
+			}
+			#shopify-section-{{ section.id }} .bwp-widget-countdown .description-newsletter{
+				font-size: {{ block.settings.font_size_desc_newsletter }}px;
+				color:{{ block.settings.color_desc_newsletter }};
+				letter-spacing:{{ block.settings.letter_spacing_desc_newsletter }}px;
+				margin:{{ block.settings.margin_desc_newsletter }};
+				text-align:{{ block.settings.align_newsletter }};
+			}
+			#shopify-section-{{ section.id }} .bwp-widget-countdown .newsletter-form__wrap {
+				justify-content:{{ block.settings.align_newsletter }};
+			}
+
+			@media(max-width:767px){
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .title-countdown{
+					font-size: {{ block.settings.font_size_title_mobi }}px;
+					margin:{{ block.settings.margin_title_mobi }};
+				}
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .description-countdown{
+					font-size: {{ block.settings.font_size_desc_mobi }}px;
+					margin:{{ block.settings.margin_desc_mobi }};
+				}
+
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .title-newsletter{
+					font-size: {{ block.settings.font_size_title_newsletter_mobi }}px;
+					margin:{{ block.settings.margin_title_newsletter_mobi }};
+				}
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .description-newsletter{
+					font-size: {{ block.settings.font_size_desc_newsletter_mobi }}px;
+					margin:{{ block.settings.margin_desc_newsletter_mobi }};
+				}
+			}
+		{%- endif -%}
+		{%- case block.type -%}
+			{%- when 'title' -%}
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .heading-{{forloop.index}}{
+					font-size:{{ block.settings.font_size }}px;
+					line-height:{{ block.settings.line_height }}px;
+					font-weight:{{ block.settings.font_weight }};
+					letter-spacing:{{ block.settings.letter_spacing }}px;
+					margin:{{ block.settings.margin }};
+					color:{{ block.settings.color }};
+					text-align:{{ block.settings.align }};
+					{%- if block.settings.font != blank -%}
+						font-family:{{ block.settings.font }};
+					{%- endif -%}
+				}
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .content-title-{{forloop.index}}{
+					max-width:{{ block.settings.width }}%;
+					flex:0 0 {{ block.settings.width }}%;
+				}
+			{%- when 'title_product' -%}
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .product-title a{
+					font-size:{{ block.settings.font_size }}px;
+					line-height:{{ block.settings.line_height }}px;
+					font-weight:{{ block.settings.font_weight }};
+					letter-spacing:{{ block.settings.letter_spacing }}px;
+					color:{{ block.settings.color }};
+					{%- if block.settings.font != blank -%}
+						font-family:{{ block.settings.font }};
+					{%- endif -%}
+				}
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .product-title {
+					margin:{{ block.settings.margin }};
+				}
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .product-title a:hover{
+					color:{{ block.settings.color_hover }};
+				}
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .product-price{
+					font-size:{{ block.settings.font_size_price }}px;
+					line-height:{{ block.settings.line_height_price }}px;
+					font-weight:{{ block.settings.font_weight_price }};
+					letter-spacing:{{ block.settings.letter_spacing_price }}px;
+					margin:{{ block.settings.margin_price }};
+					color:{{ block.settings.color_price }};
+				}
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .title-product_price{
+					max-width:{{ block.settings.width }}%;
+					flex:0 0 {{ block.settings.width }}%;
+					text-align:{{ block.settings.align }};
+				}
+			{%- when 'button' -%}
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .button-{{forloop.index}}{
+					margin:{{ block.settings.margin }};
+					text-align:{{ block.settings.align }};
+				}
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .button-{{forloop.index}} a{
+					font-size:{{ block.settings.font_size }}px;
+					line-height:{{ block.settings.line_height }}px;
+					font-weight:{{ block.settings.font_weight }};
+					letter-spacing:{{ block.settings.letter_spacing }}px;
+					color:{{ block.settings.color }};
+					background:{{ block.settings.background }};
+					padding:{{ block.settings.padding }};
+					overflow:hidden;
+					border-radius:{{ block.settings.border_radius }};
+					{%- if block.settings.font != blank -%}
+						font-family:{{ block.settings.font }};
+					{%- endif -%}
+				}
+				{%- if block.settings.border -%}
+					#shopify-section-{{ section.id }} .bwp-widget-countdown .button-{{forloop.index}} a{
+						border-width:{{ block.settings.border_width }};
+						border-color:{{ block.settings.border_color }};
+						border-style:solid;
+					}
+				{%- endif -%}
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .button-{{forloop.index}} a:hover{
+					color:{{ block.settings.color_hover }};
+					background:{{ block.settings.background_hover }};
+				}
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .button-{{forloop.index}} .bwp-button:before{
+					background:{{ block.settings.background_hover }};
+				}
+				{%- if block.settings.border -%}
+					#shopify-section-{{ section.id }} .bwp-widget-countdown .button-{{forloop.index}} a:hover{
+						border-color:{{ block.settings.border_color_hover }};
+					}
+				{%- endif -%}
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .content-button-{{forloop.index}}{
+					max-width:{{ block.settings.width }}%;
+					flex:0 0 {{ block.settings.width }}%;
+				}
+				{%- unless block.settings.icon_title == blank -%}
+					#shopify-section-{{ section.id }} .bwp-widget-countdown .button-{{forloop.index}} a i{
+						font-size:{{ block.settings.font_icon }}px;
+						top:{{ block.settings.margin_icon }}px;
+						position:relative;
+					}
+				{%- endunless -%}
+			{%- when 'countdown' -%}
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .content-countdown{
+					max-width:{{ block.settings.width }}%;
+					flex:0 0 {{ block.settings.width }}%;
+					text-align:{{ block.settings.align }};
+					margin:{{ block.settings.margin }};
+				}
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .countdown__item > span:first-child{
+					font-size:{{ block.settings.font_countdown_amount }}px;
+					font-weight:{{ block.settings.font_weight }};
+					color:{{ block.settings.color_countdown_amount }};
+					{%- if block.settings.font_amount != blank -%}
+						font-family:{{ block.settings.font_amount }};
+					{%- endif -%}
+					width:{{ block.settings.width_countdown }};
+					height:{{ block.settings.height_countdown }};
+					line-height:{{ block.settings.height_countdown }};
+					border-radius:{{ block.settings.border_radius_countdown }};
+					background:{{ block.settings.background }};
+					display: inline-block;
+				}
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .countdown__item > span:last-child{
+					font-size:{{ block.settings.font_countdown_text }}px;
+					color:{{ block.settings.color_countdown_text }};
+					margin:{{ block.settings.margin_text }};
+					display: block;
+				}
+			{%- when 'image' -%}
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .content-image-{{forloop.index}}{
+					max-width:{{ block.settings.width }}%;
+					flex:0 0 {{ block.settings.width }}%;
+					text-align:{{ block.settings.align }};
+				}
+				#shopify-section-{{ section.id }} .bwp-widget-countdown .image-{{forloop.index}} img{
+					{%- if block.settings.content_position == 'absolute' -%}
+						top: {{ block.settings.top }}%;
+						left: {{ block.settings.left }}%;
+					{%- endif -%}
+				}
+		{%- endcase -%}
+	{%- endfor -%}
+	@media (max-width:1200px){
+        {%- for block in section.blocks -%}
+            {%- case block.type -%}
+                {%- when 'image' -%}
+                    #shopify-section-{{ section.id }} .bwp-widget-countdown .image-{{forloop.index}} img{
+                        {%- if block.settings.content_position == 'absolute' -%}
+                            top: {{ block.settings.top_lap }}%;
+                            left: {{ block.settings.left_lap }}%;
+                        {%- endif -%}
+                    }
+            {%- endcase -%}
+        {%- endfor -%}
+    }
+	@media (max-width:991px){
+        {%- for block in section.blocks -%}
+            {%- case block.type -%}
+                {%- when 'image' -%}
+                    #shopify-section-{{ section.id }} .bwp-widget-countdown .image-{{forloop.index}} img{
+                        {%- if block.settings.content_position == 'absolute' -%}
+                            top: {{ block.settings.top_tablet }}%;
+                            left: {{ block.settings.left_tablet }}%;
+                        {%- endif -%}
+                    }
+            {%- endcase -%}
+        {%- endfor -%}
+    }
+	@media (max-width:767px){
+		{%- for block in section.blocks -%}
+			{%- case block.type -%}
+				{%- when 'title' -%}
+					#shopify-section-{{ section.id }} .bwp-widget-countdown .heading-{{forloop.index}}{
+						font-size:{{ block.settings.font_size_mobi }}px;
+						line-height:{{ block.settings.line_height_mobi }}px;
+						letter-spacing:{{ block.settings.letter_spacing_mobi }}px;
+						margin:{{ block.settings.margin_mobi }};
+						color:{{ block.settings.color_mobi }};
+						text-align:{{ block.settings.align_mobi }};
+					}
+					#shopify-section-{{ section.id }} .bwp-widget-countdown .content-title-{{forloop.index}}{
+						max-width:{{ block.settings.width_mobi }}%;
+						flex:0 0 {{ block.settings.width_mobi }}%;
+					}
+				{%- when 'title_product' -%}
+					#shopify-section-{{ section.id }} .bwp-widget-countdown .product-title a{
+						font-size:{{ block.settings.font_size_mobi }}px;
+						line-height:{{ block.settings.line_height_mobi }}px;
+						letter-spacing:{{ block.settings.letter_spacing_mobi }}px;
+						margin:{{ block.settings.margin_mobi }};
+						text-align:{{ block.settings.align_mobi }};
+					}
+					#shopify-section-{{ section.id }} .bwp-widget-countdown .product-price{
+						font-size:{{ block.settings.font_size_price_mobi }}px;
+						line-height:{{ block.settings.line_height_price_mobi }}px;
+						letter-spacing:{{ block.settings.letter_spacing_price_mobi }}px;
+						margin:{{ block.settings.margin_price_mobi }};
+					}
+					#shopify-section-{{ section.id }} .bwp-widget-countdown .title-product_price{
+						max-width:{{ block.settings.width_mobi }}%;
+						flex:0 0 {{ block.settings.width_mobi }}%;
+						text-align:{{ block.settings.align_mobi }};
+					}
+				{%- when 'button' -%}
+					#shopify-section-{{ section.id }} .bwp-widget-countdown .button-{{forloop.index}}{
+						margin:{{ block.settings.margin_mobi }};
+						text-align:{{ block.settings.align_mobi }};
+					}
+					#shopify-section-{{ section.id }} .bwp-widget-countdown .button-{{forloop.index}} a{
+						font-size:{{ block.settings.font_size_mobi }}px;
+						line-height:{{ block.settings.line_height_mobi }}px;
+						letter-spacing:{{ block.settings.letter_spacing_mobi }}px;
+						padding:{{ block.settings.padding_mobi }};
+						color:{{ block.settings.color_mobi }};
+						background:{{ block.settings.background_mobi }};
+						border-radius:{{ block.settings.border_radius_mobi }};
+					}
+					{%- if block.settings.border_mobi -%}
+						#shopify-section-{{ section.id }} .bwp-widget-countdown .button-{{forloop.index}} a{
+							border-width:{{ block.settings.border_width_mobi }};
+							border-color:{{ block.settings.border_color_mobi }};
+							border-style:solid;
+						}
+					{%- endif -%}
+					#shopify-section-{{ section.id }} .bwp-widget-countdown .button-{{forloop.index}} a:hover{
+						color:{{ block.settings.color_hover_mobi }};
+					}
+					#shopify-section-{{ section.id }} .bwp-widget-countdown .button-{{forloop.index}} .bwp-button:before{
+						background:{{ block.settings.background_hover_mobi }};
+					}
+					{%- if block.settings.border -%}
+						#shopify-section-{{ section.id }} .bwp-widget-countdown .button-{{forloop.index}} a:hover{
+							border-color:{{ block.settings.border_color_hover_mobi }};
+						}
+					{%- endif -%}
+					#shopify-section-{{ section.id }} .bwp-widget-countdown .content-button-{{forloop.index}}{
+						max-width:{{ block.settings.width_mobi }}%;
+						flex:0 0 {{ block.settings.width_mobi }}%;
+					}
+					{%- unless block.settings.icon_title == blank -%}
+						#shopify-section-{{ section.id }} .bwp-widget-countdown .button-{{forloop.index}} a i{
+							font-size:{{ block.settings.font_icon_mobi }}px;
+							top:{{ block.settings.margin_icon_mobi }}px;
+						}
+					{%- endunless -%}
+				{%- when 'countdown' -%}
+					#shopify-section-{{ section.id }} .bwp-widget-countdown .countdown__item > span:first-child{
+						width:{{ block.settings.width_countdown_mobi }};
+						height:{{ block.settings.height_countdown_mobi }};
+						line-height:{{ block.settings.height_countdown_mobi }};
+						font-size:{{ block.settings.font_countdown_amount_mobi }}px;
+						display: inline-block;
+					}
+					#shopify-section-{{ section.id }} .bwp-widget-countdown .countdown__item > span:last-child{
+						font-size:{{ block.settings.font_countdown_text_mobi }}px;
+						display: block;
+					}
+				{%- when 'image' -%}
+                    #shopify-section-{{ section.id }} .bwp-widget-countdown .content-image-{{forloop.index}}{
+                        text-align:{{ block.settings.align_mobi }};
+                    }
+                    #shopify-section-{{ section.id }} .bwp-widget-countdown .image-{{forloop.index}} img{
+                        {%- if block.settings.content_position == 'absolute' -%}
+                            top: {{ block.settings.top_mobi }}%;
+                            left: {{ block.settings.left_mobi }}%;
+                        {%- endif -%}
+                    }
+			{%- endcase -%}
+		{%- endfor -%}
+	}
+{%- endstyle -%}
+
+<section class="wpbingo-section bwp-widget-countdown wpbingo-section--{{ section.id }} overflow-hidden" {{ bg_full }}>
+	<div class="{{ container }}" {{ max_width }}>
+		<div class="wpbingo-section__inner" {{ bg_content }}>
+			<div class="wpbingo-section__content">
+				<div class="content">
+					<div class="content-banner-countdown">
+						{%- if section.settings.heading != blank -%}
+							<h2 class="title-countdown">{{ section.settings.heading }}</h2>
+						{%- endif -%}
+						{%- if section.settings.description != blank -%}
+							<div class="description-countdown">{{ section.settings.description }}</div>
+						{%- endif -%}
+						<div class="content-info-countdown">
+							<div class="info">
+								{%- for block in section.blocks -%}
+									{%- case block.type -%}
+										{%- when 'title' -%}
+											{%- unless block.settings.title == blank -%}
+												<div class="content-info content-title-{{forloop.index}}">
+													<h2 class="wpbingo-title heading-{{forloop.index}}">
+														{{ block.settings.title }}
+													</h2>
+												</div>
+											{%- endunless -%}
+										{%- when 'title_product' -%}
+											{% assign product = all_products[block.settings.product] %}
+											{%- assign variant 				= product.selected_or_first_available_variant -%}
+											{%- assign variant_count 		= product.variants | size -%} 
+											<div class="title-product_price">
+												<div class="product-title"><a href="{{ product.url }}">{{ product.title }}</a></div>
+												<div class="product-card__price">
+													<div class="product-group-price">
+														{%- if variant_count > 1 -%}
+															<div class="product-price product-price--regular">{{ product.compare_at_price | money }}</div>
+														{%- endif -%}
+														{%- if variant_count > 1 -%}
+															<div class="product-price variant-price">{{ variant.price | money }}</div>
+														{%- else -%}
+															<div class="product-price">{{ product.price | money_without_trailing_zeros }}</div>
+														{%- endif -%}
+														{%- if product.price_varies == false and variant.unit_price_measurement -%}
+															{%- capture unit_price_separator -%}
+																<span>/</span><span class="d-none">&nbsp;{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+															{%- endcapture -%}
+															{%- capture unit_price_base_unit -%}
+																<span>
+																	{%- if variant.unit_price_measurement.reference_value != 1 -%}
+																		{{- variant.unit_price_measurement.reference_value -}}
+																	{%- endif -%}
+																	{{ variant.unit_price_measurement.reference_unit }}
+																</span>
+															{%- endcapture -%}
+															<span class="product-unit-price">
+																<span class="d-none">{{ 'products.general.unit_price' | t }}</span>
+																<span>{{ variant.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+															</span>
+														{%- endif -%}
+													</div>
+												</div>
+											</div>
+										{%- when 'button' -%}
+											{%- unless block.settings.title == blank -%}
+												<div class="content-info content-button-{{forloop.index}}">
+													<div class="wpbingo-button  button-{{forloop.index}}" >
+														<a class="bwp-button" href="{{ block.settings.button_link }}">
+															{{ block.settings.title }}
+															{%- unless block.settings.icon_title == blank -%}
+																<i class="{{ block.settings.icon_title }}"></i>
+															{%- endunless -%}
+														</a>
+													</div>
+												</div>
+											{%- endunless -%}
+										{%- when 'countdown' -%}
+											{%- assign final_date 	= block.settings.final_date | escape -%}
+											<div class="countdown-deal">
+												<div class="content-countdown">
+													<div class="countdown" data-countdown="{{ block.settings.final_date }}" data-day="{{ block.settings.countdown_day }}" data-hour="{{ block.settings.countdown_hour }}" data-min="{{ block.settings.countdown_min }}" data-sec="{{ block.settings.countdown_sec }}"></div>
+												</div>
+											</div>
+										{%- when 'image' -%}
+											{%- assign position 	= block.settings.content_position -%}
+											{%- assign hover 	= block.settings.hover_image -%}
+											<div class="content-image-{{forloop.index}}">
+												<div class="bwp-image image-{{forloop.index}}">
+													{%- if block.settings.image -%}
+														<img class="featured-banner__img hover-{{hover}} position-{{ position }}" src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image.alt | escape }}"/>
+													{%- else -%}
+														<img class="lazyload fade-in" src="https://placehold.jp/516x437.png" width="516" height="437" />
+													{%- endif -%}
+												</div>
+											</div>
+									{%- endcase -%}
+								{%- endfor -%}
+							</div>
+						</div>
+					</div>
+					<div class="image-banner-countdown">
+						{%- if section.settings.image -%}
+							{% include 'img-global' with image: section.settings.image, class: "image-countdown__img", effect: "fade-in" %}
+						{%- else -%}
+							<img class="lazyload fade-in" src="https://placehold.jp/650x467.png" width="650" height="467" />
+						{%- endif -%}
+						<div class="newsletter__content">
+							{%- if section.settings.description_newsletter != blank -%}
+								<div class="description-newsletter">{{ section.settings.description_newsletter }}</div>
+							{%- endif -%}
+							{%- if section.settings.heading_newsletter != blank -%}
+								<h2 class="title-newsletter">{{ section.settings.heading_newsletter }}</h2>
+							{%- endif -%}
+							<div class="newsletter-form">
+								{%- if mailchimp -%}
+									<form class="js-wpbingo-newsletter" action="{{ mailchimp_action }}" method="post" name="mc-embedded-subscribe-form" target="_blank">
+										<div class="newsletter-form__wrap">
+											<input class="js-input-newsletter form-control newsletter-form__input" type="email" name="EMAIL"
+												value="{% if customer %}{{ customer.email }}{% endif %}"
+												placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}" required />
+											<button class="btn newsletter-form__submit" type="submit">
+												<i class="icon-right-2"></i>
+											</button>
+										</div>
+									</form>
+								{%- else -%}
+									{% form 'customer' %}
+										{{ form.errors | default_errors }}
+										{%- if form.posted_successfully? -%}
+											<div class="alert alert-success">{{ 'general.newsletter_form.newsletter_confirmation' | t }}</div>
+										{%- else -%}
+											<input type="hidden" name="contact[tags]" value="newsletter">
+											<div class="newsletter-form__wrap">
+												<input value="{% if customer %}{{ customer.email }}{% endif %}"
+													placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}"
+													name="contact[email]" class="form-control newsletter-form__input" type="email" 
+													autocorrect="off" autocapitalize="off"/>
+												<button class="btn newsletter-form__submit" type="submit">
+													<i class="icon-right-2"></i>
+												</button>
+											</div>
+										{%- endif -%}
+									{% endform %}
+								{%- endif -%}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% schema %}
+{
+	"name": "Banner Countdown",
+	"class": "wpbingo-framework",
+	"settings": [
+		{
+			"type": "header",
+			"content": "Layout settings"
+		},
+		{
+			"type": "text",
+			"id": "max_width",
+			"label": "Width container",
+			"info": "Default: 1440px"
+		},
+		{
+			"type": "checkbox",
+			"id": "fullwidth",
+			"label": "Fullwidth"
+		},
+		{
+			"type": "text",
+			"id": "padding",
+			"label": "Padding",
+			"placeholder": "0px 0px 0px 0px",
+			"info":"Screen: desktop | 1200px | 991px | 767px"
+		},
+		{
+			"type": "text",
+			"id": "margin",
+			"label": "Margin",
+			"placeholder": "0px 0px 0px 0px",
+			"info":"Screen: desktop | 1200px | 991px | 767px"
+		},
+		{
+			"type": "header",
+			"content": "Content settings"
+		},
+		{
+			"type": "text",
+			"id": "heading",
+			"label": "Heading",
+			"default": "Heading"
+		},
+		{
+			"type": "text",
+			"id": "description",
+			"label": "Description",
+			"default": "Description"
+		},
+		{
+			"type": "image_picker",
+			"id": "image",
+			"label": "Image"
+		},
+		{
+			"type": "text",
+			"id": "description_newsletter",
+			"label": "Description Newsletter",
+			"default": "Description"
+		},
+		{
+			"type": "text",
+			"id": "heading_newsletter",
+			"label": "Heading Newsletter",
+			"default": "Heading"
+		},
+		{
+			"type": "header",
+			"content": "Mailchimp Settings"
+		},
+		{
+			"type": "checkbox",
+			"id": "mailchimp",
+			"label": "Use mailchimp",
+			"default": true
+		},
+		{
+			"type": "text",
+			"id": "form_action",
+			"label": "MailChimp form action URL",
+			"info": "[Where do I find my MailChimp form action URL?](http:\/\/wpbingo.com\/guide\/wpbingo\/homepage.html#sectionFour)"
+		},
+		{
+			"type": "color",
+			"id": "color_newsletter",
+			"label": "Color Newsletter",
+			"default": "#000"
+		}
+	],
+	"blocks": [
+		{
+			"type": "@app"
+		},
+		{
+			"type": "title",
+			"name": "Title Countdown",
+			"settings": [
+				{
+					"type": "textarea",
+					"id": "title",
+					"label": "Heading",
+					"default": "Heading"
+				},
+				{
+					"type": "text",
+					"id": "font",
+					"label": "Font family"
+				},
+				{
+					"type": "color",
+					"id": "color",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size",
+					"label": "Font size",
+					"default": 30,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height",
+					"label": "Line height",
+					"default": 35,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight",
+					"label": "Font Weight",
+					"default": "500"
+				},
+				{
+					"type": "text",
+					"id": "margin",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "select",
+					"id": "align",
+					"label": "Text align",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						}
+					],
+					"default": "left"
+				},
+				{
+					"type": "number",
+					"id": "width",
+					"label": "Width",
+					"default": 100,
+					"info": "%"
+				},
+				{
+					"type": "header",
+					"content": "Mobile ====================",
+					"info": "screen < 767px"
+				},
+				{
+					"type": "color",
+					"id": "color_mobi",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size_mobi",
+					"label": "Font size",
+					"default": 20,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_mobi",
+					"label": "Line height",
+					"default": 20,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing_mobi",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_mobi",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "select",
+					"id": "align_mobi",
+					"label": "Text align",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						}
+					],
+					"default": "left"
+				},
+				{
+					"type": "number",
+					"id": "width_mobi",
+					"label": "Width mobile",
+					"default": 100,
+					"info": "%"
+				}
+			]
+		},
+		{
+			"type": "title_product",
+			"name": "Product Countdown",
+			"settings": [
+				{
+					"type": "product",
+					"id": "product",
+					"label": "Product"
+				},
+				{
+					"type": "header",
+					"content": "====== Title ======"
+				},
+				{
+					"type": "text",
+					"id": "font",
+					"label": "Font family"
+				},
+				{
+					"type": "color",
+					"id": "color",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "color",
+					"id": "color_hover",
+					"label": "color hover",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size",
+					"label": "Font size",
+					"default": 30,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height",
+					"label": "Line height",
+					"default": 35,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight",
+					"label": "Font Weight",
+					"default": "500"
+				},
+				{
+					"type": "text",
+					"id": "margin",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "====== Price ======"
+				},
+				{
+					"type": "color",
+					"id": "color_price",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size_price",
+					"label": "Font size",
+					"default": 30,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_price",
+					"label": "Line height",
+					"default": 35,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing_price",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight_price",
+					"label": "Font Weight",
+					"default": "500"
+				},
+				{
+					"type": "text",
+					"id": "margin_price",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "select",
+					"id": "align",
+					"label": "Text align",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						}
+					],
+					"default": "left"
+				},
+				{
+					"type": "number",
+					"id": "width",
+					"label": "Width",
+					"default": 100,
+					"info": "%"
+				},
+				{
+					"type": "header",
+					"content": "Mobile ====================",
+					"info": "screen < 767px"
+				},
+				{
+					"type": "header",
+					"content": "====== Title ======"
+				},
+				{
+					"type": "number",
+					"id": "font_size_mobi",
+					"label": "Font size",
+					"default": 20,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_mobi",
+					"label": "Line height",
+					"default": 20,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing_mobi",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_mobi",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "====== Price ======"
+				},
+				{
+					"type": "number",
+					"id": "font_size_price_mobi",
+					"label": "Font size",
+					"default": 30,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_price_mobi",
+					"label": "Line height",
+					"default": 35,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_price_mobi",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "select",
+					"id": "align_mobi",
+					"label": "Text align",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						}
+					],
+					"default": "left"
+				},
+				{
+					"type": "number",
+					"id": "width_mobi",
+					"label": "Width mobile",
+					"default": 100,
+					"info": "%"
+				}
+			]
+		},
+		{
+			"type": "button",
+			"name": "Button Countdown",
+			"settings": [
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Label",
+					"default": "Shop now"
+				},
+				{
+					"type": "text",
+					"id": "icon_title",
+					"label": "Icon title"
+				},
+				{
+					"type": "number",
+					"id": "font_icon",
+					"label": "Font size icon",
+					"default": 14,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "margin_icon",
+					"label": "Position icon",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "url",
+					"id": "button_link",
+					"label": "Url button"
+				},
+				{
+					"type": "text",
+					"id": "border_radius",
+					"label": "Border radius",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "checkbox",
+					"id": "border",
+					"label": "Turn on border",
+					"default": false
+				},
+				{
+					"type": "text",
+					"id": "border_width",
+					"label": "Border width",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "Color Default"
+				},
+				{
+					"type": "color",
+					"id": "color",
+					"label": "color",
+					"default": "#fff"
+				},
+				{
+					"type": "color",
+					"id": "background",
+					"label": "Background",
+					"default": "#ed5d43"
+				},
+				{
+					"type": "color",
+					"id": "border_color",
+					"label": "Border color",
+					"default": "#fff"
+				},
+				{
+					"type": "header",
+					"content": "Color Hover"
+				},
+				{
+					"type": "color",
+					"id": "color_hover",
+					"label": "Color hover",
+					"default": "#fff"
+				},
+				{
+					"type": "color",
+					"id": "background_hover",
+					"label": "Background Hover",
+					"default": "#ed5d43"
+				},
+				{
+					"type": "color",
+					"id": "border_color_hover",
+					"label": "Border color hover",
+					"default": "#fff"
+				},
+				{
+					"type": "number",
+					"id": "font_size",
+					"label": "Font size",
+					"default": 14,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font",
+					"label": "Font family"
+				},
+				{
+					"type": "number",
+					"id": "line_height",
+					"label": "Line height",
+					"default": 20,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight",
+					"label": "Font Weight",
+					"default": "500"
+				},
+				{
+					"type": "text",
+					"id": "padding",
+					"label": "Padding",
+					"default": "10px 20px 10px 20px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "text",
+					"id": "margin",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "select",
+					"id": "align",
+					"label": "Text align",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						}
+					],
+					"default": "left"
+				},
+				{
+					"type": "number",
+					"id": "width",
+					"label": "Width",
+					"default": 100,
+					"info": "%"
+				},
+				{
+					"type": "header",
+					"content": "Mobile ====================",
+					"info": "screen < 767px"
+				},
+				{
+					"type": "number",
+					"id": "font_size_mobi",
+					"label": "Font size",
+					"default": 14,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "font_icon_mobi",
+					"label": "Font size icon",
+					"default": 14,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "margin_icon_mobi",
+					"label": "Position icon",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_mobi",
+					"label": "Line height",
+					"default": 20,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing_mobi",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "border_radius_mobi",
+					"label": "Border radius",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "checkbox",
+					"id": "border_mobi",
+					"label": "Turn on border",
+					"default": false
+				},
+				{
+					"type": "text",
+					"id": "border_width_mobi",
+					"label": "Border width",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "Color Default"
+				},
+				{
+					"type": "color",
+					"id": "color_mobi",
+					"label": "color",
+					"default": "#fff"
+				},
+				{
+					"type": "color",
+					"id": "background_mobi",
+					"label": "Background",
+					"default": "#ed5d43"
+				},
+				{
+					"type": "color",
+					"id": "border_color_mobi",
+					"label": "Border color",
+					"default": "#fff"
+				},
+				{
+					"type": "header",
+					"content": "Color Hover"
+				},
+				{
+					"type": "color",
+					"id": "color_hover_mobi",
+					"label": "Color hover",
+					"default": "#fff"
+				},
+				{
+					"type": "color",
+					"id": "background_hover_mobi",
+					"label": "Background Hover",
+					"default": "#ed5d43"
+				},
+				{
+					"type": "color",
+					"id": "border_color_hover_mobi",
+					"label": "Border color hover",
+					"default": "#fff"
+				},
+				{
+					"type": "text",
+					"id": "padding_mobi",
+					"label": "Padding",
+					"default": "10px 20px 10px 20px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "text",
+					"id": "margin_mobi",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "select",
+					"id": "align_mobi",
+					"label": "Text align",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						}
+					],
+					"default": "left"
+				},
+				{
+					"type": "number",
+					"id": "width_mobi",
+					"label": "Width mobile",
+					"default": 100,
+					"info": "%"
+				}
+			]
+		},
+		{
+            "type": "countdown",
+            "name": "Countdowns",
+			"settings": [
+				{
+					"type": "header",
+					"content": "Countdowns"
+				},
+				{
+					"type": "text",
+					"id": "final_date",
+					"label": "Final date",
+					"info": "Format: yyyy/MM/dd hh:mm:ss",
+					"default": "2021/01/01 00:00:00"
+				},
+				{
+					"type": "text",
+					"id": "countdown_day",
+					"label": "Text day",
+					"default": "d"
+				},
+				{
+					"type": "text",
+					"id": "countdown_hour",
+					"label": "Text hour",
+					"default": "h"
+				},
+				{
+					"type": "text",
+					"id": "countdown_min",
+					"label": "Text minutes",
+					"default": "m"
+				},
+				{
+					"type": "text",
+					"id": "countdown_sec",
+					"label": "Text second",
+					"default": "s"
+				},
+				{
+					"type": "select",
+					"id": "align",
+					"label": "Text align",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						}
+					],
+					"default": "left"
+				},
+				{
+					"type": "number",
+					"id": "width",
+					"label": "Width",
+					"default": 100,
+					"info": "%"
+				},
+				{
+					"type": "text",
+					"id": "margin",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "Content countdowns"
+				},
+				{
+					"type": "color",
+					"id": "background",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "text",
+					"id": "width_countdown",
+					"label": "Width",
+					"default": "0px"
+				},
+				{
+					"type": "text",
+					"id": "height_countdown",
+					"label": "Height",
+					"default": "0px"
+				},
+				{
+					"type": "text",
+					"id": "border_radius_countdown",
+					"label": "Border radius",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "Amount"
+				},
+				{
+					"type": "number",
+					"id": "font_countdown_amount",
+					"label": "Font size",
+					"default": 15,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight",
+					"label": "Font Weight",
+					"default": "500"
+				},
+				{
+					"type": "color",
+					"id": "color_countdown_amount",
+					"label": "Color amount",
+					"default": "#fff"
+				},
+				{
+					"type": "text",
+					"id": "font_amount",
+					"label": "Font family"
+				},
+				{
+					"type": "header",
+					"content": "Text"
+				},
+				{
+					"type": "number",
+					"id": "font_countdown_text",
+					"label": "Font size",
+					"default": 15,
+					"info": "px"
+				},
+				{
+					"type": "color",
+					"id": "color_countdown_text",
+					"label": "Color text",
+					"default": "#fff"
+				},
+				{
+					"type": "text",
+					"id": "margin_text",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "Mobile ====================",
+					"info": "screen < 767px"
+				},
+				{
+					"type": "number",
+					"id": "font_countdown_amount_mobi",
+					"label": "Font size amount",
+					"default": 15,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "font_countdown_text_mobi",
+					"label": "Font size text",
+					"default": 15,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "width_countdown_mobi",
+					"label": "Width",
+					"default": "0px"
+				},
+				{
+					"type": "text",
+					"id": "height_countdown_mobi",
+					"label": "Height",
+					"default": "0px"
+				}
+            ]
+        },
+		{
+            "type": "image",
+            "name": "Image Countdown",
+			"settings": [
+				{
+					"type": "header",
+					"content": "Banner image"
+				},
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Image"
+				},
+				{
+					"type": "select",
+					"id": "align",
+					"label": "Text align",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						}
+					],
+					"default": "left"
+				},
+				{
+					"type": "select",
+					"id": "content_position",
+					"label": "Content position",
+					"options": [
+						{
+							"value": "absolute",
+							"label": "In the picture"
+						},
+						{
+							"value": "unset",
+							"label": "Bottom"
+						}
+					],
+					"default": "absolute"
+				},
+				{
+					"type": "range",
+					"id": "top",
+					"min": -100,
+					"max": 100,
+					"step": 2,
+					"unit": "%",
+					"label": "Offset top",
+					"default": 50
+				},
+				{
+					"type": "range",
+					"id": "left",
+					"min": -100,
+					"max": 100,
+					"step": 2,
+					"unit": "%",
+					"label": "Offset left",
+					"default": 50
+				},
+				{
+					"type": "select",
+					"id": "hover_image",
+					"label": "Hover Image",
+					"options": [
+						{
+							"value": "circular",
+							"label": "Circular"
+						},
+						{
+							"value": "unset",
+							"label": "unset"
+						}
+					],
+					"default": "unset"
+				},
+				{
+					"type": "number",
+					"id": "width",
+					"label": "Width",
+					"default": 100,
+					"info": "%"
+				},
+				{
+					"type": "header",
+					"content": "Lap ====================",
+					"info": "screen < 1200px"
+				},
+				{
+					"type": "range",
+					"id": "top_lap",
+					"min": -100,
+					"max": 100,
+					"step": 2,
+					"unit": "%",
+					"label": "Offset top",
+					"default": 50
+				},
+				{
+					"type": "range",
+					"id": "left_lap",
+					"min": -100,
+					"max": 100,
+					"step": 2,
+					"unit": "%",
+					"label": "Offset left",
+					"default": 50
+				},
+				{
+					"type": "header",
+					"content": "Tablets ====================",
+					"info": "screen < 991px"
+				},
+				{
+					"type": "range",
+					"id": "top_tablet",
+					"min": -100,
+					"max": 100,
+					"step": 2,
+					"unit": "%",
+					"label": "Offset top",
+					"default": 50
+				},
+				{
+					"type": "range",
+					"id": "left_tablet",
+					"min": -100,
+					"max": 100,
+					"step": 2,
+					"unit": "%",
+					"label": "Offset left",
+					"default": 50
+				},
+				{
+					"type": "header",
+					"content": "Mobile ====================",
+					"info": "screen < 767px"
+				},
+				{
+					"type": "select",
+					"id": "align_mobi",
+					"label": "Text align",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						}
+					],
+					"default": "left"
+				},
+				{
+					"type": "range",
+					"id": "top_mobi",
+					"min": -100,
+					"max": 100,
+					"step": 2,
+					"unit": "%",
+					"label": "Offset top",
+					"default": 50
+				},
+				{
+					"type": "range",
+					"id": "left_mobi",
+					"min": -100,
+					"max": 100,
+					"step": 2,
+					"unit": "%",
+					"label": "Offset left",
+					"default": 50
+				}
+            ]
+        },
+		{
+			"type": "css",
+			"name": "Custom css",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "header",
+					"content": "====== Title ======"
+				},
+				{
+					"type": "select",
+					"id": "align",
+					"label": "Text align",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						}
+					],
+					"default": "center"
+				},
+				{
+					"type": "color",
+					"id": "color_title",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size_title",
+					"label": "Font size",
+					"default": 35,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing_title",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_title",
+					"label": "margin",
+					"default": "0px 0px 0px 0px",
+					"placeholder":"0px 0px 0px 0px"
+				},
+				{
+					"type": "header",
+					"content": "====== Description ======"
+				},
+				{
+					"type": "color",
+					"id": "color_desc",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size_desc",
+					"label": "Font size",
+					"default": 16,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing_desc",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_desc",
+					"label": "margin",
+					"default": "0px 0px 0px 0px",
+					"placeholder":"0px 0px 0px 0px"
+				},
+				{
+					"type": "header",
+					"content": "====== Mobile ======",
+					"info": "screen < 767px"
+				},
+				{
+					"type": "header",
+					"content": "---------- Title"
+				},
+				{
+					"type": "number",
+					"id": "font_size_title_mobi",
+					"label": "Font size",
+					"default": 30,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_title_mobi",
+					"label": "margin",
+					"default": "0px 0px 0px 0px",
+					"placeholder":"0px 0px 0px 0px"
+				},
+				{
+					"type": "header",
+					"content": "---------- Description"
+				},
+				{
+					"type": "number",
+					"id": "font_size_desc_mobi",
+					"label": "Font size",
+					"default": 16,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_desc_mobi",
+					"label": "margin",
+					"default": "0px 0px 0px 0px",
+					"placeholder":"0px 0px 0px 0px"
+				},
+				{
+					"type": "header",
+					"content": "====== Newsletter ======"
+				},
+				{
+					"type": "select",
+					"id": "align_newsletter",
+					"label": "Text align",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						}
+					],
+					"default": "center"
+				},
+				{
+					"type": "header",
+					"content": "====== Description ======"
+				},
+				{
+					"type": "color",
+					"id": "color_desc_newsletter",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size_desc_newsletter",
+					"label": "Font size",
+					"default": 16,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing_desc_newsletter",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_desc_newsletter",
+					"label": "margin",
+					"default": "0px 0px 0px 0px",
+					"placeholder":"0px 0px 0px 0px"
+				},
+				{
+					"type": "header",
+					"content": "====== Title ======"
+				},
+				{
+					"type": "color",
+					"id": "color_title_newsletter",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size_title_newsletter",
+					"label": "Font size",
+					"default": 35,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing_title_newsletter",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_title_newsletter",
+					"label": "margin",
+					"default": "0px 0px 0px 0px",
+					"placeholder":"0px 0px 0px 0px"
+				},
+				{
+					"type": "header",
+					"content": "====== Mobile ======",
+					"info": "screen < 767px"
+				},
+				{
+					"type": "header",
+					"content": "---------- Description"
+				},
+				{
+					"type": "number",
+					"id": "font_size_desc_newsletter_mobi",
+					"label": "Font size",
+					"default": 16,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_desc_newsletter_mobi",
+					"label": "margin",
+					"default": "0px 0px 0px 0px",
+					"placeholder":"0px 0px 0px 0px"
+				},
+				{
+					"type": "header",
+					"content": "---------- Title"
+				},
+				{
+					"type": "number",
+					"id": "font_size_title_newsletter_mobi",
+					"label": "Font size",
+					"default": 30,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_title_newsletter_mobi",
+					"label": "margin",
+					"default": "0px 0px 0px 0px",
+					"placeholder":"0px 0px 0px 0px"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Banner Countdown",
+			"category": "1. Title",
+			"blocks": [
+				{
+					"type": "title"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

@@ -1,0 +1,944 @@
+{% assign padding 	= section.settings.padding | split: "|" %}
+{% assign bg 		= section.settings.bg_color %}
+{%- style -%}
+	{%- if padding[0] != blank -%}
+		.footer-top{
+			padding:{{ padding[0] }};
+			background:{{bg}};
+			{%- if section.settings.border -%}
+				border-width: {{ section.settings.border_width }};
+				border-color: {{ section.settings.border_color }};
+				border-style:solid;
+			{%- endif -%}
+		}
+	{%- endif -%}
+	{%- if section.blocks.size > 0 -%}
+		{%- for block in section.blocks -%}
+			{%- case block.type -%}
+				{%- when 'menu' -%}
+					.footer-top .footer-index-{{forloop.index}}{
+						color:{{ block.settings.color }};
+						margin:{{ block.settings.margin }};
+						max-width:{{ block.settings.footer_width }}%;
+						flex:0 0 {{ block.settings.footer_width }}%;
+					}
+					.footer-top .footer-index-{{forloop.index}} a{
+						color:{{ block.settings.color }};
+					}
+					.footer-top .footer-index-{{forloop.index}} a:hover{
+						color:{{ block.settings.color_hover }};
+					}
+				{%- when 'copyright' -%}
+					.footer-top .footer-index-{{forloop.index}}{
+						color:{{ block.settings.color }};
+						margin:{{ block.settings.margin }};
+						max-width:{{ block.settings.footer_width }}%;
+						flex:0 0 {{ block.settings.footer_width }}%;
+					}
+				{%- when 'paymet' -%}
+					.footer-top .footer-index-{{forloop.index}}{
+						margin:{{ block.settings.margin }};
+						max-width:{{ block.settings.footer_width }}%;
+						flex:0 0 {{ block.settings.footer_width }}%;
+					}
+					{%- if block.settings.payment_image != blank -%}
+						.footer-top .footer-index-{{forloop.index}} .payment-image__img{
+							width:{{ block.settings.size_logo }}px;
+						}
+					{%- endif -%}
+				{%- when 'social' -%}
+					.footer-top .footer-index-{{forloop.index}}{
+						margin:{{ block.settings.margin }};
+						max-width:{{ block.settings.footer_width }}%;
+						flex:0 0 {{ block.settings.footer_width }}%;
+					}
+					.footer-top .social-icons li a{
+						color:{{ block.settings.color_social }};
+						fill:{{ block.settings.color_social }};
+						border-color:{{ block.settings.color_social }}33;
+					}
+				{%- when 'newsletter' -%}
+					.footer-top .item-{{forloop.index}}{
+						max-width:{{ block.settings.footer_width }}%;
+						flex:0 0 {{ block.settings.footer_width }}%;
+					}
+					{%- if block.settings.title != blank -%}
+						.footer-top .title-{{forloop.index}}{
+							font-size:{{ block.settings.font_size }}px;
+							line-height:{{ block.settings.line_height }}px;
+							font-weight:{{ block.settings.font_weight }};
+							letter-spacing:{{ block.settings.letter_spacing }}px;
+							margin:{{ block.settings.margin }};
+							color:{{ block.settings.color }};
+							{%- if block.settings.font != blank -%}
+								font-family:{{ block.settings.font }};
+							{%- endif -%}
+						}
+					{%- endif -%}
+					{%- if block.settings.description != blank -%}
+						.footer-top .description-{{forloop.index}}{
+							font-size:{{ block.settings.font_size_description }}px;
+							line-height:{{ block.settings.line_height_description }}px;
+							font-weight:{{ block.settings.font_weight_description }};
+							letter-spacing:{{ block.settings.letter_spacing_description }}px;
+							margin:{{ block.settings.margin_description }};
+							color:{{ block.settings.color_description }};
+							{%- if block.settings.font_description != blank -%}
+								font-family:{{ block.settings.font_description }};
+							{%- endif -%}
+						}
+					{%- endif -%}
+			{%- endcase -%}
+		{%- endfor -%}
+		{%- if padding[1] != blank -%}
+			@media (max-width:1199px){
+				.footer-top{
+					padding:{{ padding[1] }};
+				}
+			}
+		{%- endif -%}
+		@media (max-width:991px){
+			{%- if padding[2] != blank -%}
+				.footer-top{
+					padding:{{ padding[2] }};
+				}
+			{%- endif -%}
+			{%- for block in section.blocks -%}
+				{%- case block.type -%}
+					{%- when 'menu' -%}
+						.footer-top .footer-index-{{forloop.index}}{
+							max-width:{{ block.settings.footer_width_ipad }}%;
+							flex:0 0 {{ block.settings.footer_width_ipad }}%;
+						}
+					{%- when 'copyright' -%}
+						.footer-top .footer-index-{{forloop.index}}{
+							max-width:{{ block.settings.footer_width_ipad }}%;
+							flex:0 0 {{ block.settings.footer_width_ipad }}%;
+						}
+					{%- when 'paymet' -%}
+						.footer-top .footer-index-{{forloop.index}}{
+							max-width:{{ block.settings.footer_width_ipad }}%;
+							flex:0 0 {{ block.settings.footer_width_ipad }}%;
+						}
+					{%- when 'social' -%}
+						.footer-top .footer-index-{{forloop.index}}{
+							max-width:{{ block.settings.footer_width_ipad }}%;
+							flex:0 0 {{ block.settings.footer_width_ipad }}%;
+						}
+					{%- when 'newsletter' -%}
+						.footer-top .item-{{forloop.index}}{
+							max-width:{{ block.settings.footer_width_ipad }}%;
+							flex:0 0 {{ block.settings.footer_width_ipad }}%;
+						}
+				{%- endcase -%}
+			{%- endfor -%}
+		}
+		@media (max-width:767px){
+			{%- if padding[3] != blank -%}
+				.footer-top{
+					padding:{{ padding[3] }};
+				}
+			{%- endif -%}
+			{%- for block in section.blocks -%}
+				{%- case block.type -%}
+					{%- when 'menu' -%}
+						.footer-top .footer-index-{{forloop.index}}{
+							max-width:{{ block.settings.footer_width_mobi }}%;
+							flex:0 0 {{ block.settings.footer_width_mobi }}%;
+						}
+					{%- when 'copyright' -%}
+						.footer-top .footer-index-{{forloop.index}}{
+							max-width:{{ block.settings.footer_width_mobi }}%;
+							flex:0 0 {{ block.settings.footer_width_mobi }}%;
+						}
+					{%- when 'paymet' -%}
+						.footer-top .footer-index-{{forloop.index}}{
+							max-width:{{ block.settings.footer_width_mobi }}%;
+							flex:0 0 {{ block.settings.footer_width_mobi }}%;
+						}
+					{%- when 'social' -%}
+						.footer-top .footer-index-{{forloop.index}}{
+							max-width:{{ block.settings.footer_width_mobi }}%;
+							flex:0 0 {{ block.settings.footer_width_mobi }}%;
+						}
+					{%- when 'newsletter' -%}
+						.footer-top .item-{{forloop.index}}{
+							max-width:{{ block.settings.footer_width_mobi }}%;
+							flex:0 0 {{ block.settings.footer_width_mobi }}%;
+						}
+						{%- if block.settings.title != blank -%}
+							.footer-top .title-{{forloop.index}}{
+								font-size:{{ block.settings.font_size_mobi }}px;
+								line-height:{{ block.settings.line_height_mobi }}px;
+								letter-spacing:{{ block.settings.letter_spacing_mobi }}px;
+								margin:{{ block.settings.margin_mobi }};
+							}
+						{%- endif -%}
+				{%- endcase -%}
+			{%- endfor -%}
+		}
+	{%- endif -%}
+{%- endstyle -%}
+{%- if section.settings.show -%}
+<div class="footer-top">
+	<div class="container">
+		<div class="footer-top__inner">
+			<div class="row">
+				{%- if section.blocks.size > 0 -%}
+					{%- for block in section.blocks -%}
+						{%- case block.type -%}
+							{%- when 'menu' -%}
+								<div class="footer-index-{{forloop.index}} footer-menu aligin-{{ block.settings.align }} aligin_mobi-{{ block.settings.align_mobi }}">
+									{%- assign footer_menu = block.settings.footer_link_list -%}
+									{% include 'footer-menu' %}
+								</div>
+							{%- when 'copyright' -%}
+								{%- if block.settings.show_copyright -%}
+									<div class="footer-index-{{forloop.index}} footer-copyright aligin-{{ block.settings.align }} aligin_mobi-{{ block.settings.align_mobi }}">{{ block.settings.copyright }}</div>
+								{%- else -%}
+									<div class="footer-index-{{forloop.index}} footer-copyright aligin-{{ block.settings.align }} aligin_mobi-{{ block.settings.align_mobi }}">&copy; {{ 'now' | date: '%Y' }} {{ shop.name | link_to: routes.root_url }}. {{ powered_by_link }}</div>
+								{%- endif -%}
+							{%- when 'paymet' -%}
+								{%- assign payment_image = block.settings.payment_image -%}
+								<div class="footer-index-{{forloop.index}} payment-image aligin-{{ block.settings.align }} aligin_mobi-{{ block.settings.align_mobi }}">
+									{%- if payment_image -%}
+										<img class="payment-image__img img-fluid" src="{{ payment_image | img_url: 'master' }}" width="{{ payment_image.width }}" height="{{ payment_image.height }}" alt="{{ payment_image.alt | escape }}"/>
+									{%- else -%}
+										<img src="https://placehold.jp/150x50.png" width="150" height="50" />
+									{%- endif -%}
+								</div>
+							{%- when 'social' -%}
+								<div class="footer-index-{{forloop.index}} footer-social aligin-{{ block.settings.align }} aligin_mobi-{{ block.settings.align_mobi }}">
+									{%- if block.settings.social != blank -%}
+										{% include 'social-media' %}
+									{%- endif -%}
+								</div>
+							{%- when 'newsletter' -%}
+								{%- if block.settings.title != blank -%}
+									<div class="content-toggle  item-{{forloop.index}}">
+										<div class="footer-block">
+											<div class="footer-block__content {{ block.settings.style }}">
+												<div class="footer-block__content-left">
+													<div class="content">
+														<div class="description-footer description-{{forloop.index}}">{{ block.settings.description }}</div>
+														<h2 class="title-footer title-{{forloop.index}}">{{ block.settings.title }}</h2>
+													</div>
+												</div>
+												<div class="footer-block__content-right">
+													{%- if block.settings.mailchimp -%}
+														{%- assign mailchimp_action = block.settings.form_action | replace: '/post?', '/post-json?' | append: '&amp;c=?' -%}
+														<form class="js-wpbingo-newsletter" action="{{ mailchimp_action }}" method="post" name="mc-embedded-subscribe-form" target="_blank">
+															<div class="newsletter-form__wrap">
+																<input class="js-input-newsletter form-control newsletter-form__input" type="email" name="EMAIL"
+																	value="{% if customer %}{{ customer.email }}{% endif %}"
+																	placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}" required />
+																<button class="btn newsletter-form__submit" type="submit">
+																	<i class="icon-right-2"></i>
+																</button>
+															</div>
+														</form>
+													{%- else -%}
+														{% form 'customer' %}
+															{{ form.errors | default_errors }}
+															{%- if form.posted_successfully? -%}
+																<div class="alert alert-success">{{ 'general.newsletter_form.newsletter_confirmation' | t }}</div>
+															{%- else -%}
+																<input type="hidden" name="contact[tags]" value="newsletter">
+																<div class="newsletter-form__wrap">
+																	<input value="{% if customer %}{{ customer.email }}{% endif %}"
+																		placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}"
+																		name="contact[email]" class="form-control newsletter-form__input" type="email" 
+																		autocorrect="off" autocapitalize="off"/>
+																	<button class="btn newsletter-form__submit" type="submit">
+																		<i class="icon-right-2"></i>
+																	</button>
+																</div>
+															{%- endif -%}
+														{% endform %}
+													{%- endif -%}
+												</div>
+											</div>
+										</div>
+									</div>
+								{%- else -%}
+									<div class="content-item  item-{{forloop.index}}">
+										<div class="footer-block">
+											<div class="footer-block__content">
+												{%- if block.settings.mailchimp -%}
+													{%- assign mailchimp_action = block.settings.form_action | replace: '/post?', '/post-json?' | append: '&amp;c=?' -%}
+													<form class="js-wpbingo-newsletter" action="{{ mailchimp_action }}" method="post" name="mc-embedded-subscribe-form" target="_blank">
+														<div class="newsletter-form__wrap">
+															<input class="js-input-newsletter form-control newsletter-form__input" type="email" name="EMAIL"
+																value="{% if customer %}{{ customer.email }}{% endif %}"
+																placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}" required />
+															<button class="btn newsletter-form__submit" type="submit">
+																<i class="icon-right-2"></i>
+															</button>
+														</div>
+													</form>
+												{%- else -%}
+													{% form 'customer' %}
+														{{ form.errors | default_errors }}
+														{%- if form.posted_successfully? -%}
+															<div class="alert alert-success">{{ 'general.newsletter_form.newsletter_confirmation' | t }}</div>
+														{%- else -%}
+															<input type="hidden" name="contact[tags]" value="newsletter">
+															<div class="newsletter-form__wrap">
+																<input value="{% if customer %}{{ customer.email }}{% endif %}"
+																	placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}"
+																	name="contact[email]" class="form-control newsletter-form__input" type="email" 
+																	autocorrect="off" autocapitalize="off"/>
+																<button class="btn newsletter-form__submit" type="submit">
+																	<i class="icon-right-2"></i>
+																</button>
+															</div>
+														{%- endif -%}
+													{% endform %}
+												{%- endif -%}
+											</div>
+										</div>
+									</div>
+								{%- endif -%}
+						{%- endcase -%}
+					{%- endfor -%}
+				{%- endif -%}
+			</div>
+		</div>
+	</div>
+</div>
+{%- endif -%}
+{% schema %}
+{
+	"name": "Footer top",
+	"settings": [
+		{
+			"type": "checkbox",
+			"id": "show",
+			"label": "Show footer top",
+			"default": false
+		},
+		{
+			"type": "text",
+			"id": "padding",
+			"label": "Padding",
+			"default": "10px 0 10px",
+			"placeholder": "top right bottom right",
+			"info":"Screen: desktop | 1200px | 991px | 767px"
+		},
+		{
+			"type": "color",
+			"id": "bg_color",
+			"label": "Background color",
+			"default": "#fff"
+		},
+		{
+			"type": "checkbox",
+			"id": "border",
+			"label": "Uses border",
+			"default":false
+		},
+		{
+			"type": "text",
+			"id": "border_width",
+			"label": "Border width",
+			"default":"1px 1px 1px 1px",
+			"info": "top right bottom right"
+		},
+		{
+			"type": "color",
+			"id": "border_color",
+			"label": "Border color",
+			"default":"#fff"
+		}
+	],
+	"blocks": [
+		{
+            "type": "@app"
+        },
+		{
+            "type": "menu",
+            "name": "Menu",
+            "settings": [
+				{
+					"type": "header",
+					"content": "== Content settings"
+				},
+				{
+					"type": "color",
+					"id": "color",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "color",
+					"id": "color_hover",
+					"label": "Color hover",
+					"default": "#000"
+				},
+				{
+					"type": "text",
+					"id": "margin",
+					"label": "Margin",
+					"default": "5px 0px 5px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "link_list",
+					"id": "footer_link_list",
+					"label": "Footer menu"
+				},
+				{
+					"type": "select",
+					"id": "align",
+					"label": "Content alignment",
+					"default": "left",
+					"options": [
+						{
+							"value": "center",
+							"label": "Center"
+						},
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						}
+					]
+				},
+				{
+					"type": "header",
+					"content": "== width settings"
+				},
+				{
+					"type": "number",
+					"id": "footer_width",
+					"label": "Container width",
+					"default": 25,
+					"info": "%"
+				},
+				{
+					"type": "number",
+					"id": "footer_width_ipad",
+					"label": "Container width tablet",
+					"default": 50,
+					"info": "%"
+				},
+				{
+					"type": "number",
+					"id": "footer_width_mobi",
+					"label": "Container width mobile",
+					"default": 100,
+					"info": "%"
+				},
+				{
+					"type": "select",
+					"id": "align_mobi",
+					"label": "Content alignment mobile",
+					"default": "left",
+					"options": [
+						{
+							"value": "center",
+							"label": "Center"
+						},
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						}
+					]
+				}
+            ]
+        },
+		{
+            "type": "paymet",
+            "name": "Logo",
+            "settings": [
+				{
+					"type": "image_picker",
+					"id": "payment_image",
+					"label": "Payment image"
+				},
+				{
+					"type": "number",
+					"id": "size_logo",
+					"label": "Size Logo",
+					"default": 75,
+					"info": "px"
+				},
+				{
+					"type": "select",
+					"id": "align",
+					"label": "Content alignment",
+					"default": "left",
+					"options": [
+						{
+							"value": "center",
+							"label": "Center"
+						},
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						}
+					]
+				},
+				{
+					"type": "text",
+					"id": "margin",
+					"label": "Margin",
+					"default": "5px 0px 5px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "== width settings"
+				},
+				{
+					"type": "number",
+					"id": "footer_width",
+					"label": "Container width",
+					"default": 25,
+					"info": "%"
+				},
+				{
+					"type": "number",
+					"id": "footer_width_ipad",
+					"label": "Container width tablet",
+					"default": 50,
+					"info": "%"
+				},
+				{
+					"type": "number",
+					"id": "footer_width_mobi",
+					"label": "Container width mobile",
+					"default": 100,
+					"info": "%"
+				},
+				{
+					"type": "select",
+					"id": "align_mobi",
+					"label": "Content alignment mobile",
+					"default": "left",
+					"options": [
+						{
+							"value": "center",
+							"label": "Center"
+						},
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						}
+					]
+				}
+            ]
+        },
+		{
+            "type": "social",
+            "name": "Social",
+            "settings": [
+				{
+					"type": "header",
+					"content": "== content"
+				},
+				{
+					"type": "checkbox",
+					"id": "social",
+					"label": "Show social"
+				},
+				{
+					"type": "color",
+					"id": "color_social",
+					"label": "color social",
+					"default": "#000"
+				},
+				{
+					"type": "select",
+					"id": "align",
+					"label": "Content alignment",
+					"default": "left",
+					"options": [
+						{
+							"value": "center",
+							"label": "Center"
+						},
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						}
+					]
+				},
+				{
+					"type": "text",
+					"id": "margin",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "== width settings"
+				},
+				{
+					"type": "number",
+					"id": "footer_width",
+					"label": "Container width",
+					"default": 25,
+					"info": "%"
+				},
+				{
+					"type": "number",
+					"id": "footer_width_ipad",
+					"label": "Container width tablet",
+					"default": 50,
+					"info": "%"
+				},
+				{
+					"type": "number",
+					"id": "footer_width_mobi",
+					"label": "Container width mobile",
+					"default": 100,
+					"info": "%"
+				},
+				{
+					"type": "select",
+					"id": "align_mobi",
+					"label": "Content alignment mobile",
+					"default": "left",
+					"options": [
+						{
+							"value": "center",
+							"label": "Center"
+						},
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						}
+					]
+				}
+            ]
+        },
+		{
+            "type": "newsletter",
+            "name": "Newsletter",
+            "settings": [
+				{
+					"type": "select",
+					"id": "style",
+					"options": [
+						{
+							"value": "style-1",
+							"label": "Style 1"
+						},
+						{
+							"value": "style-2",
+							"label": "Style 2"
+						}
+					],
+					"label": "Style Banner",
+					"default": "style-1"
+				},
+				{
+					"type": "header",
+					"content": "== title settings"
+				},
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Heading",
+					"default": "Sign Up For Funio Emails"
+				},
+				{
+					"type": "text",
+					"id": "font",
+					"label": "Font family"
+				},
+				{
+					"type": "color",
+					"id": "color",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size",
+					"label": "Font size",
+					"default": 25,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height",
+					"label": "Line height",
+					"default": 30,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing",
+					"label": "Letter spacing",
+					"default": 1,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight",
+					"label": "Font Weight",
+					"default": "400"
+				},
+				{
+					"type": "text",
+					"id": "margin",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "Mobile ====================",
+					"info": "screen < 767px"
+				},
+				{
+					"type": "number",
+					"id": "font_size_mobi",
+					"label": "Font size",
+					"default": 25,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_mobi",
+					"label": "Line height",
+					"default": 30,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing_mobi",
+					"label": "Letter spacing",
+					"default": 1,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_mobi",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "== description settings"
+				},
+				{
+					"type": "textarea",
+					"id": "description",
+					"label": "Description",
+					"default": "Plus, hear about the latest and greatest from our family of brands!"
+				},
+				{
+					"type": "text",
+					"id": "font_description",
+					"label": "Font family"
+				},
+				{
+					"type": "color",
+					"id": "color_description",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size_description",
+					"label": "Font size",
+					"default": 12,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_description",
+					"label": "Line height",
+					"default": 20,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing_description",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight_description",
+					"label": "Font Weight",
+					"default": "400"
+				},
+				{
+					"type": "text",
+					"id": "margin_description",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "== content"
+				},
+				{
+					"type": "checkbox",
+					"id": "mailchimp",
+					"label": "Use mailchimp",
+					"default": false
+				},
+				{
+					"type": "text",
+					"id": "form_action",
+					"label": "MailChimp form action URL",
+					"info": "[Where do I find my MailChimp form action URL?](http:\/\/wpbingo.com\/guide\/wpbingo\/homepage.html#sectionFour)"
+				},
+				{
+					"type": "header",
+					"content": "== width settings"
+				},
+				{
+					"type": "number",
+					"id": "footer_width",
+					"label": "Container width",
+					"default": 25,
+					"info": "%"
+				},
+				{
+					"type": "number",
+					"id": "footer_width_ipad",
+					"label": "Container width tablet",
+					"default": 50,
+					"info": "%"
+				},
+				{
+					"type": "number",
+					"id": "footer_width_mobi",
+					"label": "Container width mobile",
+					"default": 100,
+					"info": "%"
+				}
+            ]
+        },
+		{
+            "type": "copyright",
+            "name": "Description",
+            "settings": [
+				{
+					"type": "checkbox",
+					"id": "show_copyright",
+					"label": "Show custom text",
+					"default": true
+				},
+				{
+					"type": "text",
+					"id": "copyright",
+					"label": "Text",
+					"default": "Description"
+				},
+				{
+					"type": "color",
+					"id": "color",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "text",
+					"id": "margin",
+					"label": "Margin",
+					"default": "5px 0px 5px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "select",
+					"id": "align",
+					"label": "Content alignment",
+					"default": "left",
+					"options": [
+						{
+							"value": "center",
+							"label": "Center"
+						},
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						}
+					]
+				},
+				{
+					"type": "header",
+					"content": "== width settings"
+				},
+				{
+					"type": "number",
+					"id": "footer_width",
+					"label": "Container width",
+					"default": 25,
+					"info": "%"
+				},
+				{
+					"type": "number",
+					"id": "footer_width_ipad",
+					"label": "Container width tablet",
+					"default": 50,
+					"info": "%"
+				},
+				{
+					"type": "number",
+					"id": "footer_width_mobi",
+					"label": "Container width mobile",
+					"default": 100,
+					"info": "%"
+				},
+				{
+					"type": "select",
+					"id": "align_mobi",
+					"label": "Content alignment mobile",
+					"default": "left",
+					"options": [
+						{
+							"value": "center",
+							"label": "Center"
+						},
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						}
+					]
+				}
+            ]
+        }
+	]
+}
+{% endschema %}

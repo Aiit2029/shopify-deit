@@ -1,0 +1,1177 @@
+{% comment %}#component#["settings/heading","settings/media-settings-3","settings/slider-arrows","settings/slider-dots-v2","settings/slides","settings/section-padding","settings/button-without-url","blocks/color","blocks/background","settings/design-mode","settings/animation-settings","layout/slider","settings/image.vars"]#endcomponent#{% endcomment %}
+{% comment %}#component#["settings/heading","settings/media-settings-3","settings/slider-arrows","settings/slider-dots-v2","settings/slides","settings/section-padding","settings/button-without-url","blocks/color","blocks/background","settings/design-mode","settings/animation-settings","layout/slider","settings/image.vars"]#endcomponent#{% endcomment %}
+{% liquid
+  assign object_loop = section.blocks | where: 'type', 'collection'
+  if section.settings.content_alignment == 'left'
+    assign classes_position_button = 'smi-justify-content-start'
+  elsif section.settings.content_alignment == 'right'
+    assign classes_position_button = 'smi-justify-content-end'
+  else
+    assign classes_position_button = 'smi-justify-content-center'
+  endif
+%}
+<link rel="stylesheet" type="text/css" href="{{ 'smi-collection-list-item-1.min.css' | asset_url }}" media="screen" onload="this.onload=null;this.media='all'">
+<style>
+    {% if block_color %}
+    {% endif %}
+  {% assign colorblock = section.blocks | where: 'type', 'color' | first %}
+{% if colorblock %}
+      #shopify-section-{{ section.id }},
+      #shopify-section-{{ section.id }} .smi-color-{{ section.settings.color_scheme }},
+      .smi-block-custom-color { 
+        --color-background: {{ colorblock.settings.background_color.red }}, {{ colorblock.settings.background_color.green }},{{ colorblock.settings.background_color.blue }};        
+        --color-background-alpha: {{ colorblock.settings.background_color.alpha | default: 1 }};
+        {% if colorblock.settings.background_gradient_color == blank %}
+            --gradient-background: {{ colorblock.settings.background_color }};
+        {% else %}
+            --gradient-background: {{ colorblock.settings.background_gradient_color }};
+        {% endif %}
+        --color-foreground-hex: {{ colorblock.settings.text_color }};
+        --color-foreground: {{ colorblock.settings.text_color.red }}, {{ colorblock.settings.text_color.green }},{{ colorblock.settings.text_color.blue }};
+        --color-subtext: {{ colorblock.settings.subtext_color.red }},{{ colorblock.settings.subtext_color.green }},{{ colorblock.settings.subtext_color.blue }};
+        --color-button: {{ colorblock.settings.solid_background_button_color.red }}, {{ colorblock.settings.solid_background_button_color.green }},{{ colorblock.settings.solid_background_button_color.blue }};
+        --color-button-text: {{ colorblock.settings.solid_button_label_color.red }}, {{ colorblock.settings.solid_button_label_color.green }},{{ colorblock.settings.solid_button_label_color.blue }};
+        --color-secondary-button-text: {{ colorblock.settings.outline_button_color.red }}, {{ colorblock.settings.outline_button_color.green }},{{ colorblock.settings.outline_button_color.blue }};
+        --color-shadow: {{ colorblock.settings.shadow_color.red }}, {{ colorblock.settings.shadow_color.green }},{{ colorblock.settings.shadow_color.blue }};
+    }
+{% endif %}
+  #shopify-section-{{ section.id }}{
+      --section-padding-top: {{ section.settings.padding_top }}px;
+--section-padding-bottom: {{ section.settings.padding_bottom }}px;
+      --heading-alignment: {%- liquid
+    case  section.settings.heading_alignment
+        when 'left'
+         echo 'start'
+        when 'right'
+         echo 'end'
+        else
+         echo 'center'
+    endcase
+-%};
+      --content-alignment: {{ section.settings.content_alignment | replace_first: 'left', 'start' | replace_first: 'right', 'end' }};
+  }
+</style>
+<div
+  id="smi-{{ section.id }}"
+  class="smi-{{ section.id }} smi-section__inner smi-gradient smi-section-collection-list-1 smi-color-{{ section.settings.color_scheme }}"
+  data-section="collection-list-1"
+  data-name="✧Collection list 1"
+>
+  
+  {% liquid
+    assign background_block = section.blocks | where: 'type', 'background' | first
+    if background_block
+      render 'smi-background'
+    endif
+  %}
+  <div class="smi-container">{%-liquid
+    if settings.smi_animations_reveal_on_scroll != nil
+        assign animation_scroll = settings.smi_animations_reveal_on_scroll
+    else
+        assign global_settings = shop.metafields.smind.settings.value
+        assign animation_scroll = global_settings.revealOnScroll
+    endif
+-%}
+<div class="smi-heading-component smi-heading-component--align-{{section.settings.heading_alignment}} smi-link-wrapper" {{- block.shopify_attributes -}}    >
+  {% liquid
+    assign heading = section.settings.heading | strip
+    assign sub_heading = section.settings.sub_heading | strip
+    assign description = section.settings.description | strip
+  %}
+  <div class="smi-heading-inner
+    {%- if animation_scroll %} smi-scroll-trigger smi-animate--slide-in{% endif -%}
+    {%- if heading != blank or sub_heading != blank or description != blank %} smi-mb-xxl{% endif -%}
+    ">
+        {%- assign sub_heading = section.settings.sub_heading | strip -%}
+{% if sub_heading != blank %}
+    <p class="smi-text-sub smi-mb-xxs smi-heading-component__subheading" data-type="subheading" data-key="s.subheading">{{- sub_heading -}}</p>
+{% endif %} 
+        {%- assign description = section.settings.description | strip -%}
+{%- assign heading = section.settings.heading | strip -%}
+{% if heading != blank %}
+    <h2 class="{{ section.settings.heading_size }} {% if description != blank %}smi-mb-sm{% endif %} smi-heading-component__heading" data-type="heading" data-key="s.heading">{{- heading -}}</h2>
+{% endif %} 
+        {%- assign description = section.settings.description | strip -%}
+{% if description != blank %}
+    <div class="smi-text-md smi-heading-component__description smi-format-content" data-type="description" data-key="s.description">{{ description }}</div>
+{% endif %}
+    </div>
+</div>
+</div>
+  {%-liquid
+    if settings.smi_animations_reveal_on_scroll != nil
+        assign animation_scroll = settings.smi_animations_reveal_on_scroll
+    else
+        assign global_settings = shop.metafields.smind.settings.value
+        assign animation_scroll = global_settings.revealOnScroll
+    endif
+-%}
+  <div class="smi-section-collection-list-1__main smi-overflow-x-clip">
+    <div class="{% if section.settings.container_full_width %}smi-container-fluid{% else %}smi-container{% endif -%} {%- if animation_scroll %} smi-scroll-trigger smi-animate--slide-in smi-animate-order-1{% endif -%}">
+      {% liquid
+        assign show_border = false
+        assign border_style = 'none'
+        assign shape_index = 1
+      %}
+{% liquid
+  if object_limit == null
+    assign object_length = object_loop | size | times: 1
+  else
+    assign object_length = object_limit | times: 1
+  endif
+  case border_style
+    when 'none'
+      assign border_classes = ' '
+    when 'content'
+      assign border_classes = ' smi-content-wrapper'
+    when 'blog'
+      assign border_classes = ' smi-article-card-wrapper'
+      if settings.smi_blog_card_style
+        assign card_style = settings.smi_blog_card_style
+      else
+        assign global_settings = shop.metafields.smind.settings.value
+        assign card_style = global_settings.blogCardStyle | default: 'standard'
+      endif
+      if card_style == 'standard'
+        assign show_border = false
+      endif
+    when 'product'
+      assign border_classes = ' smi-product-card-wrapper'
+      if settings.smi_card_style
+        assign card_style = settings.smi_card_style
+      else
+        assign global_settings = shop.metafields.smind.settings.value
+        assign card_style = global_settings.productCardStyle | default: 'standard'
+      endif
+      if card_style == 'standard'
+        assign show_border = false
+      endif
+    else
+      assign border_classes = ' smi-media-wrapper'
+  endcase
+  if enable_spacing_between_items == null
+    assign enable_spacing_between_items = section.settings.enable_spacing_between_items
+  endif
+  if number_of_columns_on_desktop == null
+    assign number_of_columns_on_desktop = section.settings.number_of_columns_on_desktop
+  endif
+  assign number_of_columns_on_desktop = number_of_columns_on_desktop | times: 1
+  if number_of_columns_on_mobile == null
+    assign number_of_columns_on_mobile = section.settings.number_of_columns_on_mobile
+  endif
+  assign number_of_columns_on_mobile = number_of_columns_on_mobile | times: 1
+  if auto_rotate_slides == null
+    assign auto_rotate_slides = section.settings.auto_rotate_slides
+  endif
+  if change_slides_every == null
+    assign change_slides_every = section.settings.change_slides_every
+  endif
+  if slider_overflow == null
+    assign slider_overflow = section.settings.slider_overflow
+  endif
+  if show_view_all == null
+    assign show_view_all = false
+  endif
+  unless view_all_button_style
+    assign view_all_button_style = section.settings.view_all_button_style
+  endunless
+  unless view_all_button_link
+    assign view_all_button_link = '#'
+  endunless
+%}
+<link rel="stylesheet" type="text/css" href="{{ 'smi-swiper-bundle-v11.min.css' | asset_url }}" media="screen" onload="this.onload=null;this.media='all'"> <script src="{{ 'smi-swiper-bundle-v11.min.js' | asset_url }}" defer data-id="smi-swiper-bundle-v11.min.js"></script> <link rel="stylesheet" type="text/css" href="{{ 'smi-layout-slider.min.css' | asset_url }}" media="screen" onload="this.onload=null;this.media='all'">
+<script src="{{ 'smi-slider-2.min.js' | asset_url }}" defer data-id="smi-slider-2.min.js"></script>
+{% liquid
+  if enable_spacing_between_items == false
+    assign space_between_mobile = '0px'
+    assign space_between_desktop = '0px'
+  else
+    assign space_between_mobile = 'var(--grid-mobile-horizontal-spacing)'
+    assign space_between_desktop = 'var(--grid-desktop-horizontal-spacing)'
+  endif
+  assign slides_per_view_desktop = number_of_columns_on_desktop | at_least: 1
+  assign slides_per_view_laptop = slides_per_view_laptop | default: 3 | at_most: slides_per_view_desktop
+  assign slides_per_view_tablet = slides_per_view_tablet | default: 2 | at_most: slides_per_view_desktop
+  assign slides_per_view_mobile = number_of_columns_on_mobile | at_least: 1
+  if object_length <= slides_per_view_mobile
+    assign offset_swiper_mobile = '0px'
+  else
+    if enable_spacing_between_items == false
+      assign offset_swiper_mobile = '(30px + var(--media-border-width))'
+    else
+      assign offset_swiper_mobile = '30px'
+    endif
+  endif
+  assign number_of_loop = 0
+  comment
+    Center if item is less than the number of columns in settings
+  endcomment
+  if object_length < number_of_columns_on_mobile
+    assign flex_justify_content = ' smi-justify-content-center'
+  elsif object_length < 3 and object_length < number_of_columns_on_desktop
+    assign flex_justify_content = ' smi-justify-content-lg-center'
+  elsif object_length < number_of_columns_on_desktop
+    assign flex_justify_content = ' smi-justify-content-xl-center'
+  endif
+%}
+{% liquid
+  assign item_mobile = slides_per_view_mobile
+  assign item_tablet = slides_per_view_tablet
+  assign item_desktop = slides_per_view_desktop
+%}
+{% liquid
+    unless image_width
+        assign image_width = 1600
+    endunless
+    unless sizes
+        assign percent_item_mobile = 100 | divided_by: item_mobile | default: 100
+        assign percent_item_tablet = 100 | divided_by: item_tablet | default: 100
+        assign percent_item_desktop = 100 | divided_by: item_desktop | default: 100
+        assign sizes = '(max-width: 767px)' | append: percent_item_mobile | append: 'vw, (max-width: 991px) ' | append: percent_item_tablet | append: 'vw, ' | append: percent_item_desktop | append: 'vw'
+    endunless
+%} 
+<style>
+  #shopify-section-{{ section.id }} {{ slider_wrapper }} {
+      --space-between-mobile : {{ space_between_mobile }};
+      --space-between-desktop : {{ space_between_desktop }};
+      --item-width-xs: calc((100% - (({{ slides_per_view_mobile | minus: 1 }} * var(--space-between-mobile)) + var(--offset-swiper-mobile,{{ offset_swiper_mobile }})))/{{ slides_per_view_mobile }});
+      --item-width-md: calc((100% - ({{ slides_per_view_tablet | minus: 1 }} * var(--space-between-desktop)))/{{ slides_per_view_tablet }});
+      --item-width-lg: calc((100% - ({{ slides_per_view_laptop | minus: 1 }} * var(--space-between-desktop)))/{{ slides_per_view_laptop }});
+      --item-width-xl: calc((100% - ({{ slides_per_view_desktop | minus: 1 }} * var(--space-between-desktop)))/{{ slides_per_view_desktop }});
+  }
+</style>
+<div
+  class="
+    {{- 'smi-layout-slider smi-position-relative' -}}
+    {%- if slider_overflow == true %} smi-slider-overflow{% else %} smi-slider-not-overflow{% endif -%}
+    {%- liquid
+      echo border_classes | default: ' smi-media-wrapper'
+      if enable_spacing_between_items == false
+        echo ' smi-border-radius-0'
+        if show_border == false
+          echo ' smi-gap-0--standard'
+        else
+          echo ' smi-gap-0'
+        endif
+      else
+        echo ' smi-gap-1'
+      endif
+      if slides_per_view_desktop == 1
+        echo ' smi-content-max-width-800'
+      endif
+  -%}
+  "
+>
+  <div
+    class="smi-swiper"
+    {%- if auto_rotate_slides == true %}
+      data-swiper-autoplay--delay="{{- change_slides_every | default: 5 | times: 1000 -}}"
+    {% endif -%}
+  >
+    <div class="smi-swiper-wrapper {{ flex_justify_content }}">
+      {% for item in object_loop limit: object_length %}
+        {% liquid
+          if exclude contains item.type
+            continue
+          endif
+          assign number_of_loop = number_of_loop | plus: 1
+        %}
+        <div
+          class="
+            {%- liquid
+              echo 'smi-swiper-slide'
+              if show_border != false
+                echo ' smi-border'
+                if enable_spacing_between_items != false
+                  echo ' smi-shadow'
+                endif
+              endif
+            -%}
+          "
+          data-swiper-slide-index="{{ forloop.index0 }}"
+          {{ item.shopify_attributes }}
+        >
+          {% render 'smi-collection-list-item-1',
+  forloop: forloop,
+  block: item,
+  shape_index: forloop.index,
+  classes_position_button: classes_position_button,
+  image_width: image_width,
+  sizes: sizes
+%}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="smi-slider-controls">
+    {% if show_navigation != false %}
+      {% liquid
+  unless st_navigation
+    assign st_navigation = section.settings.arrow_style   
+  endunless
+%}
+{% if st_navigation != 'none' %}
+  {% liquid
+    case st_navigation
+      when 'arr-style-2' or 'arr-square-style-4' or 'arr-square-style-5' or 'arr-square-style-6' or 'arr-circle-style-4' or 'arr-circle-style-5' or 'arr-rounded-rectangle-bg' or 'arr-rounded-rectangle'
+        capture st_navigation_left
+          render 'smi-icons', icon: 'arrow-left-2'
+        endcapture
+      else
+        capture st_navigation_left
+          render 'smi-icons', icon: 'arrow-left'
+        endcapture
+    endcase
+  %}
+  <div class="smi-component-arrow-slider">
+    <div class="arrow-slider-content">
+      <div class="{{ st_navigation }} arrow-icon arrow-slider-left smi-cursor-pointer">
+        {{ st_navigation_left }}
+      </div>
+      <div class="{{ st_navigation }} arrow-icon arrow-icon--flip arrow-slider-right smi-cursor-pointer">
+            {{ st_navigation_left }}
+      </div>
+    </div>
+  </div>
+{% endif %}
+    {% endif %}
+    {%-liquid
+    if st_pagination == null 
+        assign st_pagination = section.settings.sticky_page_dot_style
+    endif
+-%}
+{% if st_pagination != 'none' %}
+  {%- liquid
+      assign pagination_style = 'default'
+      if st_pagination contains 'text-style'
+        assign pagination_style = 'fraction'
+      elsif st_pagination == 'dynamic'
+        assign pagination_style = 'dynamic'
+      elsif st_pagination == 'scrollbar'
+        assign pagination_style = 'scrollbar'
+      endif
+  -%}
+  <div class="smi-slider-dot-container smi-pt-xl smi-w-100" data-pagination="{{ pagination_style }}">
+    {%- if st_pagination contains 'text-style' -%}
+      <div class="smi-component-sticky-page-dot">
+        <div class="smi-slider-action">
+          <div class="smi-arrows {{ st_pagination }}">
+            <div data-control="textPrevSlide" class="smi-arrow dot-arrow-slider smi-text-sm">
+              {% render 'smi-icons', icon: 'arrow-left' %}
+            </div>
+            <div class="text-pagination smi-pagination smi-slider-pagination smi-text-sm smi-arrow"></div>
+            <div data-control="textNextSlide" class="smi-arrow dot-arrow-slider smi-text-sm">
+              {% render 'smi-icons', icon: 'arrow-right' %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {%- elsif st_pagination == 'scrollbar' -%}
+      <div class="smi-swiper-scrollbar"></div>
+    {%- elsif st_pagination == 'dynamic' -%}
+      <div class="smi-pagination"></div>
+    {%- else -%}
+      <div class="dot-container {{ st_pagination }}">
+        <div
+          class="smi-swiper-pagination smi-pagination"
+          {% if st_pagination == 'dot-style-4' %}
+            style="display: flex;"
+          {% endif %}
+        ></div>
+      </div>
+    {%- endif -%}
+  </div>
+{% endif %}
+  </div>
+</div>
+{%- if show_view_all != false and view_all_button_style != 'none' and number_of_loop > 0 -%}
+    <div class="smi-button-wrapper smi-view-all smi-mt-xl smi-d-flex smi-justify-content-center">
+      <a
+        href="{{- view_all_button_link -}}"
+        class="smi-button smi-button--{{- view_all_button_style | split: '_' | first }} smi-text-button {% if view_all_button_style contains "text" %} {% else %}smi-border smi-shadow{% endif %}{{- settings.smi_animations_hover_elements | default: shop.metafields.smind.settings.value.buttonHoverEffect | default: 'none' | prepend: ' smi-hover-' }}"
+      >
+        <span>{{ 'smind.general.view_all' | t }}</span>
+        {% if view_all_button_style contains 'arrow' %}{% render 'smi-icons', icon: 'arrow-right-2' %}{% endif %}
+      </a>
+    </div>
+  {%- endif -%}
+{% if no_js != true %}
+  <script type="text/javascript">
+    window.smind?.initializeWhenReady(() => {
+      const containerEl = document.getElementById('smi-{{ section.id }}');
+      const layoutSlider = new SMI_LayoutSlider(containerEl);
+      layoutSlider.sliderInit();
+    }, ['SMI_LayoutSlider']);
+  </script>
+{% endif %}
+    </div>
+  </div>
+</div>{%comment%}#includeFile#assets/smi-collection-list-item-1.min.css,assets/smi-swiper-bundle-v11.min.css,assets/smi-swiper-bundle-v11.min.js,assets/smi-layout-slider.min.css,assets/smi-slider-2.min.js,snippets/smi-collection-list-item-1.liquid#endIncludeFile#{%endcomment%}
+{% schema %}
+{
+	"name": "✧Collection list 1-5",
+	"tag": "section",
+	"class": "smi-section smi-collection-list-1",
+	"disabled_on": {
+		"groups": [
+			"header",
+			"footer",
+			"aside"
+		]
+	},
+	"settings": [
+		{
+			"type": "checkbox",
+			"id": "container_full_width",
+			"label": "Container full-width",
+			"default": false
+		},
+		{
+			"type": "inline_richtext",
+			"id": "sub_heading",
+			"label": "Subheading",
+			"default": "URNA CRAS MAURIS"
+		},
+		{
+			"type": "inline_richtext",
+			"id": "heading",
+			"label": "Heading",
+			"default": "Happy Customers Say"
+		},
+		{
+			"type": "select",
+			"id": "heading_size",
+			"label": "Heading size",
+			"options": [
+				{
+					"value": "smi-h4",
+					"label": "XS"
+				},
+				{
+					"value": "smi-h3",
+					"label": "S"
+				},
+				{
+					"value": "smi-h2",
+					"label": "M"
+				},
+				{
+					"value": "smi-h1",
+					"label": "L"
+				}
+			],
+			"default": "smi-h2"
+		},
+		{
+			"type": "richtext",
+			"id": "description",
+			"label": "Description",
+			"default": "<p>Commodo lorem morbi aliquam dui turpis. Iaculis pretium posuere nulla tincidunt blandit. A at elementum faucibus integer.</p>"
+		},
+		{
+			"type": "text_alignment",
+			"id": "heading_alignment",
+			"label": "Heading alignment",
+			"default": "center"
+		},
+		{
+			"type": "header",
+			"content": "Content settings"
+		},
+		{
+			"type": "text_alignment",
+			"id": "content_alignment",
+			"label": "Content alignment",
+			"default": "center"
+		},
+		{
+			"type": "select",
+			"id": "content_heading_size",
+			"label": "Heading size",
+			"options": [
+				{
+					"value": "smi-h6",
+					"label": "XS"
+				},
+				{
+					"value": "smi-h5",
+					"label": "S"
+				},
+				{
+					"value": "smi-h4",
+					"label": "M"
+				},
+				{
+					"value": "smi-h3",
+					"label": "L"
+				}
+			],
+			"default": "smi-h5"
+		},
+		{
+			"type": "header",
+			"content": "Media settings"
+		},
+		{
+			"type": "select",
+			"id": "media_ratio",
+			"label": "Media ratio",
+			"options": [
+				{
+					"value": "auto",
+					"label": "Adapt"
+				},
+				{
+					"value": "3/2",
+					"label": "Landscape"
+				},
+				{
+					"value": "1/1",
+					"label": "Square"
+				},
+				{
+					"value": "3/4",
+					"label": "Portrait"
+				}
+			],
+			"default": "3/4"
+		},
+		{
+			"type": "select",
+			"id": "media_shape",
+			"label": "Media shape",
+			"options": [
+				{
+					"value": "default",
+					"label": "Default"
+				},
+				{
+					"value": "round",
+					"label": "Round"
+				},
+				{
+					"value": "shape-blob",
+					"label": "Blob"
+				}
+			],
+			"default": "default",
+			"info": "Media theme settings don't apply to the \"Blob\" shape."
+		},
+		{
+			"type": "header",
+			"content": "Navigation"
+		},
+		{
+			"type": "select",
+			"id": "arrow_style",
+			"label": "Arrow",
+			"options": [
+				{
+					"value": "none",
+					"label": "None"
+				},
+				{
+					"value": "arr-style-1",
+					"label": "Style 1"
+				},
+				{
+					"value": "arr-style-2",
+					"label": "Style 2"
+				},
+				{
+					"value": "arr-square-style-1",
+					"label": "Square style 1"
+				},
+				{
+					"value": "arr-square-style-2",
+					"label": "Square style 2"
+				},
+				{
+					"value": "arr-square-style-3",
+					"label": "Square style 3"
+				},
+				{
+					"value": "arr-square-style-4",
+					"label": "Square style 4 (bg)"
+				},
+				{
+					"value": "arr-square-style-5",
+					"label": "Square style 5 (bg)"
+				},
+				{
+					"value": "arr-square-style-6",
+					"label": "Square style 6"
+				},
+				{
+					"value": "arr-circle-style-1",
+					"label": "Circle style 1 (bg)"
+				},
+				{
+					"value": "arr-circle-style-2",
+					"label": "Circle style 2"
+				},
+				{
+					"value": "arr-circle-style-3",
+					"label": "Circle style 3"
+				},
+				{
+					"value": "arr-circle-style-4",
+					"label": "Circle style 4"
+				},
+				{
+					"value": "arr-circle-style-5",
+					"label": "Circle style 5 (bg)"
+				},
+				{
+					"value": "arr-rounded-rectangle",
+					"label": "Rounded rectangle"
+				},
+				{
+					"value": "arr-rounded-rectangle-bg",
+					"label": "Rounded rectangle (bg)"
+				}
+			],
+			"default": "arr-style-1"
+		},
+		{
+			"type": "select",
+			"id": "sticky_page_dot_style",
+			"label": "Pagination",
+			"options": [
+				{
+					"value": "none",
+					"label": "None"
+				},
+				{
+					"value": "dynamic",
+					"label": "Dynamic dot"
+				},
+				{
+					"value": "dot-style-1",
+					"label": "Dot style 1"
+				},
+				{
+					"value": "dot-style-2",
+					"label": "Dot style 2"
+				},
+				{
+					"value": "dot-style-3",
+					"label": "Dot style 3"
+				},
+				{
+					"value": "dot-style-4",
+					"label": "Dot style 4"
+				},
+				{
+					"value": "line-dot",
+					"label": "Line dot"
+				},
+				{
+					"value": "line-style-1",
+					"label": "Line style 1"
+				},
+				{
+					"value": "line-style-2",
+					"label": "Line style 2"
+				},
+				{
+					"value": "line-style-3",
+					"label": "Line style 3"
+				},
+				{
+					"value": "line-style-4",
+					"label": "Line style 4"
+				},
+				{
+					"value": "text-style-1",
+					"label": "Text style 1"
+				},
+				{
+					"value": "text-style-2",
+					"label": "Text style 2"
+				},
+				{
+					"value": "text-style-3",
+					"label": "Text style 3"
+				},
+				{
+					"value": "scrollbar",
+					"label": "Scrollbar"
+				}
+			],
+			"default": "text-style-2"
+		},
+		{
+			"type": "header",
+			"content": "Slider"
+		},
+		{
+			"type": "checkbox",
+			"id": "auto_rotate_slides",
+			"label": "Auto rotate slides",
+			"default": false
+		},
+		{
+			"type": "range",
+			"id": "change_slides_every",
+			"min": 1,
+			"max": 20,
+			"step": 1,
+			"unit": "s",
+			"label": "Change slides every",
+			"default": 5
+		},
+		{
+			"type": "select",
+			"id": "number_of_columns_on_desktop",
+			"label": "Number of columns on desktop",
+			"options": [
+				{
+					"value": "2",
+					"label": "2"
+				},
+				{
+					"value": "3",
+					"label": "3"
+				},
+				{
+					"value": "4",
+					"label": "4"
+				},
+				{
+					"value": "5",
+					"label": "5"
+				},
+				{
+					"value": "6",
+					"label": "6"
+				}
+			],
+			"default": "3"
+		},
+		{
+			"type": "select",
+			"id": "number_of_columns_on_mobile",
+			"label": "Number of columns on mobile",
+			"options": [
+				{
+					"value": "1",
+					"label": "1"
+				},
+				{
+					"value": "2",
+					"label": "2"
+				}
+			],
+			"default": "1"
+		},
+		{
+			"type": "checkbox",
+			"id": "slider_overflow",
+			"label": "Slider overflow",
+			"default": true
+		},
+		{
+			"type": "header",
+			"content": "Color"
+		},
+		{
+			"type": "select",
+            "options": [
+                {
+                    "value": "scheme_1",
+                    "label": "Scheme 1"
+                },
+                {
+                    "value": "scheme_2",
+                    "label": "Scheme 2"
+                },
+                {
+                    "value": "scheme_3",
+                    "label": "Scheme 3"
+                },
+                {
+                    "value": "scheme_4",
+                    "label": "Scheme 4"
+                },
+                {
+                    "value": "scheme_5",
+                    "label": "Scheme 5"
+                },
+                {
+                    "value": "scheme_6",
+                    "label": "Scheme 6"
+                },
+                {
+                    "value": "scheme_7",
+                    "label": "Scheme 7"
+                },
+                {
+                    "value": "scheme_8",
+                    "label": "Scheme 8"
+                },
+                {
+                    "value": "scheme_9",
+                    "label": "Scheme 9"
+                },
+                {
+                    "value": "scheme_10",
+                    "label": "Scheme 10"
+                }
+            ],
+			"id": "color_scheme",
+			"label": "Color Scheme"
+		},
+		{
+			"type": "header",
+			"content": "Section padding"
+		},
+		{
+			"type": "range",
+			"id": "padding_top",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"unit": "px",
+			"label": "Top padding",
+			"default": 50
+		},
+		{
+			"type": "range",
+			"id": "padding_bottom",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"unit": "px",
+			"label": "Bottom padding",
+			"default": 50
+		}
+	],
+	"blocks": [
+		{
+			"name": "Collection",
+			"type": "collection",
+			"settings": [
+				{
+					"type": "collection",
+					"id": "collection",
+					"label": "Collection"
+				},
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Image",
+					"info": "Defaults by collection image"
+				},
+				{
+					"type": "header",
+					"content": "Content"
+				},
+				{
+					"type": "inline_richtext",
+					"id": "subheading",
+					"label": "Subheading"
+				},
+				{
+					"type": "inline_richtext",
+					"id": "heading",
+					"label": "Heading",
+					"info": "Defaults by collection title"
+				},
+				{
+					"type": "richtext",
+					"id": "description",
+					"label": "Description"
+				},
+				{
+					"type": "url",
+					"id": "link",
+					"label": "Link",
+					"info": "Default to collection URL"
+				},
+				{
+					"type": "header",
+					"content": "Button"
+				},
+				{
+					"type": "text",
+					"id": "button_label",
+					"label": "Button label",
+					"info": "Leave the label blank to hide the button."
+				},
+				{
+					"type": "select",
+					"id": "button_style",
+					"label": "Button style",
+					"options": [
+						{
+							"value": "solid",
+							"label": "Solid"
+						},
+						{
+							"value": "solid_arrow",
+							"label": "Solid & arrow"
+						},
+						{
+							"value": "outline",
+							"label": "Outline"
+						},
+						{
+							"value": "outline_arrow",
+							"label": "Outline & arrow"
+						},
+						{
+							"value": "text",
+							"label": "Text"
+						},
+						{
+							"value": "text_arrow",
+							"label": "Text & arrow"
+						}
+					],
+					"default": "solid"
+				}
+			]
+		},
+		{
+			"name": "Color",
+			"limit": 1,
+			"type": "color",
+			"settings": [
+				{
+					"type": "paragraph",
+					"content": "How to use “Color block” and “Color scheme”. [Learn more](https://docs.smind.io/guides/color-block-and-color-scheme#how-to-use-the-color-block)"
+				},
+				{
+					"type": "color",
+					"id": "background_color",
+					"default": "#F3F3F3",
+					"label": "Background"
+				},
+				{
+					"type": "color_background",
+					"id": "background_gradient_color",
+					"label": "Background gradient",
+					"info": "Background gradient replaces background where possible."
+				},
+				{
+					"type": "color",
+					"id": "text_color",
+					"default": "#121212",
+					"label": "Text"
+				},
+				{
+					"type": "color",
+					"id": "subtext_color",
+					"default": "#121212",
+					"label": "Subtext"
+				},
+				{
+					"type": "color",
+					"id": "solid_background_button_color",
+					"default": "#121212",
+					"label": "Solid button background"
+				},
+				{
+					"type": "color",
+					"id": "solid_button_label_color",
+					"default": "#FFFFFF",
+					"label": "Solid button label"
+				},
+				{
+					"type": "color",
+					"id": "outline_button_color",
+					"default": "#121212",
+					"label": "Outline buttton"
+				},
+				{
+					"type": "color",
+					"id": "shadow_color",
+					"default": "#121212",
+					"label": "Shadow"
+				}
+			]
+		},
+		{
+			"name": "Background",
+			"limit": 1,
+			"type": "background",
+			"settings": [
+				{
+					"type": "color",
+					"id": "background_simple",
+					"label": "Background section"
+				},
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Image"
+				},
+				{
+					"type": "image_picker",
+					"id": "image_mobile",
+					"label": "Mobile image (optional)"
+				},
+				{
+					"type": "select",
+					"id": "animation",
+					"label": "Image animation",
+					"options": [
+						{
+							"label": "None",
+							"value": "none"
+						},
+						{
+							"label": "Ambient movement",
+							"value": "ambient_movement"
+						},
+						{
+							"label": "Parallax",
+							"value": "parallax"
+						}
+					],
+					"default": "none"
+				},
+				{
+					"type": "header",
+					"content": "Video background"
+				},
+				{
+					"type": "video",
+					"id": "video",
+					"label": "Upload video"
+				},
+				{
+					"type": "video_url",
+					"id": "video_url",
+					"label": "Video URL",
+					"accept": [
+						"youtube",
+						"vimeo"
+					]
+				},
+				{
+					"type": "color_background",
+					"id": "background_overlay",
+					"label": "Overlay background"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "✧Collection list 1-5",
+			"settings": {
+				"container_full_width": false,
+				"sub_heading": "",
+				"heading": "Shop by categories",
+				"heading_size": "smi-h2",
+				"description": "<p>Explore our most exquisite collections and make your favorite items yours.</p>",
+				"heading_alignment": "left",
+				"content_alignment": "left",
+				"content_heading_size": "smi-h5",
+				"media_ratio": "auto",
+				"media_shape": "default",
+				"arrow_style": "arr-circle-style-2",
+				"sticky_page_dot_style": "dot-style-3",
+				"auto_rotate_slides": false,
+				"change_slides_every": 5,
+				"number_of_columns_on_desktop": "4",
+				"number_of_columns_on_mobile": "1",
+				"slider_overflow": false,
+				"padding_top": 50,
+				"padding_bottom": 50,
+				"color_scheme": "scheme_2"
+			},
+			"blocks": [
+				{
+					"type": "collection",
+					"settings": {
+						"collection": "suits",
+						"subheading": "",
+						"heading": "Set dresses",
+						"description": "<p>Shop the trends, be the trendsetter</p>",
+						"link": null,
+						"button_label": "Shop now",
+						"button_style": "text_arrow"
+					}
+				},
+				{
+					"type": "collection",
+					"settings": {
+						"collection": "skirt-set",
+						"subheading": "",
+						"heading": "Kimonos",
+						"description": "<p>Discover the perfect outfit for any occasion</p>",
+						"link": null,
+						"button_label": "Shop now",
+						"button_style": "text_arrow"
+					}
+				},
+				{
+					"type": "collection",
+					"settings": {
+						"collection": "dress-1",
+						"subheading": "",
+						"heading": "",
+						"description": "<p>Don't wait, shop the looks you love today</p>",
+						"link": null,
+						"button_label": "Shop now",
+						"button_style": "text_arrow"
+					}
+				},
+				{
+					"type": "collection",
+					"settings": {
+						"collection": "straight-leg-jeans",
+						"subheading": "",
+						"heading": "Swimsuits",
+						"description": "<p>Shop the trends, be the trendsetter</p>",
+						"link": null,
+						"button_label": "Shop now",
+						"button_style": "text_arrow"
+					}
+				},
+				{
+					"type": "collection",
+					"settings": {
+						"collection": "jeans",
+						"subheading": "",
+						"heading": "",
+						"description": "<p>Don't wait, shop the looks you love today</p>",
+						"link": null,
+						"button_label": "Shop now",
+						"button_style": "text_arrow"
+					}
+				},
+				{
+					"type": "collection",
+					"settings": {
+						"collection": "maxi-dresses",
+						"subheading": "",
+						"heading": "",
+						"description": "<p>Discover the perfect outfit for any occasion</p>",
+						"link": null,
+						"button_label": "Shop now",
+						"button_style": "text_arrow"
+					}
+				},
+				{
+					"type": "color",
+					"settings": {
+						"background_color": "#fcf8f5",
+						"background_gradient_color": "",
+						"text_color": "#000000",
+						"subtext_color": "#000000",
+						"solid_background_button_color": "#000000",
+						"solid_button_label_color": "#fcf8f5",
+						"outline_button_color": "#000000",
+						"shadow_color": "#000000"
+					}
+				}
+			]
+		}
+	]
+}
+{% endschema %}
+

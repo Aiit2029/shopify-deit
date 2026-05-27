@@ -1,0 +1,1 @@
+{"sections":{"breadcrumb":{"type":"portfolio-breadcrumb","settings":{"enable":true,"bgimage":false,"show_pagetitle":true,"show_breadcrumb":true,"color_breadcrumb":"#000000","align_breadcrumb":"left"}},"main":{"type":"portfolio-template","settings":{"limit":6,"limit-coloumn":2,"limit-coloumn2":2,"layout":"normal","select_pagination":"loadmore"}}},"order":["breadcrumb","main"]}

@@ -1,0 +1,74 @@
+/*================== SECTION CONTACT =============*/
+.wpbingo-section--contact_info .contact-form-content label {
+  color: var(--gray-dark);
+  font-size: calc(var(--font-size-base) - 2px);
+  margin-bottom: 10px;
+  position: relative;
+  font-weight: var(--heading-font-weight-medium);
+}
+.wpbingo-section--contact_info .form-group.required label {
+  position: relative;
+}
+.wpbingo-section--contact_info .form-group.required label:after {
+  content: "*";
+  color: var(--gray-dark);
+  position: relative;
+  right: -2px;
+  bottom: 0;
+  line-height: 1;
+  font-size: 20px;
+}
+.wpbingo-section--contact_info .form-button {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+.wpbingo-section--contact_info .form-button input {
+  line-height: 50px;
+  font-size: calc(var(--font-size-base) - 5px);
+  text-transform: uppercase;
+  padding: 0 40px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background: var(--gray-dark);
+  color: var(--white);
+  font-weight: var(--body-font-weight-medium);
+  border: 0;
+}
+.wpbingo-section--contact_info .form-button input:hover {
+  color: var(--white);
+  background: var(--theme-color);
+}
+.wpbingo-section--contact_info input.form-control {
+  height: 70px;
+  line-height: 70px;
+  margin-bottom: 30px;
+  width: 100%;
+  padding: 10px 20px;
+  color: var(--gray-dark);
+  background: #f6f6f6;
+  border: 0;
+}
+.wpbingo-section--contact_info input.form-control:focus{
+  border-color: var(--theme-color);
+}
+.wpbingo-section--contact_info input.form-control::placeholder {
+  color: var(--gray-dark);
+}
+.wpbingo-section--contact_info textarea {
+  width: 100%;
+  padding: 10px 20px;
+  height: 260px;
+  font-weight: var(--body-font-weight-default);
+  background: #f6f6f6;
+  color: var(--gray-dark);
+  border: 0;
+}
+.wpbingo-section--contact_info textarea::placeholder {
+  color: var(--gray-dark);
+}
+@media(max-width: 480px){
+  .wpbingo-section--contact_info textarea{
+    height: 350px;
+  }
+}

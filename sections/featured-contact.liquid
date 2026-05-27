@@ -1,0 +1,497 @@
+{{ 'css-section-contact.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.fullwidth -%}
+	{%- assign container = 'container-full' -%}
+{%- elsif section.settings.max_width != blank -%}
+	{%- assign container = 'bwp-container' -%}
+{%- else -%}
+	{%- assign container = 'container' -%}
+{%- endif -%}
+
+{%- assign max_width = '' -%}
+{%- if section.settings.fullwidth == blank and section.settings.max_width != blank -%}
+	{%- assign width_container = section.settings.max_width | plus: 0 -%}
+	{%- capture max_width -%}style="max-width: {{ section.settings.max_width }};"{%- endcapture -%}
+{%- endif -%}
+
+{%- assign bg_setting = '' -%}
+{%- if section.settings.bg_image != blank -%}
+	{%- capture bg_setting -%}
+		background-position:{{ section.settings.bg_position }};background-size:{{ section.settings.bg_size }};
+		{%- if section.settings.bg_fixed != blank -%}
+			background-attachment: fixed;
+		{%- endif -%}
+	{%- endcapture -%}
+{%- endif -%}
+
+{%- assign bg_full = '' -%}
+{%- if section.settings.bg_image != blank and section.settings.bg_width == 'full' -%}
+	{%- capture bg_full -%}
+		style="background-image: url('{{ section.settings.bg_image | img_url: ''}}');{{ bg_setting }}"
+	{%- endcapture -%}
+{%- endif -%}
+
+{%- assign bg_content = '' -%}
+{%- if section.settings.bg_image != blank and section.settings.bg_width == 'content' -%}
+	{%- capture bg_content -%}
+		style="background-image: url('{{ section.settings.bg_image | img_url: ''}}');{{ bg_setting }}"
+	{%- endcapture -%}
+{%- endif -%}
+
+{% assign margin 	= section.settings.margin | split: "|" %}
+{% assign padding 	= section.settings.padding | split: "|" %}
+{% assign padding_bg 	= section.settings.padding_bg | split: "|" %}
+
+{%- style -%}
+	{%- if margin[0] != blank or padding[0] != blank -%}
+		#shopify-section-{{ section.id }} .wpbingo-section--contact_info{
+			{%- if margin[0] != blank -%}margin: {{ margin[0] }};{%- endif -%}
+			{%- if padding[0] != blank -%}padding:{{ padding[0] }};{%- endif -%}
+		}
+		#shopify-section-{{ section.id }} .wpbingo-section__inner{
+			{%- if padding_bg[0] != blank -%}padding:{{ padding_bg[0] }};{%- endif -%}
+		}
+	{%- endif -%}
+	{%- if margin[1] != blank or padding[1] != blank -%}
+		@media (max-width:1200px){
+			#shopify-section-{{ section.id }} .wpbingo-section--contact_info{
+				{%- if margin[1] != blank -%}margin: {{ margin[1] }};{%- endif -%}
+				{%- if padding[1] != blank -%}padding:{{ padding[1] }};{%- endif -%}
+			}
+			#shopify-section-{{ section.id }} .wpbingo-section__inner{
+				{%- if padding_bg[1] != blank -%}padding:{{ padding_bg[1] }};{%- endif -%}
+			}
+		}
+	{%- endif -%}
+	{%- if margin[2] != blank or padding[2] != blank -%}
+		@media (max-width:991px){
+			#shopify-section-{{ section.id }} .wpbingo-section--contact_info{
+				{%- if margin[2] != blank -%}margin: {{ margin[2] }};{%- endif -%}
+				{%- if padding[2] != blank -%}padding:{{ padding[2] }};{%- endif -%}
+			}
+			#shopify-section-{{ section.id }} .wpbingo-section__inner{
+				{%- if padding_bg[2] != blank -%}padding:{{ padding_bg[2] }};{%- endif -%}
+			}
+		}
+	{%- endif -%}
+	{%- if margin[3] != blank or padding[3] != blank -%}
+		@media (max-width:767px){
+			#shopify-section-{{ section.id }} .wpbingo-section--contact_info{
+				{%- if margin[3] != blank -%}margin: {{ margin[3] }};{%- endif -%}
+				{%- if padding[3] != blank -%}padding:{{ padding[3] }};{%- endif -%}
+			}
+			#shopify-section-{{ section.id }} .wpbingo-section__inner{
+				{%- if padding_bg[3] != blank -%}padding:{{ padding_bg[3] }};{%- endif -%}
+			}
+		}
+	{%- endif -%}
+	{%- if section.blocks.size > 0 -%}
+		{%- for block in section.blocks -%}
+			{%- if block.type == 'css' -%}
+				#shopify-section-{{ section.id }} .wpbingo-section--contact_info .title-contact{
+					font-size: {{ block.settings.font_size_title }}px;
+					line-height: {{ block.settings.line_height_title }}px;
+					font-weight: {{ block.settings.font_weight_title }};
+					letter-spacing:{{ block.settings.letter_spacing_title }}px;
+					color:{{ block.settings.color_title }};
+					margin:{{ block.settings.margin_title }};
+					text-align:{{ block.settings.align }};
+				}
+				#shopify-section-{{ section.id }} .wpbingo-section--contact_info .description-contact{
+					font-size: {{ block.settings.font_size_desc }}px;
+					line-height: {{ block.settings.line_height_desc }}px;
+					color:{{ block.settings.color_desc }};
+					margin:{{ block.settings.margin_desc }};
+					text-align:{{ block.settings.align }};
+				}
+				@media(max-width:991px){
+					#shopify-section-{{ section.id }} .wpbingo-section--contact_info .title-contact{
+						font-size: {{ block.settings.font_size_title_mobi }}px;
+						line-height: {{ block.settings.line_height_title_mobi }}px;
+						margin:{{ block.settings.margin_title_mobi }};
+					}
+					#shopify-section-{{ section.id }} .wpbingo-section--contact_info .description-contact{
+						font-size: {{ block.settings.font_size_desc_mobi }}px;
+						line-height: {{ block.settings.line_height_desc_mobi }}px;
+						margin:{{ block.settings.margin_desc_mobi }};
+					}
+				}
+			{%- endif -%}
+		{%- endfor -%}
+	{%- endif -%}
+{%- endstyle -%}
+
+<section class="wpbingo-section wpbingo-section--contact_info wpbingo-section--{{ section.id }} overflow-hidden" {{ bg_full }}>
+	<div class="{{ container }}" {{ max_width }}>
+		<div class="wpbingo-section__inner" {{ bg_content }}>
+			<div class="wpbingo-section__content">
+				<div class="contact-info">
+					{%- if section.settings.contact_form -%}
+					<div class="contact-form-content">
+						{%- if section.settings.heading != blank -%}
+							<h2 class="title-contact">{{ section.settings.heading }}</h2>
+						{%- endif -%}
+						{%- if section.settings.description != blank -%}
+							<div class="description-contact">{{ section.settings.description }}</div>
+						{%- endif -%}
+						{% form 'contact' %}
+							{% if form.posted_successfully? %}
+								<p class="alert alert-success">
+									{{ 'contact.form.post_success' | t }}
+								</p>
+							{% endif %}
+							{{ form.errors | default_errors }}
+							<div class="row">
+								<div class="col-12 col-md-6 col-lg-6 col-xl-6">
+									<div class="form-group required">
+										<label>{{ "contact.form.name" | t }}</label>
+										<input id="contactFormName" class="form-control" type="text" name="contact[{{ 'contact.form.name' | t }}]"
+											value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+											required
+											autocapitalize="words"/>
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-lg-6 col-xl-6">
+									<div class="form-group required">
+										<label>{{ "contact.form.email" | t }}</label>
+										<input id="contactFormEmail" class="form-control{% if form.errors contains 'email' %} is-invalid{% endif %}"
+											type="email" name="contact[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required
+											autocorrect="off" autocapitalize="off" required/>
+									</div>
+								</div>
+							</div>
+                            <div class="form-group">
+								<label>{{ "contact.form.phone_number" | t }}</label>
+								<input id="contactFormPhone" class="form-control" type="tel" name="contact[{{ 'contact.form.phone' | t }}]"
+									value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+									pattern="[0-9\-]*"/>
+							</div>
+							<div class="form-group">
+								<label>{{ "contact.form.message" | t }}</label>
+								<textarea id="contactFormMessage" class="form-control {% if form.errors contains 'body' %} is-invalid{% endif %}"
+									rows="10" name="contact[{{ 'contact.form.message' | t }}]" rows="4"
+									required>{% if form.body %}{{ form.body }}{% endif %}</textarea>
+							</div>
+							<div class="form-button">
+								<input type="submit" class="btn btn-primary" value="{{ 'contact.form.send' | t }}">
+							</div>
+						{% endform %}
+					</div>
+					{%- endif -%}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% schema %}
+{
+	"name": "Contact",
+	"class": "wpbingo-framework",
+	"settings": [
+		{
+			"type": "header",
+			"content": "Layout settings"
+		},
+		{
+			"type": "text",
+			"id": "max_width",
+			"label": "Width container",
+			"info": "Default: 1440px"
+		},
+		{
+			"type": "checkbox",
+			"id": "fullwidth",
+			"label": "Fullwidth"
+		},
+		{
+			"type": "text",
+			"id": "padding",
+			"label": "Padding",
+			"placeholder": "0px 0px 0px 0px",
+			"info":"Screen: desktop | 1200px | 991px | 767px"
+		},
+		{
+			"type": "text",
+			"id": "margin",
+			"label": "Margin",
+			"placeholder": "0px 0px 0px 0px",
+			"info":"Screen: desktop | 1200px | 991px | 767px"
+		},
+		{
+			"type": "text",
+			"id": "padding_bg",
+			"label": "Padding Background",
+			"placeholder": "0px 0px 0px 0px",
+			"info":"Screen: desktop | 1200px | 991px | 767px"
+		},
+		{
+			"type": "image_picker",
+			"id": "bg_image",
+			"label": "Background Image"
+		},
+		{
+			"type": "checkbox",
+			"id": "bg_fixed",
+			"label": "Background Fixed"
+		},
+		{
+			"type": "text",
+			"id": "bg_size",
+			"label": "Background size",
+			"default": "cover"
+		},
+		{
+			"type": "select",
+			"id": "bg_width",
+			"label": "Background Width",
+			"options": [
+				{
+					"value": "full",
+					"label": "Full"
+				},
+				{
+					"value": "content",
+					"label": "Content"
+				}
+			],
+			"default": "full"
+		},
+		{
+			"type": "select",
+			"id": "bg_position",
+			"label": "Background position",
+			"options": [
+				{
+					"value": "left top",
+					"label": "Left Top"
+				},
+				{
+					"value": "left  center",
+					"label": "Left Center"
+				},
+				{
+					"value": "left bottom",
+					"label": "Left Bottom"
+				},
+				{
+					"value": "center top",
+					"label": "Center Top"
+				},
+				{
+					"value": "center center",
+					"label": "Center Center"
+				},
+				{
+					"value": "center bottom",
+					"label": "Center Bottom"
+				},
+				{
+					"value": "right top",
+					"label": "Right Top"
+				},
+				{
+					"value": "right center",
+					"label": "Right Center"
+				},
+				{
+					"value": "right bottom",
+					"label": "Right Bottom"
+				}
+			],
+			"default": "center center"
+		},
+		{
+			"type": "header",
+			"content": "General Settings"
+		},
+		{
+			"type": "checkbox",
+			"id": "contact_form",
+			"label": "Show contact form",
+			"default":true
+		},
+		{
+			"type": "text",
+			"id": "heading",
+			"label": "Heading",
+			"default": "Heading"
+		},
+		{
+			"type": "text",
+			"id": "description",
+			"label": "Description",
+			"default": "Description"
+		}
+	],
+	"blocks": [
+		{
+			"type": "css",
+			"name": "Custom css",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "select",
+					"id": "align",
+					"label": "Text align",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						}
+					],
+					"default": "center"
+				},
+				{
+					"type": "header",
+					"content": "====== Title ======"
+				},
+				{
+					"type": "color",
+					"id": "color_title",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size_title",
+					"label": "Font size",
+					"default": 35,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_title",
+					"label": "Line height",
+					"default": 45,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing_title",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight_title",
+					"label": "Font Weight",
+					"default": "500"
+				},
+				{
+					"type": "text",
+					"id": "margin_title",
+					"label": "margin",
+					"default": "0px 0px 0px 0px",
+					"placeholder":"0px 0px 0px 0px"
+				},
+				{
+					"type": "header",
+					"content": "====== Description ======"
+				},
+				{
+					"type": "color",
+					"id": "color_desc",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size_desc",
+					"label": "Font size",
+					"default": 16,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_desc",
+					"label": "Line height",
+					"default": 26,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_desc",
+					"label": "margin",
+					"default": "0px 0px 0px 0px",
+					"placeholder":"0px 0px 0px 0px"
+				},
+				{
+					"type": "header",
+					"content": "====== Mobile ======",
+					"info": "screen < 767px"
+				},
+				{
+					"type": "header",
+					"content": "---------- Title"
+				},
+				{
+					"type": "number",
+					"id": "font_size_title_mobi",
+					"label": "Font size",
+					"default": 30,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_title_mobi",
+					"label": "Line height",
+					"default": 40,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_title_mobi",
+					"label": "margin",
+					"default": "0px 0px 0px 0px",
+					"placeholder":"0px 0px 0px 0px"
+				},
+				{
+					"type": "header",
+					"content": "---------- Description"
+				},
+				{
+					"type": "number",
+					"id": "font_size_desc_mobi",
+					"label": "Font size",
+					"default": 16,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_desc_mobi",
+					"label": "Line height",
+					"default": 26,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_desc_mobi",
+					"label": "margin",
+					"default": "0px 0px 0px 0px",
+					"placeholder":"0px 0px 0px 0px"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Contact",
+			"category": "5. Image",
+			"blocks": [
+				{
+					"type": "css"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

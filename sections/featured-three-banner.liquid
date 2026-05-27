@@ -1,0 +1,614 @@
+{{ 'css-section-three-banner.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.fullwidth -%}
+	{%- assign container = 'container-full' -%}
+{%- elsif section.settings.max_width != blank -%}
+	{%- assign container = 'bwp-container' -%}
+{%- else -%}
+	{%- assign container = 'container' -%}
+{%- endif -%}
+
+{%- assign max_width = '' -%}
+{%- if section.settings.fullwidth == blank and section.settings.max_width != blank -%}
+	{%- assign width_container = section.settings.max_width | plus: 0 -%}
+	{%- capture max_width -%}style="max-width: {{ section.settings.max_width }};"{%- endcapture -%}
+{%- endif -%}
+
+{%- assign margin = '' -%}
+{%- if section.settings.margin != blank -%}
+  {%- capture margin -%}margin: {{ section.settings.margin }};{%- endcapture -%}
+{%- endif -%}
+{%- assign effect = section.settings.effect -%}
+{% assign margin 	= section.settings.margin | split: "|" %}
+{% assign padding 	= section.settings.padding | split: "|" %}
+{%- style -%}
+	{%- if margin[0] != blank or padding[0] != blank -%}
+		#shopify-section-{{ section.id }} .wpbingo-section--three-banner{
+			{%- if margin[0] != blank -%}margin: {{ margin[0] }};{%- endif -%}
+			{%- if padding[0] != blank -%}padding:{{ padding[0] }};{%- endif -%}
+		}
+	{%- endif -%}
+	{%- if margin[1] != blank or padding[1] != blank -%}
+		@media (max-width:1200px){
+			#shopify-section-{{ section.id }} .wpbingo-section--three-banner{
+				{%- if margin[1] != blank -%}margin: {{ margin[1] }};{%- endif -%}
+				{%- if padding[1] != blank -%}padding:{{ padding[1] }};{%- endif -%}
+			}
+		}
+	{%- endif -%}
+	{%- if margin[2] != blank or padding[2] != blank -%}
+		@media (max-width:991px){
+			#shopify-section-{{ section.id }} .wpbingo-section--three-banner{
+				{%- if margin[2] != blank -%}margin: {{ margin[2] }};{%- endif -%}
+				{%- if padding[2] != blank -%}padding:{{ padding[2] }};{%- endif -%}
+			}
+		}
+	{%- endif -%}
+	{%- if margin[3] != blank or padding[3] != blank -%}
+		@media (max-width:767px){
+			#shopify-section-{{ section.id }} .wpbingo-section--three-banner{
+				{%- if margin[3] != blank -%}margin: {{ margin[3] }};{%- endif -%}
+				{%- if padding[3] != blank -%}padding:{{ padding[3] }};{%- endif -%}
+			}
+		}
+	{%- endif -%}
+	{%- if section.blocks.size > 0 -%}
+		{%- for block in section.blocks -%}
+			{%- if block.type == 'css' -%}
+				#shopify-section-{{ section.id }} .wpbingo-section--three-banner .banner-wrapper-infor{
+					background:{{ block.settings.bg_content }};
+				}
+				#shopify-section-{{ section.id }} .wpbingo-section--three-banner .title-banner{
+					font-size: {{ block.settings.font_size_title }}px;
+					line-height: {{ block.settings.line_height_title }}px;
+					font-weight: {{ block.settings.font_weight_title }};
+					letter-spacing:{{ block.settings.letter_spacing_title }}px;
+					color:{{ block.settings.color_title }};
+					margin:{{ block.settings.margin_title }};
+				}
+				#shopify-section-{{ section.id }} .wpbingo-section--three-banner .desc-banner{
+					font-size: {{ block.settings.font_size_desc }}px;
+					line-height: {{ block.settings.line_height_desc }}px;
+					color:{{ block.settings.color_desc }};
+					margin:{{ block.settings.margin_desc }};
+				}
+				#shopify-section-{{ section.id }} .wpbingo-section--three-banner .bwp-button{
+					font-size: {{ block.settings.font_size_button }}px;
+					line-height: {{ block.settings.line_height_button }}px;
+					color:{{ block.settings.color_button }};
+					padding:{{ block.settings.padding_button }};
+					background:{{ block.settings.bg_button }};
+					font-weight: {{ block.settings.font_weight_button }};
+					letter-spacing:{{ block.settings.letter_spacing_button }}px;
+					border-radius:{{ block.settings.border_radius }};
+					overflow:hidden;
+					{%- if block.settings.border -%}
+						border:{{ block.settings.border_width }}px solid {{ block.settings.border_color_button }};
+					{%- endif -%}
+				}
+				#shopify-section-{{ section.id }} .wpbingo-section--three-banner .bwp-button:hover{
+					color:{{ block.settings.color_hover_button }};
+					border-color:{{ block.settings.border_color_hover_button }};
+				}
+				#shopify-section-{{ section.id }} .wpbingo-section--three-banner .bwp-button:hover:before{
+					background:{{ block.settings.bg_hover_button }};
+				}
+				@media(max-width:991px){
+					#shopify-section-{{ section.id }} .wpbingo-section--three-banner .title-banner{
+						font-size: {{ block.settings.font_size_title_mobi }}px;
+						line-height: {{ block.settings.line_height_title_mobi }}px;
+						margin:{{ block.settings.margin_title_mobi }};
+					}
+					#shopify-section-{{ section.id }} .wpbingo-section--three-banner .desc-banner{
+						font-size: {{ block.settings.font_size_desc_mobi }}px;
+						line-height: {{ block.settings.line_height_desc_mobi }}px;
+						margin:{{ block.settings.margin_desc_mobi }};
+					}
+					#shopify-section-{{ section.id }} .wpbingo-section--three-banner .bwp-button{
+						font-size: {{ block.settings.font_size_button_mobi }}px;
+						line-height: {{ block.settings.line_height_button_mobi }}px;
+						padding:{{ block.settings.padding_button_mobi }};
+						border-radius:{{ block.settings.border_radius_mobi }};
+						{%- if block.settings.border -%}
+							border-width:{{ block.settings.border_width }}px;
+						{%- endif -%}
+					}
+				}
+			{%- endif -%}
+		{%- endfor -%}
+	{%- endif -%}
+{%- endstyle -%}
+
+<section class="wpbingo-section wpbingo-section--three-banner overflow-hidden">
+	<div class="{{ container }}" {{ max_width }}>
+		<div class="wpbingo-section__inner">
+			<div class="wpbingo-section__content">
+				<div class="group-banner">
+					<div class="banner-1 featured-banner">
+						<div class="bwp-image {{ effect }}" >
+							<a href="{{ section.settings.image_url1 }}">
+								{%- if section.settings.image1 -%}
+									{% include 'img-global' with image: section.settings.image1, class: "featured-banner__img", effect: "fade-in" %}
+								{%- else -%}
+									<img class="lazyload fade-in" src="https://placehold.jp/620x450.png" width="620" height="450" />
+								{%- endif -%}
+							</a>
+						</div>
+						<div class="banner-wrapper-infor">
+							<div class="info">
+								<div class="content">
+									{%- if section.settings.title1 != blank -%}<h3 class="title-banner">{{ section.settings.title1 }}</h3>{%- endif -%}
+									{%- if section.settings.desc1 != blank -%}<div class="desc-banner">{{ section.settings.desc1 }}</div>{%- endif -%}
+									{%- if section.settings.button1 != blank -%}
+										<a class="bwp-button" href="{{ section.settings.url1 }}">{{ section.settings.button1 }}</a>
+									{%- endif -%}
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="banner-2 featured-banner">
+						<div class="bwp-image {{ effect }}" >
+							<a href="{{ section.settings.image_url2 }}">
+								{%- if section.settings.image2 -%}
+									{% include 'img-global' with image: section.settings.image2, class: "featured-banner__img", effect: "fade-in" %}
+								{%- else -%}
+									<img class="lazyload fade-in" src="https://placehold.jp/620x930.png" width="620" height="930" />
+								{%- endif -%}
+							</a>
+						</div>
+					</div>
+					<div class="banner-3 featured-banner">
+						<div class="banner-wrapper-infor">
+							<div class="info">
+								<div class="content">
+									{%- if section.settings.title3 != blank -%}<h3 class="title-banner">{{ section.settings.title3 }}</h3>{%- endif -%}
+									{%- if section.settings.desc3 != blank -%}<div class="desc-banner">{{ section.settings.desc3 }}</div>{%- endif -%}
+									{%- if section.settings.button3 != blank -%}
+										<a class="bwp-button" href="{{ section.settings.url3 }}">{{ section.settings.button3 }}</a>
+									{%- endif -%}
+								</div>
+							</div>
+						</div>
+						<div class="bwp-image {{ effect }}">
+							<a href="{{ section.settings.image_url3 }}">
+								{%- if section.settings.image3 -%}
+									{% include 'img-global' with image: section.settings.image3, class: "featured-banner__img", effect: "fade-in" %}
+								{%- else -%}
+									<img class="lazyload fade-in" src="https://placehold.jp/620x450.png" width="620" height="450" />
+								{%- endif -%}
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% schema %}
+{
+	"name": "Three Banner",
+	"class": "wpbingo-framework",
+	"settings": [
+		{
+			"type": "header",
+			"content": "Layout settings"
+		},
+		{
+			"type": "text",
+			"id": "max_width",
+			"label": "Width container",
+			"info": "Default: 1440px"
+		},
+		{
+			"type": "checkbox",
+			"id": "fullwidth",
+			"label": "Fullwidth"
+		},
+		{
+			"type": "text",
+			"id": "padding",
+			"label": "Padding",
+			"placeholder": "0px 0px 0px 0px",
+			"info":"Screen: desktop | 1200px | 991px | 767px"
+		},
+		{
+			"type": "text",
+			"id": "margin",
+			"label": "Margin",
+			"placeholder": "0px 0px 0px 0px",
+			"info":"Screen: desktop | 1200px | 991px | 767px"
+		},
+		{
+			"type": "header",
+			"content": "Banner 1"
+		},
+		{
+			"type": "image_picker",
+			"id": "image1",
+			"label": "Image"
+		},
+		{
+			"type": "text",
+			"id": "title1",
+			"label": "Title",
+			"default":"SUMMER COLLECTION"
+		},
+		{
+			"type": "textarea",
+			"id": "desc1",
+			"label": "Description",
+			"default":"Sed ullamcorper nunc nisl, sit amet lacinia leo cursus et. Ut augue libero, fringilla sed justo a, accumsan."
+		},
+		{
+			"type": "text",
+			"id": "button1",
+			"label": "button",
+			"default": "SHOP NOW"
+		},
+		{
+			"type": "url",
+			"id": "url1",
+			"label": "Image URL",
+			"default": "/"
+		},
+		{
+			"type": "header",
+			"content": "Banner 2"
+		},
+		{
+			"type": "image_picker",
+			"id": "image2",
+			"label": "Image"
+		},
+		{
+			"type": "header",
+			"content": "Banner 3"
+		},
+		{
+			"type": "image_picker",
+			"id": "image3",
+			"label": "Image"
+		},
+		{
+			"type": "text",
+			"id": "title3",
+			"label": "Title",
+			"default":"SPRING COLLECTION"
+		},
+		{
+			"type": "textarea",
+			"id": "desc3",
+			"label": "Description",
+			"default":"Sed ullamcorper nunc nisl, sit amet lacinia leo cursus et. Ut augue libero, fringilla sed justo a, accumsan."
+		},
+		{
+			"type": "text",
+			"id": "button3",
+			"label": "button",
+			"default": "SHOP NOW"
+		},
+		{
+			"type": "url",
+			"id": "url3",
+			"label": "Image URL",
+			"default": "/"
+		},
+		{
+			"type": "select",
+			"id": "effect",
+			"options": [
+				{
+					"value": "none",
+					"label": "None"
+				},
+				{
+					"value": "effect-one",
+					"label": "Zoom in"
+				},
+				{
+					"value": "effect-two",
+					"label": "Zoom out"
+				},
+				{
+					"value": "effect-three",
+					"label": "Shine"
+				},
+				{
+					"value": "effect-four",
+					"label": "White outline"
+				}
+			],
+			"label": "Effect",
+			"default": "none"
+		}
+	],
+	"blocks": [
+		{
+			"type": "css",
+			"name": "Custom css",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "color",
+					"id": "bg_content",
+					"label": "Background content",
+					"default": "#f8f5f4"
+				},
+				{
+					"type": "header",
+					"content": "====== Title ======"
+				},
+				{
+					"type": "color",
+					"id": "color_title",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size_title",
+					"label": "Font size",
+					"default": 16,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_title",
+					"label": "Line height",
+					"default": 22,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing_title",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight_title",
+					"label": "Font Weight",
+					"default": "500"
+				},
+				{
+					"type": "text",
+					"id": "margin_title",
+					"label": "margin",
+					"default": "0px 0px 0px 0px",
+					"placeholder":"0px 0px 0px 0px"
+				},
+				{
+					"type": "header",
+					"content": "====== Description ======"
+				},
+				{
+					"type": "color",
+					"id": "color_desc",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size_desc",
+					"label": "Font size",
+					"default": 16,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_desc",
+					"label": "Line height",
+					"default": 20,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_desc",
+					"label": "margin",
+					"default": "0px 0px 0px 0px",
+					"placeholder":"0px 0px 0px 0px"
+				},
+				{
+					"type": "header",
+					"content": "====== button ======"
+				},
+				{
+					"type": "checkbox",
+					"id": "border",
+					"label": "Turn on border",
+					"default": false
+				},
+				{
+					"type": "number",
+					"id": "border_width",
+					"label": "Border width",
+					"default": 0
+				},
+				{
+					"type": "color",
+					"id": "bg_button",
+					"label": "Background"
+				},
+				{
+					"type": "color",
+					"id": "color_button",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "color",
+					"id": "border_color_button",
+					"label": "Border color",
+					"default": "#dddddd"
+				},
+				{
+					"type": "header",
+					"content": "hover button"
+				},
+				{
+					"type": "color",
+					"id": "bg_hover_button",
+					"label": "Background"
+				},
+				{
+					"type": "color",
+					"id": "color_hover_button",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "color",
+					"id": "border_color_hover_button",
+					"label": "Border color",
+					"default": "#dddddd"
+				},
+				{
+					"type": "text",
+					"id": "border_radius",
+					"label": "Border radius",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "number",
+					"id": "font_size_button",
+					"label": "Font size",
+					"default": 16,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_button",
+					"label": "Line height",
+					"default": 22,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing_button",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight_button",
+					"label": "Font Weight",
+					"default": "500"
+				},
+				{
+					"type": "text",
+					"id": "padding_button",
+					"label": "Padding",
+					"default": "0px 0px 0px 0px",
+					"placeholder":"0px 0px 0px 0px"
+				},
+				{
+					"type": "header",
+					"content": "====== Mobile ======",
+					"info": "screen < 991px"
+				},
+				{
+					"type": "header",
+					"content": "---------- Title"
+				},
+				{
+					"type": "number",
+					"id": "font_size_title_mobi",
+					"label": "Font size",
+					"default": 16,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_title_mobi",
+					"label": "Line height",
+					"default": 22,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_title_mobi",
+					"label": "margin",
+					"default": "0px 0px 0px 0px",
+					"placeholder":"0px 0px 0px 0px"
+				},
+				{
+					"type": "header",
+					"content": "---------- Description"
+				},
+				{
+					"type": "number",
+					"id": "font_size_desc_mobi",
+					"label": "Font size",
+					"default": 16,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_desc_mobi",
+					"label": "Line height",
+					"default": 20,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_desc_mobi",
+					"label": "margin",
+					"default": "0px 0px 0px 0px",
+					"placeholder":"0px 0px 0px 0px"
+				},
+				{
+					"type": "header",
+					"content": "---------- button"
+				},
+				{
+					"type": "text",
+					"id": "border_radius_mobi",
+					"label": "Border radius",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "number",
+					"id": "border_width_mobi",
+					"label": "Border width",
+					"default": 0
+				},
+				{
+					"type": "number",
+					"id": "font_size_button_mobi",
+					"label": "Font size",
+					"default": 16,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_button_mobi",
+					"label": "Line height",
+					"default": 22,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "padding_button_mobi",
+					"label": "Padding",
+					"default": "0px 0px 0px 0px",
+					"placeholder":"0px 0px 0px 0px"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Three Banner",
+			"category": "5. Image",
+			"blocks": [
+				{
+					"type": "css"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

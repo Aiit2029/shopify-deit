@@ -1,0 +1,135 @@
+{%- assign main_menu = settings.menu_link_list -%}
+<div class="main-menu">
+  <nav class="main-menu__wrap">
+    <ul class="main-menu__nav">
+      {%- for menu_link in linklists[main_menu].links -%}
+        {%- assign is_mega = false -%}
+        {%- for block in section.blocks -%}
+			{%- assign menu_item = menu_link.handle -%}
+			{%- if block.type == "megamenu" -%}
+				{%- if block.settings.title == menu_item -%}
+					{%- assign is_mega = true -%}
+					{%- break -%}
+				{%- endif -%}
+			{%- endif -%}
+        {%- endfor -%}
+		{%- if is_mega == true -%}
+			{%- for block in section.blocks -%}
+				{%- if block.type == "megamenu" -%}
+					{%- assign megamenu_name 	= block.settings.title -%}
+					{%- assign width			= block.settings.width -%}
+					
+					{%- if megamenu_name == menu_link.handle -%}
+						{%- if width == "custom" and block.settings.width_custom != blank -%}
+							{%- assign megamenu_width 	= block.settings.width_custom -%}
+							<li class="main-menu__nav-item menu-dropdown menu-dropdown--mega{% if menu_link.active %} active{% endif %}{% if megamenu_width != blank %} width_custom_pos{% endif %}">
+								<a href="{{ menu_link.url }}">{{ menu_link.title }}</a>
+								<div class="menu-dropdown__content menu-dropdown__content--megamenu"{% if megamenu_width != blank %} style="width:{{ megamenu_width }}"{% endif %}>
+									<div class="menu-row">
+										{%- for block in section.blocks -%}
+											{%- if block.type == "megamenu" -%}
+												{%- assign megamenu_item = block.settings.megamenu_name -%}
+												{%- assign megamenu_name = block.settings.title -%}
+											{%- endif -%}
+											{%- if megamenu_name == menu_link.handle -%}
+												{%- if block.type == "megamenu-child" -%}
+													{%- if block.settings.title == megamenu_item -%}
+														<div class="menu-row__col" style="width:{{ block.settings.menu_col }};flex:0 0 {{ block.settings.menu_col }}">
+															{% include 'header-megamenu' %}
+														</div>
+													{%- endif -%}
+												{%- endif -%}
+											{%- endif -%}
+										{%- endfor -%}
+										{%- if block.settings.btn_viewall -%}
+											<div class="button_all">
+												<a href="{{ block.settings.url_btn_viewall }}">{{ block.settings.label_btn_viewall }}</a>
+											</div>
+										{%- endif -%}
+									</div>
+								</div>
+							</li>
+						{%- else -%}
+							<li class="main-menu__nav-item menu-dropdown menu-dropdown--mega{% if menu_link.active %} active{% endif %}">
+								<a href="{{ menu_link.url }}">{{ menu_link.title }}</a>
+								<div class="menu-dropdown__content menu-dropdown__content--megamenu">
+									<div class="menu-row">
+										{%- for block in section.blocks -%}
+											{%- if block.type == "megamenu" -%}
+												{%- assign megamenu_item = block.settings.megamenu_name -%}
+												{%- assign megamenu_name = block.settings.title -%}
+											{%- endif -%}
+											{%- if megamenu_name == menu_link.handle -%}
+												{%- if block.type == "megamenu-child" -%}
+													{%- if block.settings.title == megamenu_item -%}
+														<div class="menu-row__col" style="width:{{ block.settings.menu_col }};flex:0 0 {{ block.settings.menu_col }}">
+															{% include 'header-megamenu' %}
+														</div>
+													{%- endif -%}
+												{%- endif -%}
+											{%- endif -%}
+										 {%- endfor -%}
+										 {%- if block.settings.btn_viewall -%}
+											<div class="button_all">
+												<a href="{{ block.settings.url_btn_viewall }}">{{ block.settings.label_btn_viewall }}</a>
+											</div>
+										{%- endif -%}
+									</div>
+								</div>
+							</li>
+						{%- endif -%}
+					{%- endif -%}
+				{%- endif -%}
+			 {%- endfor -%}
+		{%- endif -%}
+        {%- if is_mega == false -%}
+          {%- if menu_link.links != blank -%}
+            {% comment %}====== MENU DROPDOWN LEVEL I ======{% endcomment %}
+            <li class="main-menu__nav-item menu-dropdown menu-dropdown--basic{% if menu_link.active %} active{% endif %}">
+              <a href="{{ menu_link.url }}">{{ menu_link.title }}</a>
+              <ul class="menu-dropdown__content">
+                {%- for menu_link_child in menu_link.links -%}
+                  {%- if menu_link_child.links != blank -%}
+                    {% comment %}====== MENU DROPDOWN LEVEL II ======{% endcomment %}
+                    <li class="menu-dropdown menu-dropdown--basic{% if menu_link_child.active %} active{% endif %}">
+                      <a href="{{ menu_link_child.url }}">{{ menu_link_child.title }}</a>
+                      <ul class="menu-dropdown__content">
+                        {%- for menu_link_child1 in menu_link_child.links -%}
+                          {%- if menu_link_child1.links != blank -%}
+                            {% comment %}====== MENU DROPDOWN LEVEL III ======{% endcomment %}
+                            <li class="menu-dropdown menu-dropdown--basic{% if menu_link_child1.active %} active{% endif %}">
+                              <a href="{{ menu_link_child1.url }}" title="">{{ menu_link_child1.title }}</a>
+                              <ul class="menu-dropdown__content">
+                                {%- for menu_link_child2 in menu_link_child1.links -%}
+                                  <li class="{% if menu_link_child2.active %}active{% endif %}">
+                                    <a href="{{ menu_link_child2.url }}">{{ menu_link_child2.title }}</a>
+                                  </li>
+                                {%- endfor -%}
+                              </ul>
+                            </li>
+                          {%- else -%}
+                            <li class="{% if menu_link_child1.active %}active{% endif %}">
+                              <a href="{{ menu_link_child1.url }}">{{ menu_link_child1.title }}</a>
+                            </li>
+                          {%- endif -%}
+                        {%- endfor -%}
+                      </ul>
+                    </li>
+                  {%- else -%}
+                    <li class="{% if menu_link_child.active %}active{% endif %}">
+                      <a href="{{ menu_link_child.url }}">{{ menu_link_child.title }}</a>
+                    </li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            </li>
+          {%- else -%}
+            <li class="main-menu__nav-item{% if menu_link.active %} active{% endif %}">
+              <a href="{{ menu_link.url }}">{{ menu_link.title }}</a>
+            </li>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </nav>
+</div>

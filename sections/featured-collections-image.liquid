@@ -1,0 +1,587 @@
+{{ 'css-section-collection-image.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.fullwidth -%}
+	{%- assign container = 'container-full' -%}
+{%- elsif section.settings.max_width != blank -%}
+	{%- assign container = 'bwp-container' -%}
+{%- else -%}
+	{%- assign container = 'container' -%}
+{%- endif -%}
+
+{%- assign max_width = '' -%}
+{%- if section.settings.fullwidth == blank and section.settings.max_width != blank -%}
+	{%- capture max_width -%}style="max-width: {{ section.settings.max_width }};"{%- endcapture -%}
+{%- endif -%}
+
+{%- assign heading = section.settings.title | escape -%}
+{%- assign collection_handle = section.settings.featured_products -%}
+{%- assign nav = section.settings.navigation -%}
+{%- assign infinite = section.settings.infinite -%}
+{%- assign autoplay = section.settings.autoplay -%}
+{%- assign autoplay_speed = section.settings.autoplay_speed | escape -%}
+{%- assign columns = section.settings.columns -%}
+{%- assign column1440 = section.settings.column1440 -%}
+{%- assign column1 = section.settings.column1 -%}
+{%- assign column2 = section.settings.column2 -%}
+{%- assign column3 = section.settings.column3 -%}
+{%- assign column4 = section.settings.column4 -%}
+{%- assign limit = section.settings.limit | plus: 0 -%}
+
+{% assign margin 	= section.settings.margin | split: "|" %}
+{% assign padding 	= section.settings.padding | split: "|" %}
+{%- style -%}
+	{%- if margin[0] != blank or padding[0] != blank -%}
+		#shopify-section-{{ section.id }} .wpbingo-section--collections-image{
+			{%- if margin[0] != blank -%}margin: {{ margin[0] }};{%- endif -%}
+			{%- if padding[0] != blank -%}padding:{{ padding[0] }};{%- endif -%}
+		}
+	{%- endif -%}
+	{%- if margin[1] != blank or padding[1] != blank -%}
+		@media (max-width:1200px){
+			#shopify-section-{{ section.id }} .wpbingo-section--collections-image{
+				{%- if margin[1] != blank -%}margin: {{ margin[1] }};{%- endif -%}
+				{%- if padding[1] != blank -%}padding:{{ padding[1] }};{%- endif -%}
+			}
+		}
+	{%- endif -%}
+	{%- if margin[2] != blank or padding[2] != blank -%}
+		@media (max-width:991px){
+			#shopify-section-{{ section.id }} .wpbingo-section--collections-image{
+				{%- if margin[2] != blank -%}margin: {{ margin[2] }};{%- endif -%}
+				{%- if padding[2] != blank -%}padding:{{ padding[2] }};{%- endif -%}
+			}
+		}
+	{%- endif -%}
+	{%- if margin[3] != blank or padding[3] != blank -%}
+		@media (max-width:767px){
+			#shopify-section-{{ section.id }} .wpbingo-section--collections-image{
+				{%- if margin[3] != blank -%}margin: {{ margin[3] }};{%- endif -%}
+				{%- if padding[3] != blank -%}padding:{{ padding[3] }};{%- endif -%}
+			}
+		}
+	{%- endif -%}
+	{%- if section.blocks.size > 0 -%}
+		{%- for block in section.blocks -%}
+			{%- if block.type == 'css' -%}
+				#shopify-section-{{ section.id }} .wpbingo-section--collections-image .collection-item__title a{
+					font-size: {{ block.settings.font_size }}px;
+					line-height: {{ block.settings.line_height }}px;
+					font-weight: {{ block.settings.font_weight }};
+					letter-spacing:{{ block.settings.letter_spacing }}px;
+					color:{{ block.settings.color }};
+					text-transform:{{ block.settings.text_transform }};
+				}
+				#shopify-section-{{ section.id }} .wpbingo-section--collections-image .collection-item__title{
+					text-align:{{ block.settings.text_align }};
+				}
+				#shopify-section-{{ section.id }} .wpbingo-section--collections-image .collection-item__image a{
+					border-radius: {{ block.settings.border_image }};
+					display:inline-block;
+					overfollow:hidden;
+				}
+				#shopify-section-{{ section.id }} .wpbingo-section--collections-image .collection-item__image a img{
+					border-radius: {{ block.settings.border_image }};
+				}
+				#shopify-section-{{ section.id }} .wpbingo-section--collections-image .collection-item__title a:hover{
+					color:{{ block.settings.color_hover }};
+				}
+				@media(max-width:767px){
+					#shopify-section-{{ section.id }} .wpbingo-section--collections-image .collection-item__title a{
+						font-size: {{ block.settings.font_size_mobi }}px;
+						line-height: {{ block.settings.line_height_mobi }}px;
+						font-weight: {{ block.settings.font_weight_mobi }};
+						letter-spacing:{{ block.settings.letter_spacing_mobi }}px;
+					}
+				}
+			{%- endif -%}
+		{%- endfor -%}
+	{%- endif -%}
+{%- endstyle -%}
+
+<section class="wpbingo-section wpbingo-section--collections-image wpbingo-section--{{ section.id }}">
+	<div class="{{ container }}" {{ max_width }}>
+		<div class="wpbingo-section__inner">
+			<div class="wpbingo-section__content">
+				<div class="wpbingo-section__content bwp_slider-carousel{% if section.settings.half_slider != blank %} bwp_slick-margin-mobile{% endif %}">
+					<div class="js-carousel slick-carousel" data-nav="{{ nav }}" data-infinite="{{ infinite }}" data-autoplay="{{ autoplay }}"
+						data-autoplayspeed="{{ autoplay_speed }}"
+						data-columns="{{ columns }}"
+						data-column1440="{{ column1440 }}"
+						data-column1="{{ column1 }}"
+						data-column2="{{ column2 }}"
+						data-column3="{{ column3 }}"
+						data-column4="{{ column4 }}">
+						{%- if section.blocks.size > 0 -%}
+							{%- for block in section.blocks -%}
+								{%- if block.type == 'collection' -%}
+									{%- assign collection 			= collections[block.settings.collection] -%}
+									{%- assign collection_handle 	= collection.handle -%}
+									{%- assign image 		= block.settings.image -%}
+									<div class="collection-item bwp-effect-{{ section.settings.effects }}">
+										{%- if collection == blank -%}
+											{%- assign collection_title = 'home_page.onboarding.collection_title' | t -%}
+										{%- else -%}
+											{%- assign collection_title = collections[collection_handle].title | escape -%}
+										{%- endif -%}
+										<div class="collection-item__image image-parent">
+											<a href="{{ collections[collection_handle].url }}" class="collection-item__link image">
+												{%- if image -%}
+													{% include 'img-global' with image: image, class: "featured-banner__img", effect: "fade-in" %}
+												{%- else -%}
+													<img class="lazyload fade-in" src="https://placehold.jp/200x200.png" width="200" height="200" />
+												{%- endif -%}
+											</a>
+										</div>
+										<div class="collection-item__title">
+											<a href="{{ collections[collection_handle].url }}" class="collection-item__link">
+												{{ collection_title }}
+											</a>
+										</div>
+									</div>
+								{%- endif -%}
+							{%- endfor -%}
+						{%- endif -%}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% schema %}
+{
+	"name": "Collection image",
+	"class": "wpbingo-framework",
+	"settings": [
+		{
+		  "type": "header",
+		  "content": "Layout settings"
+		},
+		{
+			"type": "text",
+			"id": "max_width",
+			"label": "Width container",
+			"info": "Default: 1440px"
+		},
+		{
+			"type": "checkbox",
+			"id": "fullwidth",
+			"label": "Fullwidth"
+		},
+		{
+			"type": "text",
+			"id": "padding",
+			"label": "Padding",
+			"placeholder": "0px 0px 0px 0px",
+			"info":"Screen: desktop | 1200px | 991px | 767px"
+		},
+		{
+			"type": "text",
+			"id": "margin",
+			"label": "Margin",
+			"placeholder": "0px 0px 0px 0px",
+			"info":"Screen: desktop | 1200px | 991px | 767px"
+		},
+		{
+			"type": "header",
+			"content": "Carousel Settings"
+		},
+		{
+			"type": "checkbox",
+			"id": "navigation",
+			"label": "Show navigation",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "infinite",
+			"label": "Infinite loop sliding",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "half_slider",
+			"label": "Half slider",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "autoplay",
+			"label": "Enable autoplay",
+			"default": false
+		},
+		{
+			"type": "text",
+			"id": "autoplay_speed",
+			"label": "Autoplay speed",
+			"info": "Autoplay speed in milliseconds. Type: int(ms)",
+			"default": "10000"
+		},
+		{
+			"type": "range",
+			"id": "columns",
+			"min": 1,
+			"max": 10,
+			"step": 1,
+			"label": "Number of Columns >1440px",
+			"default": 4,
+			"info": "Desktops"
+		},
+		{
+			"type": "range",
+			"id": "column1440",
+			"min": 1,
+			"max": 10,
+			"step": 1,
+			"label": "Number of Columns 1200px to 1440px",
+			"default": 4,
+			"info": "Desktops"
+		},
+		{
+			"type": "range",
+			"id": "column1",
+			"min": 1,
+			"max": 10,
+			"step": 1,
+			"label": "Number of Columns on 992px to 1199px",
+			"default": 4,
+			"info": "Desktops"
+		},
+		{
+			"type": "range",
+			"id": "column2",
+			"min": 1,
+			"max": 10,
+			"step": 1,
+			"label": "Number of Columns on 768px to 991px",
+			"default": 3,
+			"info": "Laptop"
+		},
+		{
+			"type": "range",
+			"id": "column3",
+			"min": 1,
+			"max": 10,
+			"step": 1,
+			"label": "Number of Columns on 480px to 767px",
+			"default": 1,
+			"info": "Tablets"
+		},
+		{
+			"type": "range",
+			"id": "column4",
+			"min": 1,
+			"max": 10,
+			"step": 1,
+			"label": "Number of Columns in 480px or less than",
+			"default": 1,
+			"info": "Mobile phone"
+		},
+		{
+			"type": "select",
+			"id": "effects",
+			"label": "Effects",
+			"options": [
+				{
+					"value": "none",
+					"label": "None"
+				},
+				{
+					"value": "grow",
+					"label": "Grow"
+				},
+				{
+					"value": "shrink",
+					"label": "Shrink"
+				},
+				{
+					"value": "pulse",
+					"label": "Pulse"
+				},
+				{
+					"value": "pulse-grow",
+					"label": "Pulse Grow"
+				},
+				{
+					"value": "pulse-shrink",
+					"label": "Pulse Shrink"
+				},
+				{
+					"value": "push",
+					"label": "Push"
+				},
+				{
+					"value": "pop",
+					"label": "Pop"
+				},
+				{
+					"value": "bounce-in",
+					"label": "Bounce In"
+				},
+				{
+					"value": "bounce-out",
+					"label": "Bounce Out"
+				},
+				{
+					"value": "rotate",
+					"label": "Rotate"
+				},
+				{
+					"value": "grow-rotate",
+					"label": "Grow Rotate"
+				},
+				{
+					"value": "float",
+					"label": "Float"
+				},
+				{
+					"value": "sink",
+					"label": "Sink"
+				},
+				{
+					"value": "bob",
+					"label": "Bob"
+				},
+				{
+					"value": "hang",
+					"label": "Hang"
+				},
+				{
+					"value": "skew",
+					"label": "Skew"
+				},
+				{
+					"value": "skew-forward",
+					"label": "Skew Forward"
+				},
+				{
+					"value": "skew-backward",
+					"label": "Skew Backward"
+				},
+				{
+					"value": "wobble-vertical",
+					"label": "Wobble Vertical"
+				},
+				{
+					"value": "wobble-horizontal",
+					"label": "Wobble Horizontal"
+				},
+				{
+					"value": "wobble-to-bottom-right",
+					"label": "Wobble To Bottom Right"
+				},
+				{
+					"value": "wobble-to-top-right",
+					"label": "Wobble To Top Right"
+				},
+				{
+					"value": "wobble-top",
+					"label": "Wobble Top"
+				},
+				{
+					"value": "wobble-bottom",
+					"label": "Wobble Bottom"
+				},
+				{
+					"value": "wobble-skew",
+					"label": "Wobble Skew"
+				},
+				{
+					"value": "buzz",
+					"label": "Buzz"
+				},
+				{
+					"value": "buzz-out",
+					"label": "Buzz Out"
+				}
+			],
+			"default": "none"
+		}
+	],
+	"blocks": [
+		{
+			"type": "collection",
+			"name": "Collection",
+			"settings": [
+				{
+					"id": "collection",
+					"type": "collection",
+					"label": "Collection"
+				},
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Image Collection"
+				}
+			]
+		},
+		{
+			"type": "css",
+			"name": "Custom css",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "header",
+					"content": "====== IMAGE ======"
+				},
+				{
+					"type": "text",
+					"id": "border_image",
+					"label": "Border radius",
+					"default": "50%",
+					"info": "50%"
+				},
+				{
+					"type": "header",
+					"content": "====== TITLE ======"
+				},
+				{
+					"type": "color",
+					"id": "color",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "color",
+					"id": "color_hover",
+					"label": "Color hover",
+					"default": "#ed5d43"
+				},
+				{
+					"type": "number",
+					"id": "font_size",
+					"label": "Font size",
+					"default": 16,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height",
+					"label": "Line height",
+					"default": 22,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight",
+					"label": "Font Weight",
+					"default": "500"
+				},
+				{
+					"type": "select",
+					"id": "text_transform",
+					"label": "Text Transform",
+					"options": [
+						{
+							"value": "none",
+							"label": "Default"
+						},
+						{
+							"value": "capitalize",
+							"label": "Capitalize"
+						},
+						{
+							"value": "uppercase",
+							"label": "Uppercase"
+						},
+						{
+							"value": "lowercase",
+							"label": "Lowercase"
+						}
+					],
+					"default": "uppercase"
+				},
+				{
+					"type": "select",
+					"id": "text_align",
+					"label": "Text Align",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						}
+					],
+					"default": "left"
+				},
+				{
+					"type": "header",
+					"content": "====== Mobile ======",
+					"info": "screen < 767px"
+				},
+				{
+					"type": "color",
+					"id": "color_mobi",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "color",
+					"id": "color_hover_mobi",
+					"label": "Color hover",
+					"default": "#ed5d43"
+				},
+				{
+					"type": "number",
+					"id": "font_size_mobi",
+					"label": "Font size",
+					"default": 16,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_mobi",
+					"label": "Line height",
+					"default": 22,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing_mobi",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight_mobi",
+					"label": "Font Weight",
+					"default": "500"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Collection image",
+			"category": "2. Collection",
+			"blocks": [
+				{
+					"type": "collection"
+				},
+				{
+					"type": "collection"
+				},
+				{
+					"type": "collection"
+				},
+				{
+					"type": "css"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

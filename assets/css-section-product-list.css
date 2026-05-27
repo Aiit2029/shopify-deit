@@ -1,0 +1,40 @@
+/*============= FEATURED PRODUCTS ================*/
+.wpbingo-section--products .button_view {
+  text-align: center;
+}
+.wpbingo-section--products .button_view a {
+  display: inline-block;
+  font-size: 16px;
+  color: var(--white);
+  line-height: 40px;
+  padding: 0 40px;
+  background: var(--gray-dark);
+  position: relative;
+  z-index: 1;
+}
+.wpbingo-section--products .button_view a:before {
+  position: absolute;
+  right: 0;
+  width: 0;
+  content: "";
+  z-index: -1;
+  background: var(--theme-color);
+  height: 100%;
+}
+.wpbingo-section--products .button_view a:hover:before {
+  width: 100%;
+}
+.wpbingo-section--products .slick-list {
+  margin: 0 -20px;
+}
+.wpbingo-section--products .slick-slide {
+  padding: 0 20px;
+}
+@media (max-width: 1199px) {
+  .wpbingo-section--products .slick-list {
+    margin: 0 -7.5px;
+  }
+  .wpbingo-section--products .slick-slide {
+    padding: 0 7.5px;
+  }
+}

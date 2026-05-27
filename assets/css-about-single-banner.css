@@ -1,0 +1,65 @@
+/*================ SECTION BANNER ==========*/
+.wpbingo-about--single-banner .wpbingo-section__content {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	margin: 0 -20px;
+}
+.wpbingo-about--single-banner .wpbingo-section__content > div {
+	max-width: 50%;
+	flex: 0 0 50%;
+	padding: 0 20px;
+}
+.wpbingo-about--single-banner .wpbingo-section__content .content-banner {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 0 0 auto;
+}
+.wpbingo-about--single-banner .wpbingo-section__inner.right .wpbingo-section__content .featured-banner{
+	order:2;
+}
+.wpbingo-about--single-banner .wpbingo-section__inner.right .wpbingo-section__content .section__content{
+	order:1;
+}
+.wpbingo-about--single-banner .row--policys {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+.wpbingo-about--single-banner .title-policy {
+  margin: 0 0 9px;
+}
+.wpbingo-about--single-banner .bwp-image {
+  display: inline-block;
+}
+.wpbingo-about--single-banner .pos-align-center.featured-policy {
+  text-align: center;
+}
+.wpbingo-about--single-banner .pos-align-right.featured-policy {
+  text-align: right;
+}
+.wpbingo-about--single-banner .pos-align-right .bwp-image {
+  order: 2;
+}
+.wpbingo-about--single-banner .pos-align-right .policy-wrapper-infor {
+  order: 1;
+}
+@media (max-width: 480px){
+  .wpbingo-about--single-banner .featured-policy {
+    justify-content: center;
+  }
+}
+@media (max-width: 1199px) {
+	.wpbingo-about--single-banner .wpbingo-section__content {
+		margin: 0 -7.5px;
+	}
+	.wpbingo-about--single-banner .wpbingo-section__content > div {
+		padding: 0 7.5px;
+	}
+}
+@media (max-width: 767px) {
+  .wpbingo-about--single-banner .wpbingo-section__content > div {
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+}

@@ -1,0 +1,390 @@
+{{ 'css-section-brands.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.fullwidth -%}
+	{%- assign container = 'container-full' -%}
+{%- elsif section.settings.max_width != blank -%}
+	{%- assign container = 'bwp-container' -%}
+{%- else -%}
+	{%- assign container = 'container' -%}
+{%- endif -%}
+
+{%- assign max_width = '' -%}
+{%- if section.settings.fullwidth == blank and section.settings.max_width != blank -%}
+	{%- assign width_container = section.settings.max_width | plus: 0 -%}
+	{%- capture max_width -%}style="max-width: {{ section.settings.max_width }};"{%- endcapture -%}
+{%- endif -%}
+
+{%- assign bg_setting = '' -%}
+{%- if section.settings.bg_image != blank -%}
+	{%- capture bg_setting -%}
+		background-position:{{ section.settings.bg_position }};background-size:{{ section.settings.bg_size }};
+		{%- if section.settings.bg_fixed != blank -%}
+			background-attachment: fixed;
+		{%- endif -%}
+	{%- endcapture -%}
+{%- endif -%}
+
+{%- assign bg_full = '' -%}
+{%- if section.settings.bg_image != blank and section.settings.bg_width == 'full' -%}
+	{%- capture bg_full -%}
+		style="background-image: url('{{ section.settings.bg_image | img_url: ''}}');{{ bg_setting }}"
+	{%- endcapture -%}
+{%- endif -%}
+
+{%- assign bg_content = '' -%}
+{%- if section.settings.bg_image != blank and section.settings.bg_width == 'content' -%}
+	{%- capture bg_content -%}
+		style="background-image: url('{{ section.settings.bg_image | img_url: ''}}');{{ bg_setting }}"
+	{%- endcapture -%}
+{%- endif -%}
+
+{%- assign nav = section.settings.navigation -%}
+{%- assign infinite = section.settings.infinite -%}
+{%- assign autoplay = section.settings.autoplay -%}
+{%- assign autoplay_speed = section.settings.autoplay_speed | escape -%}
+{%- assign columns = section.settings.columns -%}
+{%- assign column1440 = section.settings.column1440 -%}
+{%- assign column1 = section.settings.column1 -%}
+{%- assign column2 = section.settings.column2 -%}
+{%- assign column3 = section.settings.column3 -%}
+{%- assign column4 = section.settings.column4 -%}
+
+{% assign margin 	= section.settings.margin | split: "|" %}
+{% assign padding 	= section.settings.padding | split: "|" %}
+{% assign padding_bg 	= section.settings.padding_bg | split: "|" %}
+{%- style -%}
+	{%- if section.settings.color_bg != blank -%}
+		{%- if section.settings.bg_width == 'full' -%}
+			#shopify-section-{{ section.id }}{
+				background:{{ section.settings.color_bg }};
+			}
+		{%- elsif section.settings.bg_width == 'content' -%}
+			#shopify-section-{{ section.id }} .wpbingo-section__inner{
+				background:{{ section.settings.color_bg }};
+			}
+		{%- endif -%}
+	{%- endif -%}
+	{%- if margin[0] != blank or padding[0] != blank -%}
+		#shopify-section-{{ section.id }} .wpbingo-section--brands{
+			{%- if margin[0] != blank -%}margin: {{ margin[0] }};{%- endif -%}
+			{%- if padding[0] != blank -%}padding:{{ padding[0] }};{%- endif -%}
+		}
+	{%- endif -%}
+	#shopify-section-{{ section.id }} .wpbingo-section__inner{
+		{%- if padding_bg[0] != blank -%}padding:{{ padding_bg[0] }};{%- endif -%}
+	}
+	@media (max-width:1200px){
+		{%- if margin[1] != blank or padding[1] != blank -%}
+			#shopify-section-{{ section.id }} .wpbingo-section--brands{
+				{%- if margin[1] != blank -%}margin: {{ margin[1] }};{%- endif -%}
+				{%- if padding[1] != blank -%}padding:{{ padding[1] }};{%- endif -%}
+			}
+		{%- endif -%}
+		#shopify-section-{{ section.id }} .wpbingo-section__inner{
+			{%- if padding_bg[1] != blank -%}padding:{{ padding_bg[1] }};{%- endif -%}
+		}
+	}
+	@media (max-width:991px){
+		{%- if margin[2] != blank or padding[2] != blank -%}
+			#shopify-section-{{ section.id }} .wpbingo-section--brands{
+				{%- if margin[2] != blank -%}margin: {{ margin[2] }};{%- endif -%}
+				{%- if padding[2] != blank -%}padding:{{ padding[2] }};{%- endif -%}
+			}
+		{%- endif -%}
+		#shopify-section-{{ section.id }} .wpbingo-section__inner{
+			{%- if padding_bg[2] != blank -%}padding:{{ padding_bg[2] }};{%- endif -%}
+		}
+	}
+	@media (max-width:767px){
+		{%- if margin[3] != blank or padding[3] != blank -%}
+			#shopify-section-{{ section.id }} .wpbingo-section--brands{
+				{%- if margin[3] != blank -%}margin: {{ margin[3] }};{%- endif -%}
+				{%- if padding[3] != blank -%}padding:{{ padding[3] }};{%- endif -%}
+			}
+		{%- endif -%}
+		#shopify-section-{{ section.id }} .wpbingo-section__inner{
+			{%- if padding_bg[3] != blank -%}padding:{{ padding_bg[3] }};{%- endif -%}
+		}
+	}
+{%- endstyle -%}
+
+<section class="wpbingo-section wpbingo-section--brands overflow-hidden wpbingo-section--{{ section.id }} {{ section.settings.style }}" {{ bg_full }}>
+	<div class="{{ container }}" {{ max_width }}>
+		<div class="wpbingo-section__inner" {{ bg_content }}>
+			<div class="wpbingo-section__content bwp_slider-carousel">
+				{%- if section.blocks.size > 0 -%}
+					<div class="js-carousel slick-carousel slick-carousel--brands" data-nav="{{ nav }}" data-dots="true" data-infinite="{{ infinite }}"
+						data-autoplay="{{ autoplay }}"
+						data-autoplayspeed="{{ autoplay_speed }}"
+						data-columns="{{ columns }}"
+						data-column1440="{{ column1440 }}"
+						data-column1="{{ column1 }}"
+						data-column2="{{ column2 }}"
+						data-column3="{{ column3 }}"
+						data-column4="{{ column4 }}">
+						{%- for block in section.blocks -%}
+							{%- assign name = block.settings.name | escape -%}
+							{%- assign logo = block.settings.image -%}
+							{%- assign url = block.settings.url -%}
+							<div class="brand-card">
+								<a class="brand-card__link" href="{{ url }}" title="{{ name }}">
+									{%- if logo -%}
+										<img class="lazyload fade-in brand-card__img" src="{{ logo | img_url:"" }}" width="{{ logo.width }}" height="{{ logo.height }}" />
+									{%- else -%}
+										<img class="lazyload fade-in" src="https://placehold.jp/125x125.png" width="125" height="125" />
+									{%- endif -%}
+								</a>
+							</div>
+						{%- endfor -%}
+					</div>
+				{%- endif -%}
+			</div>
+		</div>
+	</div>
+</section>
+{% schema %}
+{
+	"name": "Brands",
+	"class": "wpbingo-framework",
+	"settings": [
+		{
+			"type": "header",
+			"content": "Layout settings"
+		},
+		{
+			"type": "select",
+			"id": "style",
+			"options": [
+				{
+					"value": "style-1",
+					"label": "Style 1"
+				},
+				{
+					"value": "style-2",
+					"label": "Style 2"
+				}
+			],
+			"label": "Style Banner",
+			"default": "style-1"
+		},
+		{
+			"type": "text",
+			"id": "max_width",
+			"label": "Width container",
+			"info": "Default: 1440px"
+		},
+		{
+			"type": "checkbox",
+			"id": "fullwidth",
+			"label": "Fullwidth"
+		},
+		{
+			"type": "text",
+			"id": "padding",
+			"label": "Padding",
+			"placeholder": "0px 0px 0px 0px",
+			"info":"Screen: desktop | 1200px | 991px | 767px"
+		},
+		{
+			"type": "text",
+			"id": "margin",
+			"label": "Margin",
+			"placeholder": "0px 0px 0px 0px",
+			"info":"Screen: desktop | 1200px | 991px | 767px"
+		},
+		{
+			"type": "header",
+			"content": "General Settings"
+		},
+		{
+			"type": "color",
+			"id": "color_bg",
+			"label": "Background Color"
+		},
+		{
+			"type": "image_picker",
+			"id": "bg_image",
+			"label": "Background Image"
+		},
+		{
+			"type": "checkbox",
+			"id": "bg_fixed",
+			"label": "Background Fixed"
+		},
+		{
+			"type": "text",
+			"id": "bg_position",
+			"label": "Background position",
+			"default": "center"
+		},
+		{
+			"type": "text",
+			"id": "bg_size",
+			"label": "Background size",
+			"default": "cover"
+		},
+		{
+			"type": "select",
+			"id": "bg_width",
+			"label": "Background Width",
+			"options": [
+				{
+					"value": "full",
+					"label": "Full"
+				},
+				{
+					"value": "content",
+					"label": "Content"
+				}
+			],
+			"default": "full"
+		},
+		{
+			"type": "text",
+			"id": "padding_bg",
+			"label": "Padding",
+			"placeholder": "0px 0px 0px 0px",
+			"info":"Screen: desktop | 1200px | 991px | 767px"
+		},
+		{
+			"type": "header",
+			"content": "Carousel Settings"
+		},
+		{
+			"type": "checkbox",
+			"id": "navigation",
+			"label": "Show navigation",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "infinite",
+			"label": "Infinite loop sliding",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "autoplay",
+			"label": "Enable autoplay",
+			"default": false
+		},
+		{
+			"type": "text",
+			"id": "autoplay_speed",
+			"label": "Autoplay speed",
+			"info": "Autoplay speed in milliseconds. Type: int(ms)",
+			"default": "10000"
+		},
+		{
+			"type": "range",
+			"id": "columns",
+			"min": 1,
+			"max": 8,
+			"step": 1,
+			"label": "Number of Columns >1440px",
+			"default": 4,
+			"info": "Desktops"
+		},
+		{
+			"type": "range",
+			"id": "column1440",
+			"min": 1,
+			"max": 7,
+			"step": 1,
+			"label": "Number of Columns 1200px to 1440px",
+			"default": 4,
+			"info": "Desktops"
+		},
+		{
+			"type": "range",
+			"id": "column1",
+			"min": 1,
+			"max": 6,
+			"step": 1,
+			"label": "Number of Columns on 992px to 1199px",
+			"default": 4,
+			"info": "Desktops"
+		},
+		{
+			"type": "range",
+			"id": "column2",
+			"min": 1,
+			"max": 5,
+			"step": 1,
+			"label": "Number of Columns on 768px to 991px",
+			"default": 3,
+			"info": "Laptop"
+		},
+		{
+			"type": "range",
+			"id": "column3",
+			"min": 1,
+			"max": 5,
+			"step": 1,
+			"label": "Number of Columns on 480px to 767px",
+			"default": 1,
+			"info": "Tablets"
+		},
+		{
+			"type": "range",
+			"id": "column4",
+			"min": 1,
+			"max": 5,
+			"step": 1,
+			"label": "Number of Columns in 480px or less than",
+			"default": 1,
+			"info": "Mobile phone"
+		}
+	],
+	"blocks": [
+		{
+			"type": "brand",
+			"name": "Brand",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Logo"
+				},
+				{
+					"type": "text",
+					"id": "name",
+					"label": "Name",
+					"default": "Brand"
+				},
+				{
+					"type": "url",
+					"id": "url",
+					"label": "URL",
+					"default": "/collections/all"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Brands",
+			"category": "5. Image",
+			"blocks": [
+				{
+					"type": "brand"
+				},
+				{
+					"type": "brand"
+				},
+				{
+					"type": "brand"
+				},
+				{
+					"type": "brand"
+				},
+				{
+					"type": "brand"
+				},
+				{
+					"type": "brand"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

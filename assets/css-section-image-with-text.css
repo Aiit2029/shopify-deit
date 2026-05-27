@@ -1,0 +1,54 @@
+/*============== SECTION IMAGE AND TEXT ===================*/
+.wpbingo-section--image-text {
+  font-size: 16px;
+}
+.wpbingo-section--image-text .image-text {
+  display: flex;
+  margin: 0 -15px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.wpbingo-section--image-text .col-content {
+  width: 34%;
+  padding: 0 15px;
+}
+.wpbingo-section--image-text .col-image {
+  width: 66%;
+  padding: 0 15px;
+}
+.wpbingo-section--image-text .col-content .image-text__image{
+  padding-left: 90px;
+}
+.wpbingo-section--image-text p {
+  margin-bottom: 5px;
+}
+.rtl .wpbingo-section--image-text .col-content .image-text__image{
+  padding-right: 90px;
+  padding-left: 0;
+}
+@media (max-width: 1200px) {
+  .wpbingo-section--image-text .col-content .image-text__image{
+    padding-left: 20px;
+  }
+  .rtl .wpbingo-section--image-text .col-content .image-text__image{
+    padding-right: 20px;
+    padding-left: 0;
+  }
+}
+@media (max-width: 991px) {
+	.wpbingo-section--image-text .col-content {
+    margin: 0;
+  }
+  .wpbingo-section--image-text h2 {
+    font-size: 30px;
+  }
+}
+@media (max-width: 767px) {
+	.wpbingo-section--image-text .col-content {
+    width: 100%;
+  }
+  .wpbingo-section--image-text .col-image {
+    width: 100%;
+    margin-top: 30px;
+  }
+}

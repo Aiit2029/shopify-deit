@@ -1,0 +1,577 @@
+{{ 'css-about-newsletter.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.fullwidth -%}
+	{%- assign container = 'container-full' -%}
+{%- elsif section.settings.max_width != blank -%}
+	{%- assign container = 'bwp-container' -%}
+{%- else -%}
+	{%- assign container = 'container' -%}
+{%- endif -%}
+
+{%- assign max_width = '' -%}
+{%- if section.settings.fullwidth == blank and section.settings.max_width != blank -%}
+	{%- assign width_container = section.settings.max_width | plus: 0 -%}
+	{%- capture max_width -%}style="max-width: {{ section.settings.max_width }};"{%- endcapture -%}
+{%- endif -%}
+
+{%- assign bg_setting = '' -%}
+{%- if section.settings.bg_image != blank -%}
+	{%- capture bg_setting -%}
+		background-position:{{ section.settings.bg_position }};background-size:{{ section.settings.bg_size }};
+		{%- if section.settings.bg_fixed != blank -%}
+			background-attachment: fixed;
+		{%- endif -%}
+	{%- endcapture -%}
+{%- endif -%}
+
+{%- assign bg_full = '' -%}
+{%- if section.settings.bg_image != blank and section.settings.bg_width == 'full' -%}
+	{%- capture bg_full -%}
+		style="background-image: url('{{ section.settings.bg_image | img_url: ''}}');{{ bg_setting }}"
+	{%- endcapture -%}
+{%- endif -%}
+
+{%- assign bg_content = '' -%}
+{%- if section.settings.bg_image != blank and section.settings.bg_width == 'content' -%}
+	{%- capture bg_content -%}
+		style="background-image: url('{{ section.settings.bg_image | img_url: ''}}');{{ bg_setting }}"
+	{%- endcapture -%}
+{%- endif -%}
+
+{%- assign color_text = section.settings.color_text -%}
+{%- assign mailchimp = section.settings.mailchimp -%}
+{%- assign mailchimp_action = section.settings.form_action | replace: '/post?', '/post-json?' | append: '&amp;c=?' -%}
+{% assign margin 	= section.settings.margin | split: "|" %}
+{% assign padding 	= section.settings.padding | split: "|" %}
+{%- style -%}
+	#shopify-section-{{ section.id }} .wpbingo-about--newsletter{
+		background-color:{{ section.settings.background_color }}
+	}
+	{%- if section.settings.fullwidth == blank and section.settings.max_width != blank and width_container > 1200 -%}
+		@media (max-width: {{ section.settings.max_width }}) and (min-width: 1200px){
+			#shopify-section-{{ section.id }} .bwp-container{
+				padding-left:30px;
+				padding-right:30px;
+			}
+		}
+	{%- endif -%}
+	{%- if margin[0] != blank or padding[0] != blank -%}
+		#shopify-section-{{ section.id }} .wpbingo-about--newsletter{
+			{%- if margin[0] != blank -%}margin: {{ margin[0] }};{%- endif -%}
+			{%- if padding[0] != blank -%}padding:{{ padding[0] }};{%- endif -%}
+		}
+	{%- endif -%}
+	{%- if margin[1] != blank or padding[1] != blank -%}
+		@media (max-width:1200px){
+			#shopify-section-{{ section.id }} .wpbingo-about--newsletter{
+				{%- if margin[1] != blank -%}margin: {{ margin[1] }};{%- endif -%}
+				{%- if padding[1] != blank -%}padding:{{ padding[1] }};{%- endif -%}
+			}
+		}
+	{%- endif -%}
+	{%- if margin[2] != blank or padding[2] != blank -%}
+		@media (max-width:991px){
+			#shopify-section-{{ section.id }} .wpbingo-about--newsletter{
+				{%- if margin[2] != blank -%}margin: {{ margin[2] }};{%- endif -%}
+				{%- if padding[2] != blank -%}padding:{{ padding[2] }};{%- endif -%}
+			}
+		}
+	{%- endif -%}
+	{%- if margin[3] != blank or padding[3] != blank -%}
+		@media (max-width:767px){
+			#shopify-section-{{ section.id }} .wpbingo-about--newsletter{
+				{%- if margin[3] != blank -%}margin: {{ margin[3] }};{%- endif -%}
+				{%- if padding[3] != blank -%}padding:{{ padding[3] }};{%- endif -%}
+			}
+		}
+	{%- endif -%}
+	{%- for block in section.blocks -%}
+		{%- case block.type -%}
+			{%- when 'title' -%}
+				#shopify-section-{{ section.id }} .wpbingo-about--newsletter .heading-{{forloop.index}}{
+					font-size:{{ block.settings.font_size }}px;
+					line-height:{{ block.settings.line_height }}px;
+					font-weight:{{ block.settings.font_weight }};
+					letter-spacing:{{ block.settings.letter_spacing }}px;
+					margin:{{ block.settings.margin }};
+					color:{{ block.settings.color }};
+					text-align:{{ block.settings.align }};
+					{%- if block.settings.font != blank -%}
+						font-family:{{ block.settings.font }};
+					{%- endif -%}
+				}
+			{%- when 'desc' -%}
+				#shopify-section-{{ section.id }} .wpbingo-about--newsletter .desc-{{forloop.index}}{
+					font-size:{{ block.settings.font_size }}px;
+					line-height:{{ block.settings.line_height }}px;
+					font-weight:{{ block.settings.font_weight }};
+					margin:{{ block.settings.margin }};
+					color:{{ block.settings.color }};
+					text-align:{{ block.settings.align }};
+					{%- if block.settings.font != blank -%}
+						font-family:{{ block.settings.font }};
+					{%- endif -%}
+				}
+		{%- endcase -%}
+	{%- endfor -%}
+	@media (max-width:767px){
+		{%- for block in section.blocks -%}
+			{%- case block.type -%}
+				{%- when 'title' -%}
+					#shopify-section-{{ section.id }} .wpbingo-about--newsletter .heading-{{forloop.index}}{
+						font-size:{{ block.settings.font_size_mobi }}px;
+						line-height:{{ block.settings.line_height_mobi }}px;
+						letter-spacing:{{ block.settings.letter_spacing_mobi }}px;
+						margin:{{ block.settings.margin_mobi }};
+						color:{{ block.settings.color_mobi }};
+						text-align:{{ block.settings.align_mobi }};
+					}
+				{%- when 'desc' -%}
+					#shopify-section-{{ section.id }} .wpbingo-about--newsletter .desc-{{forloop.index}}{
+						font-size:{{ block.settings.font_size_mobi }}px;
+						line-height:{{ block.settings.line_height_mobi }}px;
+						margin:{{ block.settings.margin_mobi }};
+						color:{{ block.settings.color_mobi }};
+						text-align:{{ block.settings.align_mobi }};
+					}
+			{%- endcase -%}
+		{%- endfor -%}
+	}
+{%- endstyle -%}
+
+<section class="wpbingo-section wpbingo-about--newsletter" {{ bg_full }}>
+    <div class="{{ container }}" {{ max_width }}>
+		<div class="wpbingo-section__inner" {{ bg_content }}>
+			<div class="newsletter">
+				<div class="newsletter__inner">
+					<div class="wpbingo-section__content">
+						<div class="section__content">
+							<div class="content">
+								{%- for block in section.blocks -%}
+									{%- case block.type -%}
+										{%- when 'title' -%}
+											{%- unless block.settings.title == blank -%}
+												<div class="wpbingo-title heading-{{forloop.index}}">
+													{{ block.settings.title }}
+												</div>
+											{%- endunless -%}
+										{%- when 'desc' -%}
+											{%- unless block.settings.desc == blank -%}
+												<div class="wpbingo-desc desc-{{forloop.index}}">
+													{{ block.settings.desc }}
+												</div>
+											{%- endunless -%}
+									{%- endcase -%}
+								{%- endfor -%}
+							</div>
+						</div>
+						<div class="newsletter__content">
+							<div class="newsletter-form">
+								{%- if mailchimp -%}
+									<form class="js-wpbingo-newsletter" action="{{ mailchimp_action }}" method="post" name="mc-embedded-subscribe-form" target="_blank">
+										<div class="newsletter-form__wrap">
+											<input class="js-input-newsletter form-control newsletter-form__input" type="email" name="EMAIL"
+												value="{% if customer %}{{ customer.email }}{% endif %}"
+												placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}" required />
+											<button class="btn newsletter-form__submit" type="submit">
+												<span>{{ 'general.newsletter_form.submit' | t }}</span>
+											</button>
+										</div>
+									</form>
+								{%- else -%}
+									{% form 'customer' %}
+										{{ form.errors | default_errors }}
+										{%- if form.posted_successfully? -%}
+											<div class="alert alert-success">{{ 'general.newsletter_form.newsletter_confirmation' | t }}</div>
+										{%- else -%}
+											<input type="hidden" name="contact[tags]" value="newsletter">
+											<div class="newsletter-form__wrap">
+												<input value="{% if customer %}{{ customer.email }}{% endif %}"
+													placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}"
+													name="contact[email]" class="form-control newsletter-form__input" type="email" 
+													autocorrect="off" autocapitalize="off"/>
+												<button class="btn newsletter-form__submit" type="submit">
+													<span>{{ 'general.newsletter_form.submit' | t }}</span>
+												</button>
+											</div>
+										{%- endif -%}
+									{% endform %}
+								{%- endif -%}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+</section>
+{% schema %}
+{
+	"name": "About Newsletter",
+	"class": "wpbingo-framework",
+	"settings": [
+		{
+			"type": "header",
+			"content": "Layout settings"
+		},
+		{
+			"type": "color",
+			"id": "background_color",
+			"label": "Background Color",
+			"default": "#fff"
+		},
+		{
+			"type": "image_picker",
+			"id": "bg_image",
+			"label": "Background Image"
+		},
+		{
+			"type": "checkbox",
+			"id": "bg_fixed",
+			"label": "Background Fixed"
+		},
+		{
+			"type": "text",
+			"id": "bg_position",
+			"label": "Background position",
+			"default": "center"
+		},
+		{
+			"type": "text",
+			"id": "bg_size",
+			"label": "Background size",
+			"default": "cover"
+		},
+		{
+			"type": "select",
+			"id": "bg_width",
+			"label": "Background Width",
+			"options": [
+				{
+					"value": "full",
+					"label": "Full"
+				},
+				{
+					"value": "content",
+					"label": "Content"
+				}
+			],
+			"default": "full"
+		},
+		{
+			"type": "text",
+			"id": "max_width",
+			"label": "Width container",
+			"info": "Default: 1440px"
+		},
+		{
+			"type": "checkbox",
+			"id": "fullwidth",
+			"label": "Fullwidth"
+		},
+		{
+			"type": "text",
+			"id": "padding",
+			"label": "Padding",
+			"placeholder": "0px 0px 0px 0px",
+			"info":"Screen: desktop | 1200px | 991px | 767px"
+		},
+		{
+			"type": "text",
+			"id": "margin",
+			"label": "Margin",
+			"placeholder": "0px 0px 0px 0px",
+			"info":"Screen: desktop | 1200px | 991px | 767px"
+		},
+		{
+			"type": "header",
+			"content": "Mailchimp Settings"
+		},
+		{
+			"type": "checkbox",
+			"id": "mailchimp",
+			"label": "Use mailchimp",
+			"default": true
+		},
+		{
+			"type": "text",
+			"id": "form_action",
+			"label": "MailChimp form action URL",
+			"info": "[Where do I find my MailChimp form action URL?](http:\/\/wpbingo.com\/guide\/wpbingo\/homepage.html#sectionFour)"
+		},
+        {
+            "type": "checkbox",
+            "id": "social",
+            "label": "Show social"
+        }
+	],
+	"blocks": [
+		{
+			"type": "@app"
+		},
+		{
+			"type": "title",
+			"name": "Text",
+			"settings": [
+				{
+					"type": "textarea",
+					"id": "title",
+					"label": "Heading",
+					"default": "Heading"
+				},
+				{
+					"type": "text",
+					"id": "font",
+					"label": "Font family"
+				},
+				{
+					"type": "color",
+					"id": "color",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size",
+					"label": "Font size",
+					"default": 30,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height",
+					"label": "Line height",
+					"default": 35,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight",
+					"label": "Font Weight",
+					"default": "500"
+				},
+				{
+					"type": "text",
+					"id": "margin",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "select",
+					"id": "align",
+					"label": "Text align",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						}
+					],
+					"default": "left"
+				},
+				{
+					"type": "header",
+					"content": "===== Mobile =====",
+					"info": "screen < 767px"
+				},
+				{
+					"type": "color",
+					"id": "color_mobi",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size_mobi",
+					"label": "Font size",
+					"default": 20,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_mobi",
+					"label": "Line height",
+					"default": 20,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing_mobi",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_mobi",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "select",
+					"id": "align_mobi",
+					"label": "Text align",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						}
+					],
+					"default": "left"
+				}
+			]
+		},
+		{
+			"type": "desc",
+			"name": "Description",
+			"settings": [
+				{
+					"type": "textarea",
+					"id": "desc",
+					"label": "Description",
+					"default": "Description"
+				},
+				{
+					"type": "text",
+					"id": "font",
+					"label": "Font family"
+				},
+				{
+					"type": "color",
+					"id": "color",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size",
+					"label": "Font size",
+					"default": 30,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height",
+					"label": "Line height",
+					"default": 35,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight",
+					"label": "Font Weight",
+					"default": "500"
+				},
+				{
+					"type": "text",
+					"id": "margin",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "select",
+					"id": "align",
+					"label": "Text align",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						}
+					],
+					"default": "left"
+				},
+				{
+					"type": "header",
+					"content": "===== Mobile =====",
+					"info": "screen < 767px"
+				},
+				{
+					"type": "color",
+					"id": "color_mobi",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size_mobi",
+					"label": "Font size",
+					"default": 20,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_mobi",
+					"label": "Line height",
+					"default": 20,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_mobi",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "select",
+					"id": "align_mobi",
+					"label": "Text align",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						}
+					],
+					"default": "left"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "About Newslettert",
+			"category": "5. Newsletter"
+		}
+	]
+}
+{% endschema %}

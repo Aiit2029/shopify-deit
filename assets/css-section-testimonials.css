@@ -1,0 +1,68 @@
+/*=============== SECTION TESTIMONIALS ===========*/
+.wpbingo-section--testimonials .slick-dots {
+  margin-top: 20px;
+}
+.wpbingo-section--testimonials .testimonial-card__avatar {
+  display: inline-block;
+}
+.wpbingo-section--testimonials .testimonial-card__rating:before, .wpbingo-section--testimonials .testimonial-card__rating:after {
+  display: inline-block;
+  color: var(--theme-color);
+  font-family: icomoon;
+  font-size:calc(var(--font-size-base) + 1px);
+  line-height: 1;
+  letter-spacing: 5px;
+}
+.wpbingo-section--testimonials .testimonial-card__rating:after {
+  color: #ccc;
+}
+.wpbingo-section--testimonials .slick-list {
+  margin: 0 -20px;
+}
+.wpbingo-section--testimonials .slick-slide {
+  padding: 0 20px;
+}
+.wpbingo-section--testimonials .testimonial-card__rating.testimonial-card__rating--1:before {
+  content: "\e90c";
+}
+.wpbingo-section--testimonials .testimonial-card__rating.testimonial-card__rating--1:after {
+  content: "\e90c\e90c\e90c\e90c";
+}
+.wpbingo-section--testimonials .testimonial-card__rating.testimonial-card__rating--2:before {
+  content: "\e90c\e90c";
+}
+.wpbingo-section--testimonials .testimonial-card__rating.testimonial-card__rating--2:after {
+  content: "\e90c\e90c\e90c";
+}
+.wpbingo-section--testimonials .testimonial-card__rating.testimonial-card__rating--3:before {
+  content: "\e90c\e90c\e90c";
+}
+.wpbingo-section--testimonials .testimonial-card__rating.testimonial-card__rating--3:after {
+  content: "\e90c\e90c";
+}
+.wpbingo-section--testimonials .testimonial-card__rating.testimonial-card__rating--4:before {
+  content: "\e90c\e90c\e90c\e90c";
+}
+.wpbingo-section--testimonials .testimonial-card__rating.testimonial-card__rating--4:after {
+  content: "\e90c";
+}
+.wpbingo-section--testimonials .testimonial-card__rating.testimonial-card__rating--5:before {
+  content: "\e90c\e90c\e90c\e90c\e90c";
+}
+@media (max-width: 1199px) {
+  .wpbingo-section--testimonials .slick-list {
+    margin: 0 -7.5px;
+  }
+  .wpbingo-section--testimonials .slick-slide {
+    padding: 0 7.5px;
+  }
+}
+@media (max-width: 767px) {
+	.wpbingo-section--testimonials .slick-dots {
+    display: inline-flex !important;
+    margin-top: 20px;
+  }
+  .wpbingo-section--testimonials .slick-arrow {
+    display: none !important;
+  }
+}

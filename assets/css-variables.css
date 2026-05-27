@@ -1,0 +1,70 @@
+/* $opacity-to-hex: (
+	0: '00',
+	0.05: '0C',
+	0.1: '19',
+	0.15: '26',
+	0.2: '33',
+	0.25: '3F',
+	0.3: '4C',
+	0.35: '59',
+	0.4: '66',
+	0.45: '72',
+	0.5: '7F',
+	0.55: '8C',
+	0.6: '99',
+	0.65: 'A5',
+	0.7: 'B2',
+	0.75: 'BF',
+	0.8: 'CC',
+	0.85: 'D8',
+	0.9: 'E5',
+	0.95: 'F2',
+	1: 'FF'
+); */
+body{
+	--white: #fff;
+    --theme-color:#ac8058;
+	--theme-color-15:#ac805826;
+	--theme-color-25:#ac80583F;
+	--theme-color-50:#ac80587F;
+	--theme-color-75:#ac8058BF;
+	
+	--secondary-color:#4e4e4e;
+	--text-color:#414042;
+	--text-color-50:#4140427F;
+	--text-color-75:#414042BF;
+	
+	--gray-dark-15:#01010126;
+	--gray-dark-25:#0101013F;
+	--gray-dark:#010101;
+	--gray-dark-50:#0101017F;
+	--gray-dark-75:#010101BF;
+	--gray-dark-10:#01010119;
+	
+	--body-bg-color:#ffffff;
+	--border-color:#e9e9e9;
+	--border-color-50:#e9e9e97F;
+	
+	--header-bg-color: #ffffff;
+	--footer-color: #5d5d5d;
+	--footer-color-hover: #ac8058;
+	--menu-color: #000000;
+	--menu-hover-color: #ac8058;
+	--menu-dropdown-bg: #ffffff;
+	--menu-dropdown-color: #000000;
+	--menu-dropdown-hover-color: #ac8058;
+	
+	--font-family-second: Playfair Display;
+	--heading-font-weight-default: 400;
+	--heading-font-weight-bold: 700;
+	--heading-font-weight-medium: 500;
+	--heading-font-weight-light: 300;
+	--font-size-heading: 25px;
+	
+	--font-family-base: Montserrat;
+	--body-font-weight-default: 400;
+	--body-font-weight-bold: 400;
+	--body-font-weight-medium: 400;
+	--body-font-weight-light: 300;
+	--font-size-base: 17px;
+}

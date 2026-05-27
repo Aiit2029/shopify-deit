@@ -1,0 +1,31 @@
+/*============== SECTION NEWSLETTER =============*/
+.wpbingo-section--newsletter .newsletter-form__wrap {
+  display: flex;
+  border-bottom: 1px solid var(--gray-dark);
+}
+.wpbingo-section--newsletter .newsletter-form__wrap input {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  font-size: var(--font-size-base);
+  line-height: 40px;
+  background: transparent;
+}
+.wpbingo-section--newsletter .newsletter-form__wrap input::placeholder {
+  color: var(--text-color-50);
+}
+.wpbingo-section--newsletter .newsletter-form__wrap .newsletter-form__submit {
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 15px;
+  background: transparent;
+  text-transform: uppercase;
+  color: var(--gray-dark);
+  font-size: calc(var(--font-size-base) + 10px);
+  line-height: 40px;
+  font-weight: var(--body-font-weight-medium);
+}
+.wpbingo-section--newsletter .newsletter-form__wrap .newsletter-form__submit:hover {
+  color: var(--theme-color);
+}

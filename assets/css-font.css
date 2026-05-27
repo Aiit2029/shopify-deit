@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "Futura PT Medium";
+    src: url('./FuturaPTMedium.otf') format("OpenType");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Futura PT Book";
+    src: url('./FuturaPTBook.otf') format("OpenType");
+    font-weight: normal;
+    font-style: normal;
+}

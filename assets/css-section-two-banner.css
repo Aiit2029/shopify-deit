@@ -1,0 +1,91 @@
+/*===================== SECTION TWO BANNER ==================*/
+.wpbingo-section--two-banner .group-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0 -15px;
+}
+.wpbingo-section--two-banner .group-banner > div {
+  flex: 0 0 50%;
+  max-width: 50%;
+  padding: 0 15px;
+}
+.wpbingo-section--two-banner .group-banner .featured-banner {
+  overflow: unset;
+}
+.wpbingo-section--two-banner .group-banner .featured-banner .bwp-image {
+  overflow: hidden;
+}
+.wpbingo-section--two-banner .group-banner .banner-wrapper-infor {
+  width: 100%;
+  display: flex;
+}
+.wpbingo-section--two-banner .group-banner .banner-wrapper-infor.position-1-absolute, .wpbingo-section--two-banner .group-banner .banner-wrapper-infor.position-2-absolute {
+  position: absolute;
+}
+.wpbingo-section--two-banner .group-banner .banner-wrapper-infor.position-1-unset, .wpbingo-section--two-banner .group-banner .banner-wrapper-infor.position-2-unset {
+  transform: unset !important;
+}
+.wpbingo-section--two-banner .group-banner .banner-left .content-banner-left {
+  max-width: 480px;
+  position: relative;
+}
+.wpbingo-section--two-banner .group-banner .banner-left .content-banner-left .img-banner {
+  position: absolute;
+  z-index: 2;
+  top: -70px;
+  right: -70px;
+}
+.wpbingo-section--two-banner .group-banner .banner-right {
+  padding-bottom: 100px;
+}
+.wpbingo-section--two-banner .group-banner .bwp-button {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  transition: all 0.2s ease;
+}
+.wpbingo-section--two-banner .group-banner .bwp-button:after {
+  content: "";
+  position: absolute;
+  display: block;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--gray-dark);
+  transform: scaleX(1);
+  transform-origin: 0 50%;
+  transition: transform 0.48s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.wpbingo-section--two-banner .group-banner .bwp-button:hover:after {
+  transform-origin: 100% 50%;
+  transform: scaleX(0);
+  animation: k 0.96s 0.36s forwards cubic-bezier(0.77, 0, 0.175, 1);
+}
+@media (max-width: 1199px) {
+	.wpbingo-section--two-banner .group-banner {
+    margin: 0 -7.5px;
+  }
+  .wpbingo-section--two-banner .group-banner > div {
+    padding: 0 7.5px;
+  }
+}
+@media (max-width: 991px) {
+	  .wpbingo-section--two-banner .group-banner .banner-left .content-banner-left .img-banner {
+    top: 10px;
+    right: 10px;
+  }
+  .wpbingo-section--two-banner .group-banner .banner-right {
+    padding-bottom: 0;
+  }
+}
+@media (max-width: 767px) {
+	.wpbingo-section--two-banner .group-banner > div {
+    max-width: 100%;
+    flex: 100%;
+  }
+  .wpbingo-section--two-banner .group-banner .banner-left {
+    margin-bottom: 15px;
+  }
+}

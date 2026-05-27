@@ -1,0 +1,1002 @@
+{{ 'css-about-banner.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.fullwidth -%}
+	{%- assign container = 'container-full' -%}
+{%- elsif section.settings.max_width != blank -%}
+	{%- assign container = 'bwp-container' -%}
+{%- else -%}
+	{%- assign container = 'container' -%}
+{%- endif -%}
+
+{%- assign max_width = '' -%}
+{%- if section.settings.fullwidth == blank and section.settings.max_width != blank -%}
+	{%- assign width_container = section.settings.max_width | plus: 0 -%}
+	{%- capture max_width -%}style="max-width: {{ section.settings.max_width }};"{%- endcapture -%}
+{%- endif -%}
+
+{%- assign effect = section.settings.effect -%}
+{% assign margin 	= section.settings.margin | split: "|" %}
+{% assign padding 	= section.settings.padding | split: "|" %}
+
+{%- style -%}
+    {%- if section.settings.color_bg != blank -%}
+		{%- if section.settings.width_bg == 'full' -%}
+			#shopify-section-{{ section.id }}{
+				background:{{ section.settings.color_bg }};
+			}
+		{%- elsif section.settings.width_bg == 'container' -%}
+			#shopify-section-{{ section.id }} .wpbingo-section__inner{
+				background:{{ section.settings.color_bg }};
+				{%- if section.settings.padding_bg != blank -%}padding:{{ section.settings.padding_bg }};{%- endif -%}
+			}
+		{%- endif -%}
+	{%- endif -%}
+	{%- if margin[0] != blank or padding[0] != blank -%}
+		#shopify-section-{{ section.id }} .bwp-about-banner {
+			{%- if margin[0] != blank -%}margin: {{ margin[0] }};{%- endif -%}
+			{%- if padding[0] != blank -%}padding:{{ padding[0] }};{%- endif -%}
+		}
+	{%- endif -%}
+	{%- if section.blocks.size > 0 -%}
+		{% for block in section.blocks %}
+			{%- case block.type -%}
+				{%- when 'image' -%}
+					{% assign width_image 		= block.settings.width_image | split: "|" %}
+					{% assign padding_image 	= block.settings.padding_image | split: "|" %}
+					{% assign padding_content 	= block.settings.padding_content | split: "|" %}
+					#shopify-section-{{ section.id }} .bwp-about-banner .col-banner.banner-{{ forloop.index }}{
+						max-width: {{ width_image[0] }};flex:0 0 {{ width_image[0] }};
+						{%- if padding_image[0] != blank -%}padding:{{ padding_image[0] }};{%- endif -%}
+					}
+					#shopify-section-{{ section.id }} .bwp-about-banner .col-banner.banner-{{ forloop.index }} .banner-wrapper-infor{
+						{%- if padding_content[0] != blank -%}
+							padding: {{ padding_content[0] }};
+						{%- endif -%}
+						{%- if block.settings.vertical_position == 'middle' -%}
+							top: 50%;transform: translateY(-50%);
+						{%- elsif block.settings.vertical_position == 'top' -%}
+							top: 0;
+						{%- elsif block.settings.vertical_position == 'bottom' -%}
+							bottom: 0;
+						{%- endif -%}
+						justify-content: {{ block.settings.horizontal_position }};text-align: {{ block.settings.text_align }};
+					}
+				{%- when 'title' -%}
+					#shopify-section-{{ section.id }} .bwp-about-banner .title-{{forloop.index}}{
+						font-size:{{ block.settings.font_size }}px;
+						line-height:{{ block.settings.line_height }}px;
+						font-weight:{{ block.settings.font_weight }};
+						letter-spacing:{{ block.settings.letter_spacing }}px;
+						margin:{{ block.settings.margin }};
+						color:{{ block.settings.color }};
+						{%- if block.settings.font != blank -%}
+							font-family:{{ block.settings.font }};
+						{%- endif -%}
+					}
+				{%- when 'button' -%}
+					#shopify-section-{{ section.id }} .bwp-about-banner .button-{{forloop.index}}{
+						font-size:{{ block.settings.font_size }}px;
+						line-height:{{ block.settings.line_height }}px;
+						font-weight:{{ block.settings.font_weight }};
+						letter-spacing:{{ block.settings.letter_spacing }}px;
+						color:{{ block.settings.color }};
+						background:{{ block.settings.background }};
+						padding:{{ block.settings.padding }};
+						margin:{{ block.settings.margin }};
+						overflow:hidden;
+						border-radius:{{ block.settings.border_radius }};
+					}
+					{%- if block.settings.border -%}
+						#shopify-section-{{ section.id }} .bwp-about-banner .button-{{forloop.index}}{
+							border-width:{{ block.settings.border_width }};
+							border-color:{{ block.settings.border_color }};
+							border-style:solid;
+						}
+					{%- endif -%}
+					#shopify-section-{{ section.id }} .bwp-about-banner .button-{{forloop.index}}:hover{
+						color:{{ block.settings.color_hover }};
+						border-color:{{ block.settings.border_color_hover }};
+						background:{{ block.settings.background_hover }};
+					}
+					{%- unless block.settings.icon_title == blank -%}
+						#shopify-section-{{ section.id }} .bwp-about-banner .button-{{forloop.index}} i{
+							font-size:{{ block.settings.font_icon }}px;
+							top:{{ block.settings.pos_icon }}px;
+							position:relative;
+							margin: {{ block.settings.margin_icon }}
+						}
+					{%- endunless -%}
+			{%- endcase -%}
+		{% endfor %}
+	{%- endif -%}
+	@media (max-width:1200px){
+		{%- if margin[1] != blank or padding[1] != blank -%}
+			#shopify-section-{{ section.id }} .bwp-about-banner{
+				{%- if margin[1] != blank -%}margin: {{ margin[1] }};{%- endif -%}
+				{%- if padding[1] != blank -%}padding:{{ padding[1] }};{%- endif -%}
+			}
+		{%- endif -%}
+		{%- if section.blocks.size > 0 -%}
+			{%- for block in section.blocks -%}
+				{%- case block.type -%}
+					{%- when 'image' -%}
+						{%- assign width_image 		= block.settings.width_image | split: "|" -%}
+						{% assign padding_content 	= block.settings.padding_content | split: "|" %}
+						{% assign padding_image 	= block.settings.padding_image | split: "|" %}
+						{%- if width_image[1] != blank or padding_image[1] != blank -%}
+							#shopify-section-{{ section.id }} .bwp-about-banner .col-banner.banner-{{ forloop.index }}{
+								{%- if width_image[1] != blank -%}max-width: {{ width_image[1] }};flex:0 0 {{ width_image[1] }};{%- endif -%}
+								{%- if padding_image[1] != blank -%}padding:{{ padding_image[1] }};{%- endif -%}
+							}
+						{%- endif -%}
+						{%- if padding_content[1] != blank -%}
+							#shopify-section-{{ section.id }} .bwp-about-banner .col-banner.banner-{{ forloop.index }} .banner-wrapper-infor{
+								padding:{{ padding_content[1] }};
+							}
+						{%- endif -%}
+				{%- endcase -%}
+			{%- endfor -%}
+		{%- endif -%}
+	}
+	@media (max-width:991px){
+		{%- if margin[2] != blank or padding[2] != blank -%}
+			#shopify-section-{{ section.id }} .bwp-about-banner{
+				{%- if margin[2] != blank -%}margin: {{ margin[2] }};{%- endif -%}
+				{%- if padding[2] != blank -%}padding:{{ padding[2] }};{%- endif -%}
+			}
+		{%- endif -%}
+		{%- if section.blocks.size > 0 -%}
+			{%- for block in section.blocks -%}
+				{%- case block.type -%}
+					{%- when 'image' -%}
+						{%- assign width_image 		= block.settings.width_image | split: "|" -%}
+						{% assign padding_content 	= block.settings.padding_content | split: "|" %}
+						{% assign padding_image 	= block.settings.padding_image | split: "|" %}
+						{%- if width_image[2] != blank or  padding_image[2] != blank -%}
+							#shopify-section-{{ section.id }} .bwp-about-banner .col-banner.banner-{{ forloop.index }}{
+								{%- if width_image[2] != blank -%}max-width: {{ width_image[2] }};flex:0 0 {{ width_image[2] }};{%- endif -%}
+								{%- if padding_image[2] != blank -%}padding:{{ padding_image[2] }};{%- endif -%}
+							}
+						{%- endif -%}
+						{%- if padding_content[2] != blank -%}
+							#shopify-section-{{ section.id }} .bwp-about-banner .col-banner.banner-{{ forloop.index }} .banner-wrapper-infor{
+								padding: {{ padding_content[2] }};
+							}
+						{%- endif -%}
+				{%- endcase -%}
+			{%- endfor -%}
+		{%- endif -%}
+	}
+	@media (max-width:767px){
+		{%- if margin[3] != blank or padding[3] != blank -%}
+			#shopify-section-{{ section.id }} .bwp-about-banner{
+				{%- if margin[3] != blank -%}margin: {{ margin[3] }};{%- endif -%}
+				{%- if padding[3] != blank -%}padding:{{ padding[3] }};{%- endif -%}
+			}
+		{%- endif -%}
+		{%- if section.blocks.size > 0 -%}
+			{%- for block in section.blocks -%}
+				{%- case block.type -%}
+					{%- when 'image' -%}
+						{%- assign width_image 		= block.settings.width_image | split: "|" -%}
+						{% assign padding_content 	= block.settings.padding_content | split: "|" %}
+						{% assign padding_image 	= block.settings.padding_image | split: "|" %}
+						{%- if width_image[3] != blank or padding_image[3] != blank -%}
+							#shopify-section-{{ section.id }} .bwp-about-banner .col-banner.banner-{{ forloop.index }}{
+								{%- if width_image[3] != blank -%}max-width: {{ width_image[3] }};flex:0 0 {{ width_image[3] }};{%- endif -%}
+								{%- if padding_image[3] != blank -%}padding:{{ padding_image[3] }};{%- endif -%}
+							}
+						{%- endif -%}
+						{%- if padding_content[3] != blank -%}
+							#shopify-section-{{ section.id }} .bwp-about-banner .col-banner.banner-{{ forloop.index }} .banner-wrapper-infor{
+								padding: {{ padding_content[3] }};
+							}
+						{%- endif -%}
+					{%- when 'title' -%}
+						#shopify-section-{{ section.id }} .bwp-about-banner .title-{{forloop.index}}{
+							font-size:{{ block.settings.font_size_mobi }}px;
+							line-height:{{ block.settings.line_height_mobi }}px;
+							letter-spacing:{{ block.settings.letter_spacing_mobi }}px;
+							margin:{{ block.settings.margin_mobi }};
+							color:{{ block.settings.color_mobi }};
+						}
+					{%- when 'button' -%}
+						#shopify-section-{{ section.id }} .bwp-about-banner .button-{{forloop.index}}{
+							font-size:{{ block.settings.font_size_mobi }}px;
+							line-height:{{ block.settings.line_height_mobi }}px;
+							letter-spacing:{{ block.settings.letter_spacing_mobi }}px;
+							padding:{{ block.settings.padding_mobi }};
+							margin:{{ block.settings.margin_mobi }};
+							color:{{ block.settings.color_mobi }};
+							background:{{ block.settings.background_mobi }};
+							border-radius:{{ block.settings.border_radius_mobi }};
+						}
+						{%- if block.settings.border_mobi -%}
+							#shopify-section-{{ section.id }} .bwp-about-banner .button-{{forloop.index}}:after{
+								border-width:{{ block.settings.border_width_mobi }}px;
+								border-color:{{ block.settings.border_color_mobi }};
+								border-style:solid;
+							}
+						{%- endif -%}
+						#shopify-section-{{ section.id }} .bwp-about-banner .button-{{forloop.index}}:hover{
+							color:{{ block.settings.color_hover_mobi }};
+							border-color:{{ block.settings.border_color_hover_mobi }};
+							background:{{ block.settings.background_hover_mobi }};
+						}
+						{%- unless block.settings.icon_title == blank -%}
+							#shopify-section-{{ section.id }} .bwp-about-banner .button-{{forloop.index}} i{
+								font-size:{{ block.settings.font_icon_mobi }}px;
+								top:{{ block.settings.margin_icon_mobi }}px;
+							}
+						{%- endunless -%}
+				{%- endcase -%}		
+			{%- endfor -%}
+		{%- endif -%}
+	}
+{%- endstyle -%}
+
+<section class="wpbingo-section bwp-about-banner wpbingo-section--{{ section.id }} overflow-hidden">
+	<div class="{{ container }}" {{ max_width }}>
+		<div class="wpbingo-section__inner">
+			<div class="wpbingo-section__content">
+				{%- if section.blocks.size > 0 -%}
+					<div class="row--banners">
+						{%- for block in section.blocks -%}
+							{%- if block.type == "image" -%}
+								{%- assign image 		= block.settings.image -%}
+								{%- assign image_url 	= block.settings.url -%}
+								{%- assign position 	= block.settings.content_position -%}
+								<div class="col-banner banner-{{ forloop.index }}">
+									<div class="featured-banner bwp-effect-{{ section.settings.effect }}">
+										<div class="bwp-image image-parent" >
+											<a class="image" href="{{ image_url }}">
+												{%- if image -%}
+													{% include 'img-global' with image: image, class: "featured-banner__img", effect: "fade-in" %}
+												{%- else -%}
+													<img class="lazyload fade-in" src="https://placehold.jp/570x450.png" width="570" height="450" />
+												{%- endif -%}
+											</a>
+										</div>
+										<div class="banner-wrapper-infor position-{{ position }}">
+											<div class="info">
+												<div class="content">
+													{%- assign banner_name = block.settings.title -%}
+													{%- for block in section.blocks -%}
+														{%- case block.type -%}
+															{%- when 'title' -%}
+																{%- if block.settings.banner_name == banner_name -%}
+																	<h3 class="title-banner title-{{ forloop.index }}">{{ block.settings.title }}</h3>
+																{%- endif -%}
+															{%- when 'button' -%}
+																{%- if block.settings.banner_name == banner_name -%}
+																	<a class="bwp-button button-{{ forloop.index }}" href="{{ block.settings.button_link }}">
+																		{{ block.settings.title }}
+																		{%- unless block.settings.icon_title == blank -%}
+																			<i class="{{ block.settings.icon_title }}"></i>
+																		{%- endunless -%}
+																	</a>
+																{%- endif -%}
+														{%- endcase -%}
+													{%- endfor -%}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							{%- endif -%}
+						{%- endfor -%}
+					</div>
+				{%- endif -%}
+			</div>
+		</div>
+	</div>
+</section>
+
+{% schema %}
+{
+	"name": "About Banner",
+	"class": "wpbingo-framework",
+	"settings": [
+		{
+			"type": "header",
+			"content": "Layout settings"
+		},
+        {
+			"type": "color",
+			"id": "color_bg",
+			"label": "Background Color"
+		},
+		{
+			"type": "select",
+			"id": "width_bg",
+			"label": "Width Background",
+			"options": [
+				{
+					"value": "container",
+					"label": "Container"
+				},
+				{
+					"value": "full",
+					"label": "Full"
+				}
+			],
+			"default": "container"
+		},
+		{
+			"type": "text",
+			"id": "padding_bg",
+			"label": "Padding content background",
+			"placeholder": "0px 0px 0px 0px",
+			"info":"top right bottom left"
+		},
+		{
+			"type": "text",
+			"id": "max_width",
+			"label": "Width container",
+			"info": "Default: 1440px"
+		},
+		{
+			"type": "checkbox",
+			"id": "fullwidth",
+			"label": "Fullwidth"
+		},
+		{
+			"type": "text",
+			"id": "padding",
+			"label": "Padding",
+			"placeholder": "0px 0px 0px 0px",
+			"info":"Screen: desktop | 1200px | 991px | 767px"
+		},
+		{
+			"type": "text",
+			"id": "margin",
+			"label": "Margin",
+			"placeholder": "0px 0px 0px 0px",
+			"info":"Screen: desktop | 1200px | 991px | 767px"
+		},
+		{
+			"type": "header",
+			"content": "General Settings"
+		},
+		{
+			"type": "select",
+			"id": "effect",
+			"label": "Effect",
+			"options": [
+				{
+					"value": "none",
+					"label": "None"
+				},
+				{
+					"value": "grow",
+					"label": "Grow"
+				},
+				{
+					"value": "shrink",
+					"label": "Shrink"
+				},
+				{
+					"value": "pulse",
+					"label": "Pulse"
+				},
+				{
+					"value": "pulse-grow",
+					"label": "Pulse Grow"
+				},
+				{
+					"value": "pulse-shrink",
+					"label": "Pulse Shrink"
+				},
+				{
+					"value": "push",
+					"label": "Push"
+				},
+				{
+					"value": "pop",
+					"label": "Pop"
+				},
+				{
+					"value": "bounce-in",
+					"label": "Bounce In"
+				},
+				{
+					"value": "bounce-out",
+					"label": "Bounce Out"
+				},
+				{
+					"value": "rotate",
+					"label": "Rotate"
+				},
+				{
+					"value": "grow-rotate",
+					"label": "Grow Rotate"
+				},
+				{
+					"value": "float",
+					"label": "Float"
+				},
+				{
+					"value": "sink",
+					"label": "Sink"
+				},
+				{
+					"value": "bob",
+					"label": "Bob"
+				},
+				{
+					"value": "hang",
+					"label": "Hang"
+				},
+				{
+					"value": "skew",
+					"label": "Skew"
+				},
+				{
+					"value": "skew-forward",
+					"label": "Skew Forward"
+				},
+				{
+					"value": "skew-backward",
+					"label": "Skew Backward"
+				},
+				{
+					"value": "wobble-vertical",
+					"label": "Wobble Vertical"
+				},
+				{
+					"value": "wobble-horizontal",
+					"label": "Wobble Horizontal"
+				},
+				{
+					"value": "wobble-to-bottom-right",
+					"label": "Wobble To Bottom Right"
+				},
+				{
+					"value": "wobble-to-top-right",
+					"label": "Wobble To Top Right"
+				},
+				{
+					"value": "wobble-top",
+					"label": "Wobble Top"
+				},
+				{
+					"value": "wobble-bottom",
+					"label": "Wobble Bottom"
+				},
+				{
+					"value": "wobble-skew",
+					"label": "Wobble Skew"
+				},
+				{
+					"value": "buzz",
+					"label": "Buzz"
+				},
+				{
+					"value": "buzz-out",
+					"label": "Buzz Out"
+				}
+			],
+			"default": "none"
+		}
+	],
+	"blocks": [
+		{
+			"type": "@app"
+		},
+		{
+			"type": "image",
+			"name": "Banner",
+			"settings": [
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Name banner item"
+				},
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Image"
+				},
+				{
+					"type": "url",
+					"id": "url",
+					"label": "Url"
+				},
+				{
+					"type": "header",
+					"content": "Content settings"
+				},
+				{
+					"type": "select",
+					"id": "content_position",
+					"label": "Content position",
+					"options": [
+						{
+							"value": "absolute",
+							"label": "In the picture"
+						},
+						{
+							"value": "unset",
+							"label": "Bottom"
+						}
+					],
+					"default": "absolute"
+				},
+				{
+					"type": "select",
+					"id": "vertical_position",
+					"label": "Vertical position",
+					"options": [
+						{
+							"value": "top",
+							"label": "Top"
+						},
+						{
+							"value": "middle",
+							"label": "Middle"
+						},
+						{
+							"value": "bottom",
+							"label": "Bottom"
+						}
+					],
+					"default": "middle"
+				},
+				{
+					"type": "select",
+					"id": "horizontal_position",
+					"label": "Horizontal position",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						}
+					],
+					"default": "center"
+				},
+				{
+					"type": "select",
+					"id": "text_align",
+					"label": "Text align",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						}
+					],
+					"default": "center"
+				},
+				{
+					"type": "textarea",
+					"id": "padding_content",
+					"label": "Padding content",
+					"default": "0 15px",
+					"info":"Screen: desktop | 1200px | 991px | 767px"
+				},
+				{
+					"type": "header",
+					"content": "Box settings"
+				},
+				{
+					"type": "text",
+					"id": "padding_image",
+					"label": "Padding item",
+					"default": "0 15px",
+					"info":"Screen: desktop | 1200px | 991px | 767px"
+				},
+				{
+					"type": "text",
+					"id": "width_image",
+					"label": "Width item",
+					"default": "33.33%",
+					"info":"Screen: desktop | 1200px | 991px | 767px"
+				}
+			]
+		},
+		{
+			"type": "title",
+			"name": "Text",
+			"settings": [
+				{
+					"type": "text",
+					"id": "banner_name",
+					"label": "What banner is this item on?"
+				},
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Heading",
+					"default": "Heading"
+				},
+				{
+					"type": "text",
+					"id": "font",
+					"label": "Font family"
+				},
+				{
+					"type": "color",
+					"id": "color",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size",
+					"label": "Font size",
+					"default": 18,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height",
+					"label": "Line height",
+					"default": 25,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight",
+					"label": "Font Weight",
+					"default": "500"
+				},
+				{
+					"type": "text",
+					"id": "margin",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "Mobile ====================",
+					"info": "screen < 767px"
+				},
+				{
+					"type": "color",
+					"id": "color_mobi",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size_mobi",
+					"label": "Font size",
+					"default": 14,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_mobi",
+					"label": "Line height",
+					"default": 18,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing_mobi",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_mobi",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				}
+			]
+		},
+		{
+			"type": "button",
+			"name": "Button",
+			"settings": [
+				{
+					"type": "text",
+					"id": "banner_name",
+					"label": "What banner is this item on?"
+				},
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Label",
+					"default": "Shop now"
+				},
+				{
+					"type": "text",
+					"id": "icon_title",
+					"label": "Icon title"
+				},
+				{
+					"type": "number",
+					"id": "font_icon",
+					"label": "Font size icon",
+					"default": 14,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "pos_icon",
+					"label": "Position icon",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_icon",
+					"label": "Margin icon",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "url",
+					"id": "button_link",
+					"label": "Url button"
+				},
+				{
+					"type": "checkbox",
+					"id": "border",
+					"label": "Turn on border",
+					"default": false
+				},
+				{
+					"type": "text",
+					"id": "border_radius",
+					"label": "Border radius",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "text",
+					"id": "border_width",
+					"label": "Border width",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "Color Default"
+				},
+				{
+					"type": "color",
+					"id": "color",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "color",
+					"id": "background",
+					"label": "Background",
+					"default": "#fff"
+				},
+				{
+					"type": "color",
+					"id": "border_color",
+					"label": "Border color",
+					"default": "#fff"
+				},
+				{
+					"type": "header",
+					"content": "Color Hover"
+				},
+				{
+					"type": "color",
+					"id": "color_hover",
+					"label": "Color hover",
+					"default": "#fff"
+				},
+				{
+					"type": "color",
+					"id": "background_hover",
+					"label": "Background Hover",
+					"default": "#ed5d43"
+				},
+				{
+					"type": "color",
+					"id": "border_color_hover",
+					"label": "Border color hover",
+					"default": "#fff"
+				},
+				{
+					"type": "number",
+					"id": "font_size",
+					"label": "Font size",
+					"default": 15,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height",
+					"label": "Line height",
+					"default": 45,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight",
+					"label": "Font Weight",
+					"default": "400"
+				},
+				{
+					"type": "text",
+					"id": "padding",
+					"label": "Padding",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "text",
+					"id": "margin",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "Mobile ====================",
+					"info": "screen < 767px"
+				},
+				{
+					"type": "number",
+					"id": "font_size_mobi",
+					"label": "Font size",
+					"default": 15,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_mobi",
+					"label": "Line height",
+					"default": 15,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing_mobi",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "font_icon_mobi",
+					"label": "Font size icon",
+					"default": 14,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "margin_icon_mobi",
+					"label": "Position icon",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "checkbox",
+					"id": "border_mobi",
+					"label": "Turn on border",
+					"default": false
+				},
+				{
+					"type": "text",
+					"id": "border_radius_mobi",
+					"label": "Border radius",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "text",
+					"id": "border_width_mobi",
+					"label": "Border width",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "Color Default"
+				},
+				{
+					"type": "color",
+					"id": "color_mobi",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "color",
+					"id": "background_mobi",
+					"label": "Background",
+					"default": "#fff"
+				},
+				{
+					"type": "color",
+					"id": "border_color_mobi",
+					"label": "Border color",
+					"default": "#fff"
+				},
+				{
+					"type": "header",
+					"content": "Color Hover"
+				},
+				{
+					"type": "color",
+					"id": "color_hover_mobi",
+					"label": "Color hover",
+					"default": "#fff"
+				},
+				{
+					"type": "color",
+					"id": "background_hover_mobi",
+					"label": "Background Hover",
+					"default": "#ed5d43"
+				},
+				{
+					"type": "color",
+					"id": "border_color_hover_mobi",
+					"label": "Border color hover",
+					"default": "#fff"
+				},
+				{
+					"type": "text",
+					"id": "padding_mobi",
+					"label": "Padding",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "text",
+					"id": "margin_mobi",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "About Banner",
+			"category": "2.Banner",
+			"blocks": [
+				{
+					"type": "image"
+				},
+				{
+					"type": "image"
+				},
+				{
+					"type": "image"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

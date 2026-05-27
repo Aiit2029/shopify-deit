@@ -1,0 +1,37 @@
+{% schema %}
+{
+  "name": "Metafield Code Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "metafield_key",
+      "label": "Metafield path (namespace.key)",
+      "default": "custom.custom_code"
+    },
+    {
+      "type": "text",
+      "id": "fallback_text",
+      "label": "Fallback text",
+      "default": "No custom content"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Metafield Code Section"
+    }
+  ]
+}
+{% endschema %}
+
+{% assign metafield_path = section.settings.metafield_key | split: '.' %}
+{% assign namespace = metafield_path | first %}
+{% assign key = metafield_path | last %}
+{% assign meta_content = product.metafields[namespace][key] %}
+
+<section class="metafield-code-section">
+  {% if meta_content and meta_content != blank %}
+    {{ meta_content | raw }} 
+  {% else %}
+    <p>{{ section.settings.fallback_text }}</p>
+  {% endif %}
+</section>

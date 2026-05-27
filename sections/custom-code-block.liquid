@@ -1,0 +1,22 @@
+{% schema %}
+{
+  "name": "Custom Code Block",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "custom_code",
+      "label": "Custom Code (HTML / CSS / JS)",
+      "default": "<div>在这里写自定义代码</div>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Code Block"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="custom-code-block">
+  {{ section.settings.custom_code }}
+</div>

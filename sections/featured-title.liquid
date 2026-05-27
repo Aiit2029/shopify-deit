@@ -1,0 +1,697 @@
+{{ 'css-section-title.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.fullwidth -%}
+	{%- assign container = 'container-full' -%}
+{%- elsif section.settings.max_width != blank -%}
+	{%- assign container = 'bwp-container' -%}
+{%- else -%}
+	{%- assign container = 'container' -%}
+{%- endif -%}
+
+{%- assign max_width = '' -%}
+{%- if section.settings.fullwidth == blank and section.settings.max_width != blank -%}
+	{%- assign width_container = section.settings.max_width | plus: 0 -%}
+	{%- capture max_width -%}style="max-width: {{ section.settings.max_width }};"{%- endcapture -%}
+{%- endif -%}
+
+{% assign margin 	= section.settings.margin | split: "|" %}
+{% assign padding 	= section.settings.padding | split: "|" %}
+{%- style -%}
+	{%- if section.settings.color_bg != blank -%}
+		{%- if section.settings.width_bg == 'full' -%}
+			#shopify-section-{{ section.id }}{
+				background:{{ section.settings.color_bg }};
+			}
+		{%- elsif section.settings.width_bg == 'container' -%}
+			#shopify-section-{{ section.id }} .wpbingo-section__inner{
+				background:{{ section.settings.color_bg }};
+				{%- if section.settings.padding_bg != blank -%}padding:{{ section.settings.padding_bg }};{%- endif -%}
+			}
+		{%- endif -%}
+	{%- endif -%}
+	{%- if margin[0] != blank or padding[0] != blank -%}
+		#shopify-section-{{ section.id }} .wpbingo-section--title-button{
+			{%- if margin[0] != blank -%}margin: {{ margin[0] }};{%- endif -%}
+			{%- if padding[0] != blank -%}padding:{{ padding[0] }};{%- endif -%}
+		}
+	{%- endif -%}
+	{%- if margin[1] != blank or padding[1] != blank -%}
+		@media (max-width:1200px){
+			#shopify-section-{{ section.id }} .wpbingo-section--title-button{
+				{%- if margin[1] != blank -%}margin: {{ margin[1] }};{%- endif -%}
+				{%- if padding[1] != blank -%}padding:{{ padding[1] }};{%- endif -%}
+			}
+		}
+	{%- endif -%}
+	{%- if margin[2] != blank or padding[2] != blank -%}
+		@media (max-width:991px){
+			#shopify-section-{{ section.id }} .wpbingo-section--title-button{
+				{%- if margin[2] != blank -%}margin: {{ margin[2] }};{%- endif -%}
+				{%- if padding[2] != blank -%}padding:{{ padding[2] }};{%- endif -%}
+			}
+		}
+	{%- endif -%}
+	{%- if margin[3] != blank or padding[3] != blank -%}
+		@media (max-width:767px){
+			#shopify-section-{{ section.id }} .wpbingo-section--title-button{
+				{%- if margin[3] != blank -%}margin: {{ margin[3] }};{%- endif -%}
+				{%- if padding[3] != blank -%}padding:{{ padding[3] }};{%- endif -%}
+			}
+		}
+	{%- endif -%}
+	{%- for block in section.blocks -%}
+		{%- case block.type -%}
+			{%- when 'title' -%}
+				#shopify-section-{{ section.id }} .wpbingo-section--title-button .heading-{{forloop.index}}{
+					font-size:{{ block.settings.font_size }}px;
+					line-height:{{ block.settings.line_height }}px;
+					font-weight:{{ block.settings.font_weight }};
+					letter-spacing:{{ block.settings.letter_spacing }}px;
+					margin:{{ block.settings.margin }};
+					color:{{ block.settings.color }};
+					text-align:{{ block.settings.align }};
+					{%- if block.settings.font != blank -%}
+						font-family:{{ block.settings.font }};
+					{%- endif -%}
+				}
+				#shopify-section-{{ section.id }} .wpbingo-section--title-button .content-title-{{forloop.index}}{
+					max-width:{{ block.settings.width }}%;
+					flex:0 0 {{ block.settings.width }}%;
+				}
+			{%- when 'button' -%}
+					#shopify-section-{{ section.id }} .wpbingo-section--title-button .button-{{forloop.index}}{
+						margin:{{ block.settings.margin }};
+						text-align:{{ block.settings.align }};
+					}
+					#shopify-section-{{ section.id }} .wpbingo-section--title-button .button-{{forloop.index}} a{
+						font-size:{{ block.settings.font_size }}px;
+						line-height:{{ block.settings.line_height }}px;
+						font-weight:{{ block.settings.font_weight }};
+						letter-spacing:{{ block.settings.letter_spacing }}px;
+						color:{{ block.settings.color }};
+						background:{{ block.settings.background }};
+						padding:{{ block.settings.padding }};
+						overflow:hidden;
+						border-radius:{{ block.settings.border_radius }};
+					}
+					{%- if block.settings.border -%}
+						#shopify-section-{{ section.id }} .wpbingo-section--title-button .button-{{forloop.index}} a{
+							border-width:{{ block.settings.border_width }};
+							border-color:{{ block.settings.border_color }};
+							border-style:solid;
+						}
+					{%- endif -%}
+					#shopify-section-{{ section.id }} .wpbingo-section--title-button .button-{{forloop.index}} a:hover{
+						color:{{ block.settings.color_hover }};
+						background:{{ block.settings.background_hover }};
+						border-color:{{ block.settings.border_color_hover }};
+					}
+					#shopify-section-{{ section.id }} .wpbingo-section--title-button .content-button-{{forloop.index}}{
+						max-width:{{ block.settings.width }}%;
+						flex:0 0 {{ block.settings.width }}%;
+					}
+					{%- unless block.settings.icon_title == blank -%}
+						#shopify-section-{{ section.id }} .wpbingo-section--title-button .button-{{forloop.index}} a i{
+							font-size:{{ block.settings.font_icon }}px;
+							top:{{ block.settings.margin_icon }}px;
+							position:relative;
+						}
+					{%- endunless -%}
+		{%- endcase -%}
+	{%- endfor -%}
+	@media (max-width:767px){
+		{%- for block in section.blocks -%}
+			{%- case block.type -%}
+				{%- when 'title' -%}
+					#shopify-section-{{ section.id }} .wpbingo-section--title-button .heading-{{forloop.index}}{
+						font-size:{{ block.settings.font_size_mobi }}px;
+						line-height:{{ block.settings.line_height_mobi }}px;
+						letter-spacing:{{ block.settings.letter_spacing_mobi }}px;
+						margin:{{ block.settings.margin_mobi }};
+						color:{{ block.settings.color_mobi }};
+						text-align:{{ block.settings.align_mobi }};
+					}
+					#shopify-section-{{ section.id }} .wpbingo-section--title-button .content-title-{{forloop.index}}{
+						max-width:{{ block.settings.width_mobi }}%;
+						flex:0 0 {{ block.settings.width_mobi }}%;
+					}
+				{%- when 'button' -%}
+					#shopify-section-{{ section.id }} .wpbingo-section--title-button .button-{{forloop.index}}{
+						margin:{{ block.settings.margin_mobi }};
+						text-align:{{ block.settings.align_mobi }};
+					}
+					#shopify-section-{{ section.id }} .wpbingo-section--title-button .button-{{forloop.index}} a{
+						font-size:{{ block.settings.font_size_mobi }}px;
+						line-height:{{ block.settings.line_height_mobi }}px;
+						letter-spacing:{{ block.settings.letter_spacing_mobi }}px;
+						padding:{{ block.settings.padding_mobi }};
+						color:{{ block.settings.color_mobi }};
+						background:{{ block.settings.background_mobi }};
+						border-radius:{{ block.settings.border_radius_mobi }};
+					}
+					{%- if block.settings.border_mobi -%}
+						#shopify-section-{{ section.id }} .wpbingo-section--title-button .button-{{forloop.index}} a{
+							border-width:{{ block.settings.border_width_mobi }};
+							border-color:{{ block.settings.border_color_mobi }};
+							border-style:solid;
+						}
+					{%- endif -%}
+					#shopify-section-{{ section.id }} .wpbingo-section--title-button .button-{{forloop.index}} a:hover{
+						color:{{ block.settings.color_hover_mobi }};
+						background:{{ block.settings.background_hover_mobi }};
+						border-color:{{ block.settings.border_color_hover_mobi }};
+					}
+					#shopify-section-{{ section.id }} .wpbingo-section--title-button .content-button-{{forloop.index}}{
+						max-width:{{ block.settings.width_mobi }}%;
+						flex:0 0 {{ block.settings.width_mobi }}%;
+					}
+					{%- unless block.settings.icon_title == blank -%}
+						#shopify-section-{{ section.id }} .wpbingo-section--title-button .button-{{forloop.index}} a i{
+							font-size:{{ block.settings.font_icon_mobi }}px;
+							top:{{ block.settings.margin_icon_mobi }}px;
+						}
+					{%- endunless -%}
+			{%- endcase -%}
+		{%- endfor -%}
+	}
+{%- endstyle -%}
+
+<section class="wpbingo-section wpbingo-section--title-button wpbingo-section--{{ section.id }} overflow-hidden">
+	<div class="{{ container }}" {{ max_width }}>
+		<div class="wpbingo-section__inner">
+			{%- for block in section.blocks -%}
+				{%- case block.type -%}
+					{%- when 'title' -%}
+						{%- unless block.settings.title == blank -%}
+							<div class="content-info content-title-{{forloop.index}}">
+								<h2 class="wpbingo-title heading-{{forloop.index}}">
+									{{ block.settings.title }}
+								</h2>
+							</div>
+						{%- endunless -%}
+					{%- when 'button' -%}
+						{%- unless block.settings.title == blank -%}
+							<div class="content-info content-button-{{forloop.index}}">
+								<div class="wpbingo-button  button-{{forloop.index}}" >
+									<a class="bwp-button" href="{{ block.settings.button_link }}">
+										{{ block.settings.title }}
+										{%- unless block.settings.icon_title == blank -%}
+											<i class="{{ block.settings.icon_title }}"></i>
+										{%- endunless -%}
+									</a>
+								</div>
+							</div>
+						{%- endunless -%}
+				{%- endcase -%}
+			{%- endfor -%}
+		</div>
+	</div>
+</section>
+
+{% schema %}
+{
+	"name": "Title",
+	"class": "wpbingo-framework",
+	"settings": [
+		{
+			"type": "header",
+			"content": "Layout settings"
+		},
+		{
+			"type": "text",
+			"id": "max_width",
+			"label": "Width container",
+			"info": "Default: 1440px"
+		},
+		{
+			"type": "checkbox",
+			"id": "fullwidth",
+			"label": "Fullwidth"
+		},
+		{
+			"type": "text",
+			"id": "padding",
+			"label": "Padding",
+			"placeholder": "0px 0px 0px 0px",
+			"info":"Screen: desktop | 1200px | 991px | 767px"
+		},
+		{
+			"type": "text",
+			"id": "margin",
+			"label": "Margin",
+			"placeholder": "0px 0px 0px 0px",
+			"info":"Screen: desktop | 1200px | 991px | 767px"
+		},
+		{
+			"type": "color",
+			"id": "color_bg",
+			"label": "Background Color"
+		},
+		{
+			"type": "select",
+			"id": "width_bg",
+			"label": "Width Background",
+			"options": [
+				{
+					"value": "container",
+					"label": "Container"
+				},
+				{
+					"value": "full",
+					"label": "Full"
+				}
+			],
+			"default": "container"
+		},
+		{
+			"type": "text",
+			"id": "padding_bg",
+			"label": "Padding content background",
+			"placeholder": "0px 0px 0px 0px",
+			"info":"top right bottom left"
+		}
+	],
+	"blocks": [
+		{
+			"type": "@app"
+		},
+		{
+			"type": "title",
+			"name": "Title",
+			"settings": [
+				{
+					"type": "textarea",
+					"id": "title",
+					"label": "Heading",
+					"default": "Heading"
+				},
+				{
+					"type": "text",
+					"id": "font",
+					"label": "Font family"
+				},
+				{
+					"type": "color",
+					"id": "color",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size",
+					"label": "Font size",
+					"default": 30,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height",
+					"label": "Line height",
+					"default": 35,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight",
+					"label": "Font Weight",
+					"default": "500"
+				},
+				{
+					"type": "text",
+					"id": "margin",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "text_alignment",
+					"id": "align",
+					"label": "Text align",
+					"default": "left"
+				},
+				{
+					"type": "number",
+					"id": "width",
+					"label": "Width",
+					"default": 100,
+					"info": "%"
+				},
+				{
+					"type": "header",
+					"content": "Mobile ====================",
+					"info": "screen < 767px"
+				},
+				{
+					"type": "color",
+					"id": "color_mobi",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size_mobi",
+					"label": "Font size",
+					"default": 20,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_mobi",
+					"label": "Line height",
+					"default": 20,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing_mobi",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "margin_mobi",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "text_alignment",
+					"id": "align_mobi",
+					"label": "Text align",
+					"default": "left"
+				},
+				{
+					"type": "number",
+					"id": "width_mobi",
+					"label": "Width mobile",
+					"default": 100,
+					"info": "%"
+				}
+			]
+		},
+		{
+			"type": "button",
+			"name": "Button",
+			"settings": [
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Label",
+					"default": "Shop now"
+				},
+				{
+					"type": "text",
+					"id": "icon_title",
+					"label": "Icon title"
+				},
+				{
+					"type": "number",
+					"id": "font_icon",
+					"label": "Font size icon",
+					"default": 14,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "margin_icon",
+					"label": "Position icon",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "url",
+					"id": "button_link",
+					"label": "Url button"
+				},
+				{
+					"type": "text",
+					"id": "border_radius",
+					"label": "Border radius",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "checkbox",
+					"id": "border",
+					"label": "Turn on border",
+					"default": false
+				},
+				{
+					"type": "text",
+					"id": "border_width",
+					"label": "Border width",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "Color Default"
+				},
+				{
+					"type": "color",
+					"id": "color",
+					"label": "color",
+					"default": "#fff"
+				},
+				{
+					"type": "color",
+					"id": "background",
+					"label": "Background",
+					"default": "#ed5d43"
+				},
+				{
+					"type": "color",
+					"id": "border_color",
+					"label": "Border color",
+					"default": "#fff"
+				},
+				{
+					"type": "header",
+					"content": "Color Hover"
+				},
+				{
+					"type": "color",
+					"id": "color_hover",
+					"label": "Color hover",
+					"default": "#fff"
+				},
+				{
+					"type": "color",
+					"id": "background_hover",
+					"label": "Background Hover",
+					"default": "#ed5d43"
+				},
+				{
+					"type": "color",
+					"id": "border_color_hover",
+					"label": "Border color hover",
+					"default": "#fff"
+				},
+				{
+					"type": "number",
+					"id": "font_size",
+					"label": "Font size",
+					"default": 14,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height",
+					"label": "Line height",
+					"default": 20,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight",
+					"label": "Font Weight",
+					"default": "500"
+				},
+				{
+					"type": "text",
+					"id": "padding",
+					"label": "Padding",
+					"default": "10px 20px 10px 20px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "text",
+					"id": "margin",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "text_alignment",
+					"id": "align",
+					"label": "Text align",
+					"default": "left"
+				},
+				{
+					"type": "number",
+					"id": "width",
+					"label": "Width",
+					"default": 100,
+					"info": "%"
+				},
+				{
+					"type": "header",
+					"content": "Mobile ====================",
+					"info": "screen < 767px"
+				},
+				{
+					"type": "number",
+					"id": "font_size_mobi",
+					"label": "Font size",
+					"default": 14,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "font_icon_mobi",
+					"label": "Font size icon",
+					"default": 14,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "margin_icon_mobi",
+					"label": "Position icon",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height_mobi",
+					"label": "Line height",
+					"default": 20,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing_mobi",
+					"label": "Letter spacing",
+					"default": 0,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "border_radius_mobi",
+					"label": "Border radius",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "checkbox",
+					"id": "border_mobi",
+					"label": "Turn on border",
+					"default": false
+				},
+				{
+					"type": "text",
+					"id": "border_width_mobi",
+					"label": "Border width",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "Color Default"
+				},
+				{
+					"type": "color",
+					"id": "color_mobi",
+					"label": "color",
+					"default": "#fff"
+				},
+				{
+					"type": "color",
+					"id": "background_mobi",
+					"label": "Background",
+					"default": "#ed5d43"
+				},
+				{
+					"type": "color",
+					"id": "border_color_mobi",
+					"label": "Border color",
+					"default": "#fff"
+				},
+				{
+					"type": "header",
+					"content": "Color Hover"
+				},
+				{
+					"type": "color",
+					"id": "color_hover_mobi",
+					"label": "Color hover",
+					"default": "#fff"
+				},
+				{
+					"type": "color",
+					"id": "background_hover_mobi",
+					"label": "Background Hover",
+					"default": "#ed5d43"
+				},
+				{
+					"type": "color",
+					"id": "border_color_hover_mobi",
+					"label": "Border color hover",
+					"default": "#fff"
+				},
+				{
+					"type": "text",
+					"id": "padding_mobi",
+					"label": "Padding",
+					"default": "10px 20px 10px 20px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "text",
+					"id": "margin_mobi",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "text_alignment",
+					"id": "align_mobi",
+					"label": "Text align",
+					"default": "left"
+				},
+				{
+					"type": "number",
+					"id": "width_mobi",
+					"label": "Width mobile",
+					"default": 100,
+					"info": "%"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Title",
+			"category": "1. Title",
+			"blocks": [
+				{
+					"type": "title"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

@@ -1,0 +1,54 @@
+{%- assign  current_handle= collection.handle -%}
+{%- assign  index = 0 -%}
+<div class="facets__display">
+	<ul>
+		{% for link in linklists[section.settings.categories_menu].links %}
+			{%- assign  index = index | plus: 1 -%}
+			{%- for collection in collections -%}
+				{%- if collection.handle == link.handle -%}
+					<li{% if current_handle != blank and current_handle == collection.handle %} class="active" {% endif %}{% if index > settings.count_items and settings.style_view_items == 'viewmore' %} style="display:none"{% endif %}>
+						<div class="link-collection">
+							<a href="{{ link.url }}" title="{{ link.title | escape }}">
+								<label class="name">{{ link.title }}{% if show_count %} <span>{{ collection.products_count }}</span>{% endif %}</label>
+							</a>
+							{%- if link.links != blank -%}<div class="toggle_collection-children"><i class="bwp-icon-plus"></i></div>{%- endif -%}
+						</div>
+						{%- if link.links != blank -%}
+							<ul class="collection-children">
+								{%- for link1 in link.links -%}
+									{%- for collection in collections -%}
+										{%- if collection.handle == link1.handle -%}
+											<li{% if current_handle != blank and current_handle == collection.handle %} class="active" {% endif %}>
+												<div class="link-collection">
+													<a href="{{ link1.url }}" title="{{ link1.title | escape }}">
+														<label class="name">{{ link1.title }}{% if show_count %} <span>{{ collection.products_count }}</span>{% endif %}</label>
+													</a>
+													{%- if link1.links != blank -%}<div class="toggle_collection-children"><i class="bwp-icon-plus"></i></div>{%- endif -%}
+												</div>
+												{%- if link1.links != blank -%}
+													<ul class="collection-children">
+														{%- for link2 in link1.links -%}
+															{%- for collection in collections -%}
+																{%- if collection.handle == link2.handle -%}
+																	<li{% if current_handle != blank and current_handle == collection.handle %} class="active" {% endif %}>
+																		<a href="{{ link2.url }}" title="{{ link2.title | escape }}">
+																			<label class="name">{{ link2.title }}{% if show_count %} <span>{{ collection.products_count }}</span>{% endif %}</label>
+																		</a>
+																	</li>
+																{%- endif -%}
+															{% endfor %}
+														{% endfor %}
+													</ul>
+												{%- endif -%}
+											</li>
+										{%- endif -%}
+									{% endfor %}
+								{% endfor %}
+							</ul>
+						{%- endif -%}
+					</li>
+				{%- endif -%}
+			{% endfor %}
+		{%- endfor -%}
+	</ul>
+</div>

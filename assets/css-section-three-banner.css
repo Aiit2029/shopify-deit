@@ -1,0 +1,84 @@
+.wpbingo-section--three-banner {
+  text-align: center;
+}
+.wpbingo-section--three-banner .group-banner {
+  display: flex;
+  flex-wrap: wrap;
+}
+.wpbingo-section--three-banner .group-banner > div {
+  display: flex;
+  flex-direction: column;
+}
+.wpbingo-section--three-banner .banner-2 {
+  max-width: calc(33.33% + 40px);
+  flex: 0 0 calc(33.33% + 40px);
+  padding: 0 30px;
+}
+.wpbingo-section--three-banner .banner-1, .wpbingo-section--three-banner .banner-3 {
+  max-width: calc(33.33% - 20px);
+  flex: 0 0 calc(33.33% - 20px);
+}
+.wpbingo-section--three-banner .bwp-button {
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+  border: 0;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+.wpbingo-section--three-banner .bwp-button:before {
+  position: absolute;
+  right: 0;
+  content: "";
+  height: 100%;
+  width: 0;
+  top: 0;
+  z-index: -1;
+}
+.wpbingo-section--three-banner .bwp-button:hover:before {
+  width: 100%;
+}
+.wpbingo-section--three-banner .info {
+  padding: 15px;
+}
+.wpbingo-section--three-banner .info .content {
+  max-width: 385px;
+  margin: auto;
+}
+.wpbingo-section--three-banner .banner-wrapper-infor {
+  flex: 1;
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wpbingo-section--three-banner .banner-3 .banner-wrapper-infor {
+  margin: 0 0 30px;
+}
+@media (max-width: 1199px) {
+	.wpbingo-section--three-banner .banner-2 {
+    padding: 0 15px;
+  }
+  .wpbingo-section--three-banner .banner-wrapper-infor {
+    margin-top: 15px;
+  }
+  .wpbingo-section--three-banner .banner-3 .banner-wrapper-infor {
+    margin: 0 0 15px;
+  }
+}
+@media (max-width: 767px) {
+	.wpbingo-section--three-banner .banner-1, .wpbingo-section--three-banner .banner-2, .wpbingo-section--three-banner .banner-3 {
+    max-width: 100%;
+    flex: 100%;
+    padding: 0 15px;
+  }
+  .wpbingo-section--three-banner .banner-1 .banner-wrapper-infor {
+    margin: 0 0 15px;
+  }
+  .wpbingo-section--three-banner .banner-3 .banner-wrapper-infor {
+    margin: 15px 0 0;
+  }
+  .wpbingo-section--three-banner .info {
+    padding: 40px 15px;
+  }
+}

@@ -1,0 +1,54 @@
+.wpbingo-section--background .wpbingo-section__content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0 -15px;
+}
+.wpbingo-section--background .wpbingo-section__content > div {
+  max-width: 50%;
+  flex: 0 0 50%;
+  padding: 0 15px;
+}
+.wpbingo-section--background .wpbingo-sub-btn a {
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+  border: 0;
+  text-transform: revert;
+  transition: all .3s ease;
+}
+.wpbingo-section--background .wpbingo-sub-btn a:before {
+  position: absolute;
+  right: 0;
+  content: "";
+  height: 100%;
+  width: 0;
+  top: 0;
+  z-index: -1;
+  transition: all .3s ease;
+}
+.wpbingo-section--background .wpbingo-sub-btn a:hover:before {
+  width: 100%;
+  left: 0;
+}
+.wpbingo-section--background .wpbingo-sub-btn a i {
+  right: 2px;
+  transition: all .3s ease;
+}
+.wpbingo-section--background .wpbingo-sub-btn a:hover i {
+  right: -3px;
+}
+@media (max-width: 1199px) {
+  .wpbingo-section--background .wpbingo-section__content {
+    margin: 0 -7.5px;
+  }
+  .wpbingo-section--background .wpbingo-section__content > div {
+    padding: 0 7.5px;
+  }
+}
+@media (max-width: 767px) {
+  .wpbingo-section--background .wpbingo-section__content > div {
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+}

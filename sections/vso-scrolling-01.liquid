@@ -1,0 +1,293 @@
+{% comment %}
+WARNING: UNAUTHORIZED MODIFICATION PROHIBITED
+This code is proprietary property of Versio Studio. Any unauthorized tampering, 
+alteration, or distribution of this file is strictly forbidden and will be prosecuted to the maximum extent permitted by law.
+All modifications are logged.
+
+If you require assistance or have questions regarding this code, please contact support@versio.studio.
+{% endcomment %}
+
+{%- liquid
+  assign heading                    = section.settings.heading
+  assign heading_font_size_desktop  = section.settings.heading_font_size_desktop
+  assign heading_font_size_mobile   = section.settings.heading_font_size_mobile
+  assign heading_color              = section.settings.heading_color
+  assign heading_custom            = section.settings.heading_custom
+  assign heading_font              = section.settings.heading_font
+  assign heading_font_weight       = section.settings.heading_font_weight
+
+  assign sub_heading                = section.settings.sub_heading
+  assign subheading_font_size_desktop = section.settings.subheading_font_size_desktop
+  assign subheading_font_size_mobile  = section.settings.subheading_font_size_mobile
+  assign subheading_color           = section.settings.subheading_color
+  assign subheading_font_weight     = section.settings.subheading_font_weight
+
+  assign description                = section.settings.description
+  assign description_font_size_desktop = section.settings.description_font_size_desktop
+  assign description_font_size_mobile  = section.settings.description_font_size_mobile
+  assign description_color          = section.settings.description_color
+  assign description_font_weight    = section.settings.description_font_weight
+
+  assign header_row_gap             = section.settings.header_row_gap
+  assign header_bottom_margin       = section.settings.header_bottom_margin
+  assign alignment                  = section.settings.alignment
+  assign top_button_label           = section.settings.top_button_label
+  assign top_button_link            = section.settings.top_button_link
+
+  assign pause_on_hover             = section.settings.pause_on_hover
+  assign speed                      = section.settings.speed
+  assign image_height               = section.settings.image_height
+  assign image_gap                  = section.settings.image_gap
+  assign image_border_radius        = section.settings.image_border_radius
+  assign enable_fade_effect         = section.settings.enable_fade_effect
+  assign fade_color                 = section.settings.fade_color
+
+  assign background_image           = section.settings.background_image
+  assign section_full_width         = section.settings.section_full_width
+  assign section_max_width          = section.settings.section_max_width
+  assign padding_desktop            = section.settings.padding_desktop
+  assign padding_tablet_mobile      = section.settings.padding_tablet_mobile
+  assign margin_desktop             = section.settings.margin_desktop
+  assign margin_bottom_desktop      = section.settings.margin_bottom_desktop
+  assign margin_tablet_mobile       = section.settings.margin_tablet_mobile
+  assign margin_bottom_tablet_mobile = section.settings.margin_bottom_tablet_mobile
+
+  assign background_color           = section.settings.background_color
+  assign background_gradient_color  = section.settings.background_gradient_color
+  assign foreground_color           = section.settings.foreground_color
+  assign button_background_color    = section.settings.button_background_color
+  assign button_text_color          = section.settings.button_text_color
+
+  assign input_button_radius        = section.settings.input_button_radius
+
+-%}
+
+{%- style -%}
+#shopify-section-{{ section.id }} *,
+#shopify-section-{{ section.id }} *::after,
+#shopify-section-{{ section.id }} *::before {
+  box-sizing: border-box;
+}
+
+#shopify-section-{{ section.id }} {
+  --heading-font-size-desktop: {{ heading_font_size_desktop }}px;
+  --heading-font-size-mobile:  {{ heading_font_size_mobile }}px;
+  --heading-font-weight: {{ heading_font_weight }};
+  --subheading-font-size-desktop: {{ subheading_font_size_desktop }}px;
+  --subheading-font-size-mobile:  {{ subheading_font_size_mobile }}px;
+  --subheading-font-weight: {{ subheading_font_weight }};
+  --description-font-size-desktop: {{ description_font_size_desktop }}px;
+  --description-font-size-mobile:  {{ description_font_size_mobile }}px;
+  --description-font-weight: {{ description_font_weight }};
+}
+
+@media(min-width:768px){
+  #shopify-section-{{ section.id }} .versio-section-header_title{font-size:var(--heading-font-size-desktop)}
+  #shopify-section-{{ section.id }} .versio-section-header_sub-heading{font-size:var(--subheading-font-size-desktop)}
+  #shopify-section-{{ section.id }} .versio-section-header_description{font-size:var(--description-font-size-desktop)}
+}
+@media(max-width:767px){
+  #shopify-section-{{ section.id }} .versio-section-header_title{font-size:var(--heading-font-size-mobile)}
+  #shopify-section-{{ section.id }} .versio-section-header_sub-heading{font-size:var(--subheading-font-size-mobile)}
+  #shopify-section-{{ section.id }} .versio-section-header_description{font-size:var(--description-font-size-mobile)}
+}
+
+#shopify-section-{{ section.id }}{ --fade-color: {{ fade_color }}; --show-fade-effect: {% if enable_fade_effect %}block{% else %}none{% endif %}; }
+#shopify-section-{{ section.id }} .versio-section_container{background-size:cover!important;background-position:center!important;background-attachment:unset!important}
+
+{% if background_image != blank %}
+#shopify-section-{{ section.id }} .versio-section_container{background-image:url('{{ background_image | image_url }}')}
+{% endif %}
+
+{% unless section_full_width %}
+#shopify-section-{{ section.id }} .versio-section_container{max-width:{{ section_max_width }}rem}
+{% endunless %}
+
+@media(min-width:1280px){
+  #shopify-section-{{ section.id }} .versio-section_container{padding:{{ padding_desktop }}px 0}
+  #shopify-section-{{ section.id }}{margin-top:{{ margin_desktop }}px;margin-bottom:{{ margin_bottom_desktop }}px}
+}
+@media(max-width:1279px){
+  #shopify-section-{{ section.id }} .versio-section_container{padding:{{ padding_tablet_mobile }}px 0}
+  #shopify-section-{{ section.id }}{margin-top:{{ margin_tablet_mobile }}px;margin-bottom:{{ margin_bottom_tablet_mobile }}px}
+}
+
+#shopify-section-{{ section.id }} .versio-section_align-center{text-align:center;align-items:center;justify-content:center}
+#shopify-section-{{ section.id }} .versio-section-header{display:flex;flex-direction:column;row-gap:{{ header_row_gap }}px;margin-bottom:{{ header_bottom_margin }}px}
+#shopify-section-{{ section.id }} .versio-section-header_description{max-width:900px}
+#shopify-section-{{ section.id }} .versio-section-header_description>*{margin:0 0 10px;padding:0}
+#shopify-section-{{ section.id }} .versio-section-header_description>*:last-child{margin-bottom:0}
+#shopify-section-{{ section.id }} .versio-section-header>.versio-section-header_sub-heading+.versio-section-header_heading{margin-top:-5px}
+#shopify-section-{{ section.id }} .versio-section-header_button{margin-top:10px}
+#shopify-section-{{ section.id }} .versio-section-header_button>.versio-button,
+.versio-section-footer>.button{min-width:160px}
+
+#shopify-section-{{ section.id }} .versio-scrolling-badges>.marquee{width:100%;overflow:hidden;white-space:nowrap;padding:1rem 0;position:relative}
+#shopify-section-{{ section.id }} .versio-scrolling-badges>.marquee::before,
+#shopify-section-{{ section.id }} .versio-scrolling-badges>.marquee::after{content:"";position:absolute;top:0;width:10%;height:100%;z-index:2;pointer-events:none;display:var(--show-fade-effect)}
+#shopify-section-{{ section.id }} .versio-scrolling-badges>.marquee::before{left:0;background:linear-gradient(to right,var(--fade-color),transparent)}
+#shopify-section-{{ section.id }} .versio-scrolling-badges>.marquee::after{right:0;background:linear-gradient(to left,var(--fade-color),transparent)}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+#shopify-section-{{ section.id }} .versio-scrolling-badges>.marquee:hover>.marquee__item{animation-play-state:{% if pause_on_hover %}paused{% else %}running{% endif %}}
+#shopify-section-{{ section.id }} .versio-scrolling-badges>.marquee>.marquee__item{display:inline-block;will-change:transform;animation:marquee {{ speed }}s linear infinite;display:inline-flex!important;flex-direction:row;align-items:center}
+#shopify-section-{{ section.id }} .versio-scrolling-badges>.marquee>.marquee__item>.marquee__content{display:inline-flex!important;flex-direction:row;align-items:center;margin:0 {{ image_gap }}px}
+#shopify-section-{{ section.id }} .versio-scrolling-badges>.marquee>.marquee__item>.marquee__content>.marquee-image-wrapper{display:inline-flex!important;flex-direction:row;align-items:center;height:{{ image_height }}px;width:auto}
+#shopify-section-{{ section.id }} .versio-scrolling-badges>.marquee>.marquee__item>.marquee__content>.marquee-image-wrapper>img{width:auto;max-height:100%;object-fit:cover;border-radius:{{ image_border_radius }}px}
+
+#shopify-section-{{ section.id }}{--versio-section-background-color:{{ background_color.red }},{{ background_color.green }},{{ background_color.blue }};--versio-section-gradient-background-color:{% if background_gradient_color != blank %}{{ background_gradient_color }}{% else %}{{ background_color }}{% endif %};--versio-section-foreground-color:{{ foreground_color.red }},{{ foreground_color.green }},{{ foreground_color.blue }};--heading-color:{{ heading_color.red }},{{ heading_color.green }},{{ heading_color.blue }};--subheading-color:{{ subheading_color.red }},{{ subheading_color.green }},{{ subheading_color.blue }};--description-color:{{ description_color.red }},{{ description_color.green }},{{ description_color.blue }};--versio-section-button-background-color:{{ button_background_color.red }},{{ button_background_color.green }},{{ button_background_color.blue }};--versio-section-button-text-color:{{ button_text_color.red }},{{ button_text_color.green }},{{ button_text_color.blue }};--versio-input-button-radius:{{ input_button_radius }}px}
+
+#shopify-section-{{ section.id }}>.versio-section_container>.versio-section_content>.versio-section-header>.versio-section-header_title{color:rgb(var(--heading-color))}
+#shopify-section-{{ section.id }}>.versio-section_container>.versio-section_content>.versio-section-header>.versio-section-header_sub-heading{color:rgb(var(--subheading-color))}
+#shopify-section-{{ section.id }}>.versio-section_container>.versio-section_content>.versio-section-header>.versio-section-header_description{color:rgb(var(--description-color))}
+
+{% if background_color != blank %}
+#shopify-section-{{ section.id }}>.versio-section_container{background:rgb(var(--versio-section-background-color))}
+{% if background_gradient_color != blank %}
+#shopify-section-{{ section.id }}>.versio-section_container{background:var(--versio-section-gradient-background-color)}
+{% endif %}
+#shopify-section-{{ section.id }}>.versio-section_container>.versio-section_content .versio-section__foreground--color{color:rgb(var(--versio-section-foreground-color))}
+#shopify-section-{{ section.id }}>.versio-section_container>.versio-section_content>.versio-section-header>.versio-section-header_button>.versio-button__primary{cursor:pointer;display:inline-block;font-size:inherit;text-decoration:none!important;outline:none!important;box-shadow:none!important;border-radius:var(--versio-input-button-radius);border:none!important;padding:1.1rem 3rem;background-color:rgb(var(--versio-section-button-background-color));color:rgb(var(--versio-section-button-text-color))}
+{% endif %}
+
+.vso-node{display:none}
+.vso-node--v2{display:block}
+
+{{ heading_font | font_face: font_display: 'swap' }}
+
+#shopify-section-{{ section.id }} .versio-section-header_title{font-weight:var(--heading-font-weight)}
+#shopify-section-{{ section.id }} .versio-section-header_sub-heading{font-weight:var(--subheading-font-weight)}
+#shopify-section-{{ section.id }} .versio-section-header_description{font-weight:var(--description-font-weight)}
+
+{%- endstyle -%}
+
+{% if heading_custom %}
+  <style>
+    #shopify-section-{{ section.id }} .versio-section-header_title {
+      font-family: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+      font-style: {{ heading_font.style }};
+    }
+  </style>
+{% endif %}
+
+<div class="vso-node versio-section_container color-{{ section.settings.color_scheme }} gradient">
+  <div class="versio-section_content" style="padding-left:0;padding-right:0;">
+    {% unless sub_heading == blank and heading == blank and description == blank and top_button_label == blank %}
+      <div class="versio-section-header versio-section_align-{{ alignment }}">
+        {% unless sub_heading == blank %}<h3 class="versio-section-header_sub-heading">{{ sub_heading }}</h3>{% endunless %}
+        {% unless heading == blank %}
+          <div class="versio-section-header_heading"><h2 class="versio-section-header_title">{{ heading }}</h2></div>
+        {% endunless %}
+        {% unless description == blank %}<p class="versio-section-header_description">{{ description }}</p>{% endunless %}
+        {% unless top_button_label == blank %}
+          <div class="versio-section-header_button">
+            <a class="versio-button versio-button__primary" href="{{ top_button_link | default: '#' }}" {% assign mtm_link = top_button_link %}{% if mtm_link contains 'http' %}{% unless mtm_link contains shop.domain %} rel="nofollow"{% endunless %}{% endif %}>
+              <span>{{ top_button_label }}</span>
+            </a>
+          </div>
+        {% endunless %}
+      </div>
+    {% endunless %}
+
+    <div class="versio-section-body">
+      <div class="versio-scrolling-badges" style="--image-height:{{ image_height }}px;--image-gap:{{ image_gap }}px;--speed_marquee:{{ speed }}s;--pause_on_hover:{% if pause_on_hover %}paused{% else %}running{% endif %}">
+        <div class="marquee">
+          {% capture marquee_comp %}
+          <div class="marquee__item">
+            {% for i in (1..6) %}
+              {% for block in section.blocks %}
+                <div class="marquee__content">
+                  {% if block.settings.image %}
+                    <div class="marquee-image-wrapper">
+                      {{ block.settings.image | image_url: height: 200 | image_tag: sizes: '100vw', widths: '375', loading: 'lazy', alt: shop.name }}
+                    </div>
+                  {% endif %}
+                </div>
+              {% endfor %}
+            {% endfor %}
+          </div>
+          {% endcapture %}
+          {{ marquee_comp }}{{ marquee_comp }}{{ marquee_comp }}{{ marquee_comp }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const sectionId = '{{ section.id }}';
+  const outer = document.getElementById('shopify-section-' + sectionId);
+  if(outer){
+    outer.classList.toggle('section--full-width', {{ section.settings.section_full_width | json }});
+    outer.classList.toggle('section--page-width', !{{ section.settings.section_full_width | json }});
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "VSO - Scroll 01",
+  "class": "section versio-section",
+  "tag": "section",
+  "disabled_on": {"groups": ["header", "footer"]},
+  "settings": [
+    {"type": "header", "content": "Section header"},
+    {"type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Heading"},
+    {"type": "checkbox", "id": "heading_custom", "label": "Use custom font", "default": false},
+    {"type": "font_picker", "id": "heading_font", "label": "Heading font family", "default": "josefin_sans_n4"},
+    {"type": "range", "id": "heading_font_size_desktop", "label": "Heading size - Desktop", "min": 16, "max": 72, "step": 1, "unit": "px", "default": 42},
+    {"type": "range", "id": "heading_font_size_mobile", "label": "Heading size - Mobile", "min": 14, "max": 48, "step": 1, "unit": "px", "default": 30},
+    {"type": "range", "id": "heading_font_weight", "label": "Heading font weight", "min": 100, "max": 900, "step": 100, "default": 700},
+    {"type": "color", "id": "heading_color", "label": "Heading color", "default": "#000000"},
+    {"type": "inline_richtext", "id": "sub_heading", "label": "Sub-heading"},
+    {"type": "range", "id": "subheading_font_size_desktop", "label": "Sub-heading size - Desktop", "min": 14, "max": 48, "step": 1, "unit": "px", "default": 18},
+    {"type": "range", "id": "subheading_font_size_mobile", "label": "Sub-heading size - Mobile", "min": 12, "max": 36, "step": 1, "unit": "px", "default": 16},
+    {"type": "range", "id": "subheading_font_weight", "label": "Sub-heading font weight", "min": 100, "max": 900, "step": 100, "default": 600},
+    {"type": "color", "id": "subheading_color", "label": "Sub-heading color", "default": "#4A4A4A"},
+    {"type": "inline_richtext", "id": "description", "label": "Description"},
+    {"type": "range", "id": "description_font_size_desktop", "label": "Description size - Desktop", "min": 12, "max": 32, "step": 1, "unit": "px", "default": 16},
+    {"type": "range", "id": "description_font_size_mobile", "label": "Description size - Mobile", "min": 11, "max": 24, "step": 1, "unit": "px", "default": 14},
+    {"type": "range", "id": "description_font_weight", "label": "Description font weight", "min": 100, "max": 900, "step": 100, "default": 400},
+    {"type": "color", "id": "description_color", "label": "Description color", "default": "#6A6A6A"},
+    {"type": "range", "id": "header_row_gap", "label": "Space between header elements", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 10},
+    {"type": "range", "id": "header_bottom_margin", "label": "Space below header", "min": 0, "max": 100, "step": 5, "unit": "px", "default": 30},
+    {"type": "select", "id": "alignment", "label": "Alignment", "options": [{"value": "default", "label": "Default"}, {"value": "center", "label": "Center"}], "default": "center"},
+    {"type": "text", "id": "top_button_label", "label": "Button label"},
+    {"type": "url", "id": "top_button_link", "label": "Button link"},
+
+    {"type": "header", "content": "Section body"},
+    {"type": "checkbox", "id": "pause_on_hover", "label": "Pause on hover", "default": true},
+    {"type": "range", "id": "speed", "label": "Speed (seconds)", "min": 20, "max": 200, "step": 2, "default": 60},
+    {"type": "range", "id": "image_height", "label": "Image height", "default": 60, "min": 40, "max": 240, "step": 2},
+    {"type": "range", "id": "image_gap", "label": "Image gap", "default": 20, "min": 20, "max": 200, "step": 2},
+    {"type": "range", "id": "image_border_radius", "label": "Image border radius", "default": 0, "min": 0, "max": 50, "step": 1, "unit": "px"},
+    {"type": "checkbox", "id": "enable_fade_effect", "label": "Enable fade effect on sides", "default": true},
+    {"type": "color", "id": "fade_color", "label": "Fade color", "default": "#FFFFFF"},
+
+    {"type": "header", "content": "Section layout"},
+    {"type": "image_picker", "id": "background_image", "label": "Background image"},
+    {"type": "checkbox", "id": "section_full_width", "label": "Section full width", "default": true},
+    {"type": "range", "id": "section_max_width", "min": 0, "max": 200, "step": 2, "unit": "rem", "label": "Section max width", "default": 100},
+    {"type": "range", "id": "padding_desktop", "min": 0, "max": 200, "step": 2, "unit": "px", "label": "Padding desktop", "default": 10},
+    {"type": "range", "id": "padding_tablet_mobile", "min": 0, "max": 100, "step": 1, "unit": "px", "label": "Padding tablet, mobile", "default": 10},
+    {"type": "range", "id": "margin_desktop", "min": 0, "max": 100, "step": 1, "unit": "px", "label": "Margin top desktop", "default": 0},
+    {"type": "range", "id": "margin_bottom_desktop", "min": 0, "max": 100, "step": 1, "unit": "px", "label": "Margin bottom desktop", "default": 0},
+    {"type": "range", "id": "margin_tablet_mobile", "min": 0, "max": 100, "step": 1, "unit": "px", "label": "Margin tablet, mobile", "default": 0},
+    {"type": "range", "id": "margin_bottom_tablet_mobile", "min": 0, "max": 100, "step": 1, "unit": "px", "label": "Margin bottom tablet, mobile", "default": 0},
+
+    {"type": "header", "content": "Section color"},
+    {"type": "color", "id": "background_color", "label": "Background", "default": "#FFFFFF"},
+    {"type": "color_background", "id": "background_gradient_color", "label": "Background gradient"},
+    {"type": "color", "id": "foreground_color", "label": "Foreground", "default": "#000000"},
+    {"type": "color", "id": "button_background_color", "label": "Button background", "default": "#000000"},
+    {"type": "color", "id": "button_text_color", "label": "Button text", "default": "#ffffff"},
+    {"type": "range", "id": "input_button_radius", "min": 0, "max": 50, "step": 1, "unit": "px", "label": "Input, button radius", "default": 0}
+  ],
+  "blocks": [
+    {"type": "item", "name": "Item", "settings": [{"type": "image_picker", "id": "image", "label": "Image"}]}
+  ],
+  "presets": [
+    {"name": "VSO - Scrolling 01", "blocks": [{"type": "item"}]}
+  ]
+}
+{% endschema %}

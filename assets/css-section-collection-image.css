@@ -1,0 +1,9 @@
+.wpbingo-section--collections-image .collection-item .collection-item__image {
+  margin-bottom: 15px;
+}
+.wpbingo-section--collections-image .collection-item .collection-item__title a {
+  font-family: var(--font-family-second);
+}
+.wpbingo-section--collections-image .slick-arrow {
+  top: calc(50% - 23px);
+}

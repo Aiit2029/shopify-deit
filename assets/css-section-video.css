@@ -1,0 +1,189 @@
+/*============ VIDEO ===============*/
+.wpbingo-section--video .wpbingo-button a {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  transition: all 0.2s ease;
+}
+.wpbingo-section--video .wpbingo-button a:before {
+  content: "";
+  width: 0;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+}
+.wpbingo-section--video .wpbingo-button a:hover:before {
+  width: 100%;
+}
+.wpbingo-section--video .wpbingo-section__content {
+  position: relative;
+}
+.wpbingo-section--video .wpbingo-section__content .section__content {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+.wpbingo-section--video .banner-video {
+  position: relative;
+}
+.wpbingo-section--video .wpbingo-section__content .button-video {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid var(--white);
+  text-align: center;
+  font-size: 35px;
+  color: var(--white);
+  cursor: pointer;
+  z-index: 1;
+  transition: all 0.3s ease;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-indent: 8px;
+}
+.wpbingo-section--video .wpbingo-section__content .button-video:before,
+.wpbingo-section--video .wpbingo-section__content .button-video:after{
+  content: "";
+  position: absolute;
+  top: calc(50% - 50px);
+  left: calc(50% - 50px);
+  width: 100px;
+  height: 100px;
+  border: 1px solid var(--white);
+  border-radius: 50%;
+  animation-name: e;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+.wpbingo-section--video .wpbingo-section__content .button-video:after{
+  animation-delay: 1s;
+}
+.wpbingo-section--video .wpbingo-section__content .button-video:hover {
+  border-color: var(--theme-color);
+  background: var(--theme-color);
+  color: var(--white);
+}
+.wpbingo-section--video .wpbingo-section__content .button-video:hover:before,
+.wpbingo-section--video .wpbingo-section__content .button-video:hover:after{
+  border-color: var(--theme-color);
+}
+.wpbingo-section--video .video-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  padding: 20px;
+}
+.wpbingo-section--video .video-wrapper.active {
+  display: flex;
+}
+.wpbingo-section--video .video-wrapper.show .video-iframe {
+  opacity: 1;
+}
+.wpbingo-section--video .video-wrapper .video-iframe {
+  width: 100%;
+  max-width: 1000px;
+  height: 100%;
+  max-height: 600px;
+  position: relative;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+.wpbingo-section--video .video-wrapper .video-iframe .close-button {
+  cursor: pointer;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  text-align: center;
+  z-index: 1;
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  padding: 6px;
+  border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  -o-border-radius: 100%;
+  box-shadow: 0 2px 59px rgba(0, 0, 0, 0.4);
+  background: var(--white);
+}
+.wpbingo-section--video .video-wrapper .video-iframe .close-button:before, .wpbingo-section--video .video-wrapper .video-iframe .close-button:after {
+  content: "";
+  position: absolute;
+  height: 1px;
+  width: 14px;
+  top: 50%;
+  left: calc(50% - 7px);
+  margin-top: -1px;
+  background-color: var(--gray-dark);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.wpbingo-section--video .video-wrapper .video-iframe .close-button:before {
+  transform-origin: 50% 50%;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.wpbingo-section--video .video-wrapper .video-iframe .close-button:after {
+  transform-origin: 50% 50%;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.wpbingo-section--video .video-wrapper .video-iframe .close-button:hover:before, .wpbingo-section--video .video-wrapper .video-iframe .close-button:hover:after {
+  -webkit-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+.wpbingo-section--video .video-wrapper iframe {
+  height: 100%;
+  width: 100%;
+}
+.wpbingo-section--video .close-full {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0, 0.5);
+  height: 100%;
+  width: 100%;
+}
+.wpbingo-section--video.style-2 .wpbingo-section__content .button-video {
+  top: 60%;
+}
+@media (max-width: 1199px) {
+  .wpbingo-section--video  .wpbingo-section__content .section__content {
+    position: relative;
+  }
+}
+@media (max-width: 767px) {
+	.wpbingo-section--video .wpbingo-section__content .button-video {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 16px;
+  }
+  .wpbingo-section--video .wpbingo-section__content .button-video:before,
+  .wpbingo-section--video .wpbingo-section__content .button-video:after{
+    top: calc(50% - 30px);
+    left: calc(50% - 30px);
+    width: 60px;
+    height: 60px;
+  }
+  .wpbingo-section--video.style-2 .wpbingo-section__content .button-video {
+    top: 50%;
+  }
+}

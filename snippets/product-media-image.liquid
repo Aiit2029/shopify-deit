@@ -1,0 +1,48 @@
+<div class="js-product-media-group js-product-media-group-{{ section.id }}{%- if varriant_array != blank -%}-{{ forloop.index }}{% endif %} product-single__media-group" data-nav="true"{%- if thumbnails -%} data-fade="true"{% endif %}{% if slider %} data-infinite="true"{% endif %}>
+	{%- assign width = 770 -%}
+	{%- assign height = 770 -%}
+	{%- assign first_3d_model = product.media | where: 'media_type', 'model' | first -%}
+	{%- for media in product.media -%}
+		{%- assign featured = false -%}
+		{%- if media == featured_media -%}
+			{%- assign featured = true -%}
+		{%- endif -%}
+		{%- capture thumbnail_alt -%}
+			{%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+				{{ 'products.product.video_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+			{%- elsif media.media_type == 'model' -%}
+				{{ 'products.product.model_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+			{%- else -%}
+				{{ 'products.product.gallery_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+			{%- endif -%}
+		{%- endcapture -%}
+		{%- if varriant_array != blank -%}
+			{%- if media.alt ==  varriant_image -%}
+				<div class="js-product-media-item product-single__media-item" data-slick-media-label="{{ thumbnail_alt }}">
+					{%- include 'media' with media, featured: featured, width: width, height: height -%}
+				</div>
+			{%- endif -%}
+		{%- else -%}
+			{%- if media.alt == 'bwp-image-360' -%}
+				<div class="js-product-media-item product-single__media-item" data-slick-media-label="{{ thumbnail_alt }}">
+					<ul class="bwp-image-360" data-count="{{ count_image }}">{%- include 'media' with media: image, featured: featured, width: width, height: height -%}</ul>
+				</div>
+			{%- else -%}
+				<div class="js-product-media-item product-single__media-item" data-slick-media-label="{{ thumbnail_alt }}">
+					{%- include 'media' with media, featured: featured, width: width, height: height -%}
+				</div>
+			{%- endif -%}
+		{%- endif -%}
+		{%- if media.alt == 'bwp-image-360' -%}
+			{%- break -%}
+		{%- endif -%}
+	{%- endfor -%}
+</div>
+<div class="main-media__slick-controls">
+	<button class="slick__arrow slick__arrow--previous" data-slick-previous>
+		<span class="fa fa-angle-left" aria-hidden="true"></span>
+	</button>
+	<button class="slick__arrow slick__arrow--next" data-slick-next>
+		<span class="fa fa-angle-right" aria-hidden="true"></span>
+	</button>
+</div>

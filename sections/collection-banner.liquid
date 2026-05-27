@@ -1,0 +1,337 @@
+{%- if section.settings.show -%}
+	{%- style -%}
+		{%- if section.blocks.size > 0 -%}
+			{% for block in section.blocks %}
+				{% assign padding 		= block.settings.padding | split: "|" %}
+				.bwp-widget-collection_banner .featured-banner.banner-{{ forloop.index }} .title-banner{
+					color: {{ block.settings.color_title }};
+				}
+				.bwp-widget-collection_banner .featured-banner.banner-{{ forloop.index }} .bwp-image-description{
+					color: {{ block.settings.color_description }};
+				}
+				.bwp-widget-collection_banner .featured-banner.banner-{{ forloop.index }} .bwp-button{
+					color: {{ block.settings.color_button }};
+					background: {{ block.settings.bg_button }};
+					border-color:{{ block.settings.border_button }};
+				}
+				.bwp-widget-collection_banner .featured-banner.banner-{{ forloop.index }} .banner-wrapper-infor{
+					justify-content: {{ block.settings.horizontal_position }};text-align: {{ block.settings.text_align }};align-items: {{ block.settings.vertical_position }};padding:{{ padding[0] }};
+				}
+				.bwp-widget-collection_banner .featured-banner.banner-{{ forloop.index }} .bwp-image img{
+					min-height:{{ block.settings.height_image }};object-fit: {{ block.settings.size_image }};object-position:{{ block.settings.position_image }};
+				}
+				{%- if padding[1] != blank -%}
+					@media (max-width:1200px){
+						.bwp-widget-collection_banner .featured-banner.banner-{{ forloop.index }} .banner-wrapper-infor{
+							padding:{{ padding[1] }};
+						}
+					}
+				{%- endif -%}
+				{%- if padding[2] != blank -%}
+					@media (max-width:991px){
+						.bwp-widget-collection_banner .featured-banner.banner-{{ forloop.index }} .banner-wrapper-infor{
+							padding:{{ padding[2] }};
+						}
+					}
+				{%- endif -%}
+				{%- if padding[3] != blank -%}
+					@media (max-width:767px){
+						.bwp-widget-collection_banner .featured-banner.banner-{{ forloop.index }} .banner-wrapper-infor{
+							padding:{{ padding[3] }};
+						}
+					}
+				{%- endif -%}
+			{% endfor %}
+		{%- endif -%}
+	{%- endstyle -%}
+	{%- assign shop_full = settings.shop_full -%}
+	<section class="wpbingo-section bwp-widget-collection_banner wpbingo-section--{{ section.id }} overflow-hidden{% if shop_full %} shop_full{% endif %}">
+		<div class="wpbingo-section__inner">
+			<div class="container">
+				<div class="wpbingo-section__content">
+					{%- for block in section.blocks -%}
+						{%- assign image 		= block.settings.image -%}
+						{%- assign title 		= block.settings.title -%}
+						{%- assign url 			= block.settings.url -%}
+						{%- assign description 	= block.settings.description -%}
+						{%- assign button 		= block.settings.button -%}
+						{%- assign effect 		= block.settings.effect -%}
+						<div class="featured-banner {{ effect }} banner-{{ forloop.index }}">
+							<div class="bwp-image">
+								{%- if image -%}
+									{% include 'img-global' with image: image, class: "featured-banner__img", effect: "fade-in" %}
+								{%- else -%}
+									<img class="lazyload fade-in" src="https://placehold.jp/510x300.png" width="510" height="300" alt=" ">
+								{%- endif -%}
+							</div>
+							<a href="{{ url }}" class="banner-wrapper-infor">
+								<div class="info">
+									<div class="content">
+										{%- if title != blank -%}
+											<h3 class="title-banner">{{ title }}</h3>
+										{%- endif -%}
+										{%- if description != blank -%}
+											<div class="bwp-image-description">{{ description }}</div>
+										{%- endif -%}
+										{%- if button != blank -%}
+											<div class="bwp-button">{{ button }}</div>
+										{%- endif -%}
+									</div>
+								</div>
+							</a>
+						</div>
+					{%- endfor -%}
+				</div>
+			</div>
+		</div>
+	</section>
+{%- endif -%}
+{% schema %}
+{
+	"name": "Collection Banner",
+	"settings": [
+		{
+			"type": "checkbox",
+			"id": "show",
+			"label": "Show Banner",
+			"default": true
+		}
+	],
+	"blocks": [
+		{
+			"type": "image",
+			"name": "Image",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Image"
+				},
+				{
+					"type": "text",
+					"id": "height_image",
+					"label": "Min height",
+					"default":"220px"
+				},
+				{
+					"type": "select",
+					"id": "position_image",
+					"label": "Image position",
+					"options": [
+						{
+							"value": "top",
+							"label": "Top"
+						},
+						{
+							"value": "top left",
+							"label": "Top left"
+						},
+						{
+							"value": "top right",
+							"label": "Top right"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						},
+						{
+							"value": "center left",
+							"label": "Center left"
+						},
+						{
+							"value": "center right",
+							"label": "Center right"
+						},
+						{
+							"value": "bottom",
+							"label": "Bottom"
+						},
+						{
+							"value": "bottom left",
+							"label": "Bottom left"
+						},
+						{
+							"value": "bottom right",
+							"label": "Bottom right"
+						}
+					],
+					"default": "center"
+				},
+				{
+					"type": "select",
+					"id": "size_image",
+					"label": "Size position",
+					"options": [
+						{
+							"value": "cover",
+							"label": "Cover"
+						},
+						{
+							"value": "contain",
+							"label": "Contain"
+						},
+						{
+							"value": "fill",
+							"label": "Fill"
+						}
+					],
+					"default": "cover"
+				},
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Title",
+					"default":"Summer fashion refresh"
+				},
+				{
+					"type": "color",
+					"id": "color_title",
+					"label": "Color Title",
+					"default": "#000000"
+				},
+				{
+					"type": "textarea",
+					"id": "description",
+					"label": "Description",
+					"default":"Define the season in bold colors & easy, breezy silhouettes"
+				},
+				{
+					"type": "color",
+					"id": "color_description",
+					"label": "Color Description",
+					"default": "#000000"
+				},
+				{
+					"type": "text",
+					"id": "button",
+					"label": "button",
+					"default":"SHOP NOW"
+				},
+				{
+					"type": "url",
+					"id": "url",
+					"label": "URL",
+					"default": "/"
+				},
+				{
+					"type": "color",
+					"id": "color_button",
+					"label": "Color Button",
+					"default": "#000000"
+				},
+				{
+					"type": "color",
+					"id": "bg_button",
+					"label": "Background Button",
+					"default": "#fff"
+				},
+				{
+					"type": "color",
+					"id": "border_button",
+					"label": "Border Button",
+					"default": "#fff"
+				},
+				{
+					"type": "header",
+					"content": "Content settings"
+				},
+				{
+					"type": "select",
+					"id": "vertical_position",
+					"label": "Vertical position",
+					"options": [
+						{
+							"value": "baseline",
+							"label": "Top"
+						},
+						{
+							"value": "center",
+							"label": "Middle"
+						},
+						{
+							"value": "end",
+							"label": "Bottom"
+						}
+					],
+					"default": "center"
+				},
+				{
+					"type": "select",
+					"id": "horizontal_position",
+					"label": "Horizontal position",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						}
+					],
+					"default": "center"
+				},
+				{
+					"type": "select",
+					"id": "text_align",
+					"label": "Text align",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						}
+					],
+					"default": "center"
+				},
+				{
+					"type": "text",
+					"id": "padding",
+					"label": "Padding",
+					"default":"0px 0px 0px 0px",
+					"info":"Screen: desktop | 1200px | 991px | 767px"
+				},
+				{
+					"type": "select",
+					"id": "effect",
+					"options": [
+						{
+							"value": "none",
+							"label": "None"
+						},
+						{
+							"value": "effect-one",
+							"label": "Zoom in"
+						},
+						{
+							"value": "effect-two",
+							"label": "Zoom out"
+						},
+						{
+							"value": "effect-three",
+							"label": "Shine"
+						},
+						{
+							"value": "effect-four",
+							"label": "White outline"
+						}
+					],
+					"label": "Effect",
+					"default": "none"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

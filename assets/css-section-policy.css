@@ -1,0 +1,46 @@
+/*============= SECTION POLICY =============*/
+.bwp-widget-policy .row--banners {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+.bwp-widget-policy .featured-banner {
+  display: flex;
+  overflow: unset;
+}
+.bwp-widget-policy .title-banner {
+  font-weight: var(--heading-font-weight-medium);
+}
+.bwp-widget-policy .image {
+  width: 100%;
+}
+.bwp-widget-policy .image svg {
+  fill: var(--color-svg);
+}
+.bwp-widget-policy .pos-align-center .featured-banner {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.bwp-widget-policy .pos-align-right .featured-banner {
+  text-align: right;
+}
+.bwp-widget-policy .pos-align-right .content-image {
+  order: 2;
+}
+.bwp-widget-policy .pos-align-right .banner-wrapper-infor {
+  order: 1;
+}
+@media (max-width: 1199px) {
+  .bwp-widget-policy .row--banners {
+    margin: 0 -7.5px;
+  }
+  .bwp-widget-policy.style-2 .featured-banner:before {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .bwp-widget-policy .featured-banner {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,421 @@
+{%- capture sp_collection_list_css -%}
+<style>
+  #sp-{{ section.id }} .sp-page-width {max-width: {{ section.settings.section_max_width }}px;width: 100%; padding: 0 20px;margin: 0 auto;}
+  #sp-{{ section.id }}.sp-collection-list {padding-top: {{section.settings.padding_top}}px; padding-bottom: {{section.settings.padding_bottom}}px;background: {{section.settings.bg_color}};}  
+  #sp-{{ section.id }} .sp-coll-list-grid {display: flex;flex-wrap:wrap;gap: 12px;row-gap: 40px;} 
+  #sp-{{ section.id }} .sp-coll-list-grid.sp-coll-list-5 .sp-coll-list-grid-item {width: calc(20% - 10px);} 
+  #sp-{{ section.id }} .sp-coll-list-grid.sp-coll-list-4 .sp-coll-list-grid-item {width: calc(25% - 9px);}   
+  #sp-{{ section.id }} .sp-coll-list-grid.sp-coll-list-3 .sp-coll-list-grid-item {width: calc(33.33% - 8px);}      
+  #sp-{{ section.id }} .sp-coll-list-grid.sp-coll-list-2 .sp-coll-list-grid-item {width: calc(50% - 6px);}  
+  #sp-{{ section.id }} .sp-coll-list-grid .sp-coll-list-grid-item a{text-decoration: none;}
+  #sp-{{ section.id }} .sp-coll-list-grid .sp-coll-list-grid-item a.sp-coll-list-grid-item-empty{cursor: grab;}
+  #sp-{{ section.id }} .sp-coll-list-item-media {position: relative;display: block;} 
+  #sp-{{ section.id }} .sp-coll-list-item-media img, #sp-{{ section.id }} .sp-coll-list-item-media svg {position: absolute;top: 0;left: 0;right: 0;bottom: 0;width: 100%;height: 100%;object-fit: cover;}
+  #sp-{{ section.id }} .sp-coll-image-square .sp-coll-list-item-media{padding-bottom: 100%;} 
+  #sp-{{ section.id }} .sp-coll-image-large .sp-coll-list-item-media{padding-bottom: 130%; }    
+  #sp-{{ section.id }} .sp-coll-image-adaptimg .sp-coll-list-item-media{padding-bottom: unset;}  
+  #sp-{{ section.id }} .sp-coll-image-adaptimg .sp-coll-list-item-media img, #sp-{{ section.id }} .sp-coll-image-adaptimg .sp-coll-list-item-media svg{position: relative;}   
+  #sp-{{ section.id }} .sp-button {background: {{section.settings.btn_bg_color}};color: {{section.settings.btn_text_color}};padding: 5px 20px;min-width: 110px;display: inline-block;border: 1px solid {{section.settings.btn_border_color}};border-radius: {{section.settings.border_radius}}px;text-align: center;cursor: pointer;font-size: 14px;letter-spacing: 0.04rem;line-height: 1.6;font-family: inherit; font-weight: 400;}
+  #sp-{{ section.id }} .sp-button:hover{background: {{section.settings.btn_hover_bg_color}};color: {{section.settings.btn_hover_text_color}};box-shadow: 0 0 5px 0px {{section.settings.outline_btn_shadow_color}};border: 1px solid {{section.settings.btn_hover_border_color}};}
+  
+  {% if section.settings.btn_outline %}
+    #sp-{{ section.id }} .sp-button.sp-button-outline {color: {{section.settings.outline_btn_text_color}};border-color: {{section.settings.outline_btn_text_color}};background: transparent;}
+  {% endif %}
+   
+  #sp-{{ section.id }} .sp-coll-list-item-txt {padding-top:10px;}
+  #sp-{{ section.id }} .sp-coll-text-center .sp-coll-list-item-txt{text-align: center;}
+  #sp-{{ section.id }} .sp-coll-text-left .sp-coll-list-item-txt{text-align: left;} 
+  #sp-{{ section.id }} .sp-coll-text-right .sp-coll-list-item-txt{text-align: right;} 
+  #sp-{{ section.id }} .sp-coll-list-item-txt h3 {font-size: {{section.settings.grid_title_size}}px;color: {{section.settings.grid_title_color}};font-weight: 500;line-height: 1.3;margin:0 0 12px 0;}
+  #sp-{{ section.id }} .sp-collection-list-heading { font-size: {{section.settings.title_font_size}}px;font-weight: 500;margin: 0 0 10px;color: {{section.settings.title_color}};}
+  #sp-{{ section.id }} .sp-collection-list-title {margin-bottom: 30px;}
+  #sp-{{ section.id }} .sp-collection-list-desc p {margin:0;font-size: {{section.settings.content_font_size}}px;line-height: 1.4;color: {{section.settings.content_color}};}   
+
+  @media only screen and (max-width: 767px){
+    #sp-{{ section.id }}.sp-collection-list {padding-top: {{ section.settings.mob_padding_top }}px; padding-bottom: {{ section.settings.mob_padding_bottom }}px; }   
+    #sp-{{ section.id }} .sp-coll-list-item-txt h3{font-size:16px;}
+    #sp-{{ section.id }} .sp-coll-list-grid.sp-coll-list-mob-2 .sp-coll-list-grid-item {width: calc(50% - 6px);}  
+    #sp-{{ section.id }} .sp-coll-list-grid.sp-coll-list-mob-1 .sp-coll-list-grid-item {width: 100%;}  
+    #sp-{{ section.id }} .sp-collection-list-heading { font-size: 26px;margin: 0 0 10px;}
+    #sp-{{ section.id }} .sp-collection-list-title {margin-bottom: 20px;}
+    #sp-{{ section.id }} .sp-collection-list-desc p {font-size: 14px;}          
+  } 
+</style> 
+{%- endcapture -%}
+{{- sp_collection_list_css | strip_newlines -}}
+
+{% if section.blocks.size > 0 %}
+  <div id="sp-{{ section.id }}" class="sp-collection-list"> 
+    <div class="sp-page-width">
+      {% if section.settings.title != blank or section.settings.content != blank %}
+        <div class="sp-collection-list-title sp-title-align-{{ section.settings.content_alignment }}"> 
+          {% if section.settings.title != blank %}
+            <h2 class="sp-collection-list-heading">{{ section.settings.title }}</h2> 
+          {% endif %}
+          
+          {% if section.settings.content != blank %}
+            <div class="sp-collection-list-desc sp-section-desc">
+              {{ section.settings.content -}}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+      
+      <div class="sp-coll-list-grid sp-coll-list-{{ section.settings.column }} sp-coll-list-mob-{{ section.settings.mob_column }} sp-coll-image-{{ section.settings.image_ratio }} sp-coll-text-center">  
+        {%- for block in section.blocks -%}
+          {% assign card_collection = block.settings.collection %}
+        
+          {% capture card_content %}
+            {% assign sp_img = block.settings.image | default: card_collection.featured_image %}
+            <div class="sp-coll-list-item-media">
+              {% if sp_img != blank %}
+                {{ sp_img | image_url: width: sp_img.width | image_tag: loading: 'lazy', alt: card_collection.title }}
+              {% else %}
+                <img src="data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg version='1.1' viewBox='0 0 500 500' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Crect x='2' y='2' width='496' height='496' fill='%23D8D8D8' stroke='%23D8D8D8' stroke-width='4'/%3E%3C/g%3E%3C/svg%3E" width="" height="" loading="lazy" class='sp-coll-img' alt="coll_img">
+              {% endif %}
+            </div>
+            <div class="sp-coll-list-item-txt">
+              {% assign colle_title = block.settings.title | default: card_collection.title %}
+              <h3>{{ colle_title }}</h3>
+              {% if section.settings.show_button and section.settings.shop_btn != blank %}
+                <button class="sp-button{% if section.settings.btn_outline %} sp-button-outline{% else %} sp-button-primary{% endif %}">{{ section.settings.shop_btn }}</button>
+              {% endif %}
+            </div>  
+          {% endcapture %}
+
+          <div class="sp-coll-list-grid-item">
+            {% if card_collection != blank %}
+              <a href="{{ card_collection.url }}" class="sp-coll-list-grid-item-in"> 
+                {{ card_content }}
+              </a>
+            {% else %}
+              <a class="sp-coll-list-grid-item-empty"> 
+                {{ card_content }}
+              </a>
+            {% endif %}
+          </div> 
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "SH: Collection list",
+    "tag": "section",
+    "class": "sh-section-hub-main",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Shop our collection"
+      },
+      {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content",
+        "default": "<p>Find answers to common questions or get in touch with us for more information</p>"
+      },
+      {
+        "type": "text_alignment",
+        "id": "content_alignment",
+        "label": "Text alignment",
+        "default": "center"
+      },
+      {
+        "type":"range",
+        "id":"column",
+        "label": "Number of columns on desktop",
+        "min":2,
+        "max":4,
+        "step": 1,
+        "default": 4
+      },
+      {
+        "type": "select",
+        "id": "image_ratio",
+        "label": "Image ratio",
+        "options": [
+          { "label": "Adapt to image", "value": "adaptimg" },
+          { "label": "Portrait", "value": "large" },
+          { "label": "Square", "value": "square" }
+        ],
+        "default": "adaptimg"
+      },
+      {
+        "type": "header",
+        "content": "Button"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_button",
+        "label": "Show button",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "shop_btn",
+        "label": "Label",
+        "default": "Shop Now"
+      },
+      {
+        "type": "checkbox",
+        "id":"btn_outline",
+        "label": "Use outline button style",
+        "default": false
+      },
+      {
+        "type": "color",
+        "id": "outline_btn_text_color",
+        "label": "Outline color",
+        "default": "#000000"
+      },
+      {
+        "type":"range",
+        "id":"border_radius",
+        "label": "Border radius",
+        "min": 0,
+        "max": 20,
+        "default": 18,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Mobile layout"
+      },
+      {
+        "type": "select",
+        "id":"mob_column",
+        "label": "Number of columns on mobile",
+        "options":[
+          { "label": "1 column", "value": "1" },
+          { "label": "2 column", "value": "2" }
+        ],
+        "default": "2"
+      },
+      {
+        "type": "header",
+        "content": "Font size"
+      },
+      {
+        "type": "range",
+        "id": "title_font_size",
+        "min": 5,
+        "max": 80,
+        "step": 1,
+        "unit": "px",
+        "label": "Heading",
+        "default": 30
+      },
+      {
+        "type": "range",
+        "id": "content_font_size",
+        "min": 5,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Content",
+        "default": 16
+      },
+      {
+        "type": "paragraph",
+        "content": "Collection grid"
+      },
+      {
+        "type": "range",
+        "id": "grid_title_size",
+        "min": 5,
+        "max": 80,
+        "step": 1,
+        "unit": "px",
+        "label": "Heading",
+        "default": 18
+      },
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background color",
+        "default": "#fff"
+      },
+      {
+        "type": "color",
+        "id": "title_color",
+        "label": "Heading color",
+        "default": "#121212"
+      },
+      {
+        "type": "color",
+        "id": "content_color",
+        "label": "Content color",
+        "default": "#121212"
+      },
+      {
+        "type": "color",
+        "id": "grid_title_color",
+        "label": "Title color",
+        "default": "#121212"
+      },
+      {
+        "type": "paragraph",
+        "content": "Button"
+      },
+      {
+        "type": "color",
+        "id": "btn_bg_color",
+        "label": "Background color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "btn_text_color",
+        "label": "Text color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "btn_border_color",
+        "label": "Border color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "btn_hover_bg_color",
+        "label": "Hover background color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "btn_hover_text_color",
+        "label": "Hover text color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "btn_hover_border_color",
+        "label": "Hover border color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "outline_btn_shadow_color",
+        "label": "Shadow color",
+        "default": "#000000"
+      },
+      {
+        "type": "header",
+        "content": "Section padding"
+      },
+      {
+        "type": "paragraph",
+        "content": "Desktop"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 40
+      },
+      {
+        "type": "paragraph",
+        "content": "Mobile"
+      },
+      {
+        "type": "range",
+        "id": "mob_padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 30
+      },
+      {
+        "type": "range",
+        "id": "mob_padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 30
+      },
+      {
+        "type": "header",
+        "content": "Section width"
+      },
+      {
+        "type": "text",
+        "id": "section_max_width",
+        "label": "Width (in px)",
+        "default": "1140"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "collection",
+        "name": "Collection",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "COLLECTION TITLE"
+          },
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "SH: Collection list",
+        "blocks": [
+          {
+            "type": "collection"
+          },
+          {
+            "type": "collection"
+          },
+          {
+            "type": "collection"
+          },
+          {
+            "type": "collection"
+          }
+        ]
+      }
+    ],
+    "disabled_on": {
+      "groups": ["footer","header"]
+    }
+  }
+{% endschema %}

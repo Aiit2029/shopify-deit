@@ -1,0 +1,653 @@
+{% assign padding 	= section.settings.padding | split: "|" %}
+{% assign bg 		= section.settings.bg_color %}
+{%- style -%}
+	.footer-logo img {max-width: {{ section.settings.width_logo | append: 'px' }};}
+	{%- if padding[0] != blank -%}
+		.footer-center{
+			padding:{{ padding[0] }};
+			background:{{bg}};
+			{%- if section.settings.border -%}
+				border-width: {{ section.settings.border_width }};
+				border-color: {{ section.settings.border_color }};
+				border-style:solid;
+			{%- endif -%}
+		}
+	{%- endif -%}
+	{%- if section.blocks.size > 0 -%}
+		{%- for block in section.blocks -%}
+			{%- case block.type -%}
+				{%- when 'menu' -%}
+					.footer-center .item-{{forloop.index}}{
+						max-width:{{ block.settings.footer_width }}%;
+						flex:0 0 {{ block.settings.footer_width }}%;
+					}
+					{%- if block.settings.title != blank -%}
+						.footer-center .title-{{forloop.index}}{
+							font-size:{{ block.settings.font_size }}px;
+							line-height:{{ block.settings.line_height }}px;
+							font-weight:{{ block.settings.font_weight }};
+							letter-spacing:{{ block.settings.letter_spacing }}px;
+							margin:{{ block.settings.margin }};
+							color:{{ block.settings.color }};
+							{%- if block.settings.font != blank -%}
+								font-family:{{ block.settings.font }};
+							{%- endif -%}
+						}
+					{%- endif -%}
+				{%- when 'contact' -%}
+					.footer-center .item-{{forloop.index}}{
+						max-width:{{ block.settings.footer_width }}%;
+						flex:0 0 {{ block.settings.footer_width }}%;
+					}
+                    {%- if block.settings.title != blank -%}
+						.footer-center .title-{{forloop.index}}{
+							font-size:{{ block.settings.font_size }}px;
+							line-height:{{ block.settings.line_height }}px;
+							font-weight:{{ block.settings.font_weight }};
+							letter-spacing:{{ block.settings.letter_spacing }}px;
+							margin:{{ block.settings.margin }};
+							color:{{ block.settings.color }};
+							{%- if block.settings.font != blank -%}
+								font-family:{{ block.settings.font }};
+							{%- endif -%}
+						}
+						.footer-center .social-icons li a{
+							color:{{ block.settings.color_social }};
+							fill:{{ block.settings.color_social }};
+							border-color:{{ block.settings.color_social }};
+						}
+                    {%- endif -%}
+				{%- when 'newsletter' -%}
+					.footer-center .item-{{forloop.index}}{
+						max-width:{{ block.settings.footer_width }}%;
+						flex:0 0 {{ block.settings.footer_width }}%;
+					}
+					{%- if block.settings.title != blank -%}
+						.footer-center .title-{{forloop.index}}{
+							font-size:{{ block.settings.font_size }}px;
+							line-height:{{ block.settings.line_height }}px;
+							font-weight:{{ block.settings.font_weight }};
+							letter-spacing:{{ block.settings.letter_spacing }}px;
+							margin:{{ block.settings.margin }};
+							color:{{ block.settings.color }};
+							{%- if block.settings.font != blank -%}
+								font-family:{{ block.settings.font }};
+							{%- endif -%}
+						}
+					{%- endif -%}
+			{%- endcase -%}
+		{%- endfor -%}
+		{%- if padding[1] != blank -%}
+			@media (max-width:1199px){
+				.footer-center{
+					padding:{{ padding[1] }};
+				}
+			}
+		{%- endif -%}
+		@media (max-width:991px){
+			{%- if padding[2] != blank -%}
+				.footer-center{
+					padding:{{ padding[2] }};
+				}
+			{%- endif -%}
+			{%- for block in section.blocks -%}
+				{%- case block.type -%}
+					{%- when 'menu' -%}
+						.footer-center .item-{{forloop.index}}{
+							max-width:{{ block.settings.footer_width_ipad }}%;
+							flex:0 0 {{ block.settings.footer_width_ipad }}%;
+						}
+					{%- when 'contact' -%}
+						.footer-center .item-{{forloop.index}}{
+							max-width:{{ block.settings.footer_width_ipad }}%;
+							flex:0 0 {{ block.settings.footer_width_ipad }}%;
+						}
+					{%- when 'newsletter' -%}
+						.footer-center .item-{{forloop.index}}{
+							max-width:{{ block.settings.footer_width_ipad }}%;
+							flex:0 0 {{ block.settings.footer_width_ipad }}%;
+						}
+				{%- endcase -%}
+			{%- endfor -%}
+		}
+		@media (max-width:767px){
+			{%- if padding[3] != blank -%}
+				.footer-center{
+					padding:{{ padding[3] }};
+				}
+			{%- endif -%}
+			{%- for block in section.blocks -%}
+				{%- case block.type -%}
+					{%- when 'menu' -%}
+						.footer-center .item-{{forloop.index}}{
+							max-width:{{ block.settings.footer_width_mobi }}%;
+							flex:0 0 {{ block.settings.footer_width_mobi }}%;
+						}
+					{%- when 'contact' -%}
+						.footer-center .item-{{forloop.index}}{
+							max-width:{{ block.settings.footer_width_mobi }}%;
+							flex:0 0 {{ block.settings.footer_width_mobi }}%;
+						}
+					{%- when 'newsletter' -%}
+						.footer-center .item-{{forloop.index}}{
+							max-width:{{ block.settings.footer_width_mobi }}%;
+							flex:0 0 {{ block.settings.footer_width_mobi }}%;
+						}
+				{%- endcase -%}
+			{%- endfor -%}
+		}
+	{%- endif -%}
+{%- endstyle -%}
+<div class="footer-center{% if section.settings.accordion %} accordion{% endif %} footer_3 overflow-hidden">
+    <div class="container">
+		<div class="footer-center__inner">
+			<div class="row">
+				{%- if section.blocks.size > 0 -%}
+					{%- for block in section.blocks -%}
+						{%- case block.type -%}
+							{%- when 'menu' -%}
+								{%- assign footer_menu = block.settings.footer_link_list -%}
+								{%- if block.settings.title != blank -%}
+									<div class="content-toggle item-{{forloop.index}}">
+										<div class="content-menu">
+											<h2 class="title-footer title-{{forloop.index}}">{{ block.settings.title }}</h2>
+											{%- if footer_menu != blank -%}
+												{% include 'footer-menu' %}
+											{%- else -%}
+												<div class="footer-block footer-block--menu">
+													<ul class="footer-menu">
+														<li class="footer-menu__item">
+															<a href="#">Menu 1</a>
+														</li>
+														<li class="footer-menu__item">
+															<a href="#">Menu 2</a>
+														</li>
+														<li class="footer-menu__item">
+															<a href="#">Menu 3</a>
+														</li>
+														<li class="footer-menu__item">
+															<a href="#">Menu 4</a>
+														</li>
+													</ul>
+												</div>
+											{%- endif -%}
+										</div>
+									</div>
+								{%- else -%}
+									<div class="content-item  item-{{forloop.index}}">
+										{% include 'footer-menu' %}
+									</div>
+								{%- endif -%}
+							{%- when 'contact' -%}
+								{%- if block.settings.title != blank -%}
+									<div class="content-toggle  item-{{forloop.index}}">
+                                        <h2 class="title-footer-1 title-{{forloop.index}}">{{ block.settings.title }}</h2>
+										<div class="footer-block__content">
+											{{ block.settings.content }}
+											{%- if block.settings.social != blank -%}
+												{% include 'social-media' %}
+											{%- endif -%}
+										</div>
+									</div>
+								{%- else -%}
+									<div class="content-item  item-{{forloop.index}}">
+										<div class="footer-block">
+                                            <h2 class="title-footer title-{{forloop.index}}">{{ block.settings.title }}</h2>
+											<div class="footer-block__content">
+												{{ block.settings.content }}
+												{%- if block.settings.social != blank -%}
+													{% include 'social-media' %}
+												{%- endif -%}
+											</div>
+										</div>
+									</div>
+								{%- endif -%}
+							{%- when 'newsletter' -%}
+								{%- if block.settings.title != blank -%}
+									<div class="content-toggle footer-newsletter item-{{forloop.index}}">
+										<h2 class="title-footer title-{{forloop.index}}">{{ block.settings.title }}</h2>
+										<div class="footer-block">
+											<div class="footer-block__content">
+												<p>{{ block.settings.footer_desc }}</p>
+												{%- if block.settings.mailchimp -%}
+													{%- assign mailchimp_action = block.settings.form_action | replace: '/post?', '/post-json?' | append: '&amp;c=?' -%}
+													<form class="js-wpbingo-newsletter" action="{{ mailchimp_action }}" method="post" name="mc-embedded-subscribe-form" target="_blank">
+														<div class="newsletter-form__wrap">
+															<input class="js-input-newsletter form-control newsletter-form__input" type="email" name="EMAIL"
+																value="{% if customer %}{{ customer.email }}{% endif %}"
+																placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}" required />
+															<button class="btn newsletter-form__submit" type="submit">
+																<span>{{ 'general.newsletter_form.submit' | t }}</span>
+															</button>
+														</div>
+													</form>
+												{%- else -%}
+													{% form 'customer' %}
+														{{ form.errors | default_errors }}
+														{%- if form.posted_successfully? -%}
+															<div class="alert alert-success">{{ 'general.newsletter_form.newsletter_confirmation' | t }}</div>
+														{%- else -%}
+															<input type="hidden" name="contact[tags]" value="newsletter">
+															<div class="newsletter-form__wrap">
+																<input value="{% if customer %}{{ customer.email }}{% endif %}"
+																	placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}"
+																	name="contact[email]" class="form-control newsletter-form__input" type="email" 
+																	autocorrect="off" autocapitalize="off"/>
+																<button class="btn newsletter-form__submit" type="submit">
+																	<span>{{ 'general.newsletter_form.submit' | t }}</span>
+																</button>
+															</div>
+														{%- endif -%}
+													{% endform %}
+												{%- endif -%}
+											</div>
+										</div>
+									</div>
+								{%- else -%}
+									<div class="content-item  item-{{forloop.index}}">
+										<div class="footer-block">
+											<div class="footer-block__content">
+												<p>{{ block.settings.footer_desc }}</p>
+												{%- if block.settings.mailchimp -%}
+													{%- assign mailchimp_action = block.settings.form_action | replace: '/post?', '/post-json?' | append: '&amp;c=?' -%}
+													<form class="js-wpbingo-newsletter" action="{{ mailchimp_action }}" method="post" name="mc-embedded-subscribe-form" target="_blank">
+														<div class="newsletter-form__wrap">
+															<input class="js-input-newsletter form-control newsletter-form__input" type="email" name="EMAIL"
+																value="{% if customer %}{{ customer.email }}{% endif %}"
+																placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}" required />
+															<button class="btn newsletter-form__submit" type="submit">
+																<span>{{ 'general.newsletter_form.submit' | t }}</span>
+															</button>
+														</div>
+													</form>
+												{%- else -%}
+													{% form 'customer' %}
+														{{ form.errors | default_errors }}
+														{%- if form.posted_successfully? -%}
+															<div class="alert alert-success">{{ 'general.newsletter_form.newsletter_confirmation' | t }}</div>
+														{%- else -%}
+															<input type="hidden" name="contact[tags]" value="newsletter">
+															<div class="newsletter-form__wrap">
+																<input value="{% if customer %}{{ customer.email }}{% endif %}"
+																	placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}"
+																	name="contact[email]" class="form-control newsletter-form__input" type="email" 
+																	autocorrect="off" autocapitalize="off"/>
+																<button class="btn newsletter-form__submit" type="submit">
+																	<span>{{ 'general.newsletter_form.submit' | t }}</span>
+																</button>
+															</div>
+														{%- endif -%}
+													{% endform %}
+												{%- endif -%}
+											</div>
+										</div>
+									</div>
+								{%- endif -%}
+						{%- endcase -%}
+					{%- endfor -%}
+				{%- endif -%}
+			</div>
+		</div>
+    </div>
+</div>
+{% schema %}
+{
+	"name": "Footer 3",
+	"settings": [
+		{
+			"type": "text",
+			"id": "padding",
+			"label": "Padding",
+			"default": "50px 0 60px",
+			"placeholder": "top right bottom right",
+			"info":"Screen: desktop | 1200px | 991px | 767px"
+		},
+		{
+			"type": "color",
+			"id": "bg_color",
+			"label": "Background color",
+			"default": "#fff"
+		},
+		{
+			"type": "checkbox",
+			"id": "border",
+			"label": "Uses border",
+			"default":false
+		},
+		{
+			"type": "text",
+			"id": "border_width",
+			"label": "Border width",
+			"default":"1px 1px 1px 1px",
+			"info": "top right bottom right"
+		},
+		{
+			"type": "color",
+			"id": "border_color",
+			"label": "Border color",
+			"default":"#fff"
+		},
+		{
+			"type": "checkbox",
+			"id": "accordion",
+			"label": "Enable accordion menu in mobile",
+			"default":true
+		}
+	],
+	"blocks": [
+		{
+            "type": "@app"
+        },
+		{
+            "type": "menu",
+            "name": "Menu",
+            "settings": [
+				{
+					"type": "header",
+					"content": "== title settings"
+				},
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Heading",
+					"default": "Heading"
+				},
+				{
+					"type": "text",
+					"id": "font",
+					"label": "Font family"
+				},
+				{
+					"type": "color",
+					"id": "color",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size",
+					"label": "Font size",
+					"default": 12,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height",
+					"label": "Line height",
+					"default": 12,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing",
+					"label": "Letter spacing",
+					"default": 2,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight",
+					"label": "Font Weight",
+					"default": "400"
+				},
+				{
+					"type": "text",
+					"id": "margin",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "== content"
+				},
+				{
+					"type": "link_list",
+					"id": "footer_link_list",
+					"label": "Footer menu"
+				},
+				{
+					"type": "header",
+					"content": "== width settings"
+				},
+				{
+					"type": "number",
+					"id": "footer_width",
+					"label": "Container width",
+					"default": 25,
+					"info": "%"
+				},
+				{
+					"type": "number",
+					"id": "footer_width_ipad",
+					"label": "Container width tablet",
+					"default": 50,
+					"info": "%"
+				},
+				{
+					"type": "number",
+					"id": "footer_width_mobi",
+					"label": "Container width mobile",
+					"default": 100,
+					"info": "%"
+				}
+            ]
+        },
+		{
+            "type": "contact",
+            "name": "Contact",
+            "settings": [
+				{
+					"type": "header",
+					"content": "== title settings"
+				},
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Heading",
+					"default": "Heading"
+				},
+				{
+					"type": "text",
+					"id": "font",
+					"label": "Font family"
+				},
+				{
+					"type": "color",
+					"id": "color",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size",
+					"label": "Font size",
+					"default": 12,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height",
+					"label": "Line height",
+					"default": 12,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing",
+					"label": "Letter spacing",
+					"default": 2,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight",
+					"label": "Font Weight",
+					"default": "400"
+				},
+				{
+					"type": "text",
+					"id": "margin",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "== content"
+				},
+				{
+					"type": "textarea",
+					"id": "content",
+					"label": "Content",
+					"default": "<\p>Moreton / Didcot / London Showroom <\/p><p>+44 (0) 2598 321158<\/p>"
+				},
+				{
+					"type": "checkbox",
+					"id": "social",
+					"label": "Show social"
+				},
+				{
+					"type": "color",
+					"id": "color_social",
+					"label": "color social",
+					"default": "#000"
+				},
+				{
+					"type": "header",
+					"content": "== width settings"
+				},
+				{
+					"type": "number",
+					"id": "footer_width",
+					"label": "Container width",
+					"default": 25,
+					"info": "%"
+				},
+				{
+					"type": "number",
+					"id": "footer_width_ipad",
+					"label": "Container width tablet",
+					"default": 50,
+					"info": "%"
+				},
+				{
+					"type": "number",
+					"id": "footer_width_mobi",
+					"label": "Container width mobile",
+					"default": 100,
+					"info": "%"
+				}
+            ]
+        },
+		{
+            "type": "newsletter",
+            "name": "Newsletter",
+            "settings": [
+				{
+					"type": "header",
+					"content": "== title settings"
+				},
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Heading",
+					"default": "Heading"
+				},
+				{
+					"type": "text",
+					"id": "font",
+					"label": "Font family"
+				},
+				{
+					"type": "color",
+					"id": "color",
+					"label": "color",
+					"default": "#000"
+				},
+				{
+					"type": "number",
+					"id": "font_size",
+					"label": "Font size",
+					"default": 12,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "line_height",
+					"label": "Line height",
+					"default": 12,
+					"info": "px"
+				},
+				{
+					"type": "number",
+					"id": "letter_spacing",
+					"label": "Letter spacing",
+					"default": 2,
+					"info": "px"
+				},
+				{
+					"type": "text",
+					"id": "font_weight",
+					"label": "Font Weight",
+					"default": "400"
+				},
+				{
+					"type": "text",
+					"id": "margin",
+					"label": "Margin",
+					"default": "0px 0px 0px 0px",
+					"info": "top right bottom left"
+				},
+				{
+					"type": "header",
+					"content": "== content"
+				},
+				{
+					"type": "textarea",
+					"id": "footer_desc",
+					"label": "Description",
+					"default": "New subscribers receive 10% off their first purchase"
+				},
+				{
+					"type": "checkbox",
+					"id": "mailchimp",
+					"label": "Use mailchimp",
+					"default": false
+				},
+				{
+					"type": "text",
+					"id": "form_action",
+					"label": "MailChimp form action URL",
+					"info": "[Where do I find my MailChimp form action URL?](http:\/\/wpbingo.com\/guide\/wpbingo\/homepage.html#sectionFour)"
+				},
+				{
+					"type": "header",
+					"content": "== width settings"
+				},
+				{
+					"type": "number",
+					"id": "footer_width",
+					"label": "Container width",
+					"default": 25,
+					"info": "%"
+				},
+				{
+					"type": "number",
+					"id": "footer_width_ipad",
+					"label": "Container width tablet",
+					"default": 50,
+					"info": "%"
+				},
+				{
+					"type": "number",
+					"id": "footer_width_mobi",
+					"label": "Container width mobile",
+					"default": 100,
+					"info": "%"
+				}
+            ]
+        }
+	]
+}
+{% endschema %}

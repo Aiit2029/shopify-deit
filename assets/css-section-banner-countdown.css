@@ -1,0 +1,156 @@
+.bwp-widget-countdown .wpbingo-section__inner .content{
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  margin: 0 -60px;
+}
+.bwp-widget-countdown .wpbingo-section__inner .image-banner-countdown {
+  max-width: 50%;
+  flex: 0 0 50%;
+  padding: 0 60px;
+}
+.bwp-widget-countdown .wpbingo-section__inner .content-banner-countdown {
+  max-width: 50%;
+  flex: 0 0 50%;
+  padding: 0 60px;
+}
+.bwp-widget-countdown .wpbingo-section__inner .image-banner-countdown img {
+  width: 100%;
+}
+.bwp-widget-countdown .wpbingo-section__inner .product-title {
+  text-transform: uppercase;
+}
+.bwp-widget-countdown .wpbingo-section__inner .content-info-countdown {
+  background: #eaeaea;
+  position: relative;
+}
+.bwp-widget-countdown .wpbingo-section__inner .content-info-countdown .info {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+}
+.bwp-widget-countdown .countdown .countdown__item {
+  display:inline-block;
+  padding-right:40px;
+  text-align: center;
+  position: relative;
+}
+.bwp-widget-countdown .countdown .countdown__item:before {
+  content: ":";
+  display: inline-block;
+  font-size: calc(var(--font-size-body, 18px) + 11px);
+  color: var(--gray-dark, #000);
+  position: absolute;
+  top: -5px;
+  right: 17px;
+}
+.bwp-widget-countdown .countdown__item:last-child{
+  padding: 0;
+}
+.bwp-widget-countdown .countdown__item:last-child:before {
+  display: none;
+}
+.bwp-widget-countdown .countdown .countdown__item span:first-child {
+  font-family: var(--font-family-second);
+}
+.bwp-widget-countdown img.hover-circular{
+  animation: rotation 15s infinite linear;
+}
+.bwp-widget-countdown .bwp-button i{
+  right: 2px;
+  transition: all .3s ease;
+}
+.bwp-widget-countdown .bwp-button:hover i {
+  right: -3px;
+}
+.bwp-widget-countdown .bwp-button {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+.bwp-widget-countdown .bwp-button:before {
+  content: "";
+  width: 0;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  transition: all .3s ease;
+}
+.bwp-widget-countdown .bwp-button:hover:before {
+  width: 100%;
+  left: 0;
+}
+.bwp-widget-countdown .newsletter__content {
+  margin-top: 90px;
+  padding: 40px 100px;
+  border: 1px solid var(--border-color);
+}
+.bwp-widget-countdown .newsletter-form__wrap {
+  display: flex;
+  border-bottom: 1px solid var(--gray-dark);
+}
+.bwp-widget-countdown .newsletter-form__wrap input {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  font-size: var(--font-size-base);
+  line-height: 40px;
+  background: transparent;
+}
+.bwp-widget-countdown .newsletter-form__wrap input::placeholder {
+  color: var(--text-color-50);
+}
+.bwp-widget-countdown .newsletter-form__wrap .newsletter-form__submit {
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 15px;
+  background: transparent;
+  text-transform: uppercase;
+  color: var(--gray-dark);
+  font-size: calc(var(--font-size-base) + 10px);
+  line-height: 40px;
+  font-weight: var(--body-font-weight-medium);
+}
+.bwp-widget-countdown .newsletter-form__wrap .newsletter-form__submit:hover {
+  color: var(--theme-color);
+}
+@media(max-width: 1199px){
+  .bwp-widget-countdown .wpbingo-section__inner .content-banner-countdown {
+    margin: 0;
+  }
+  
+  .bwp-widget-countdown .newsletter__content {
+    padding: 40px 15px;
+  }
+}
+@media(max-width: 991px){
+  .bwp-widget-countdown .wpbingo-section__inner .content{
+    margin: 0 -7.5px;
+  }
+  .bwp-widget-countdown .wpbingo-section__inner .content-banner-countdown {
+    max-width: 100%;
+    flex: 0 0 100%;
+    padding: 0 7.5px;
+  }
+  .bwp-widget-countdown .wpbingo-section__inner .image-banner-countdown {
+    max-width: 100%;
+    flex: 0 0 100%;
+    padding: 0 7.5px;
+    margin-top: 15px;
+  }
+  .bwp-widget-countdown .newsletter__content {
+    margin-top: 15px;
+    padding: 60px 15px;
+  }
+}
+@media(max-width: 767px){
+  .bwp-widget-countdown .wpbingo-section__inner .content-info-countdown .info {
+    padding: 50px 15px;
+  }
+}
+

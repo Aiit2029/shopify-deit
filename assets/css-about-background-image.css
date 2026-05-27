@@ -1,0 +1,19 @@
+.wpbingo-about--background .wpbingo-sub-btn a {
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+  border: 0;
+  text-transform: revert;
+}
+.wpbingo-about--background .wpbingo-sub-btn a:before {
+  position: absolute;
+  right: 0;
+  content: "";
+  height: 100%;
+  width: 0;
+  top: 0;
+  z-index: -1;
+}
+.wpbingo-about--background .wpbingo-sub-btn a:hover:before {
+  width: 100%;
+}

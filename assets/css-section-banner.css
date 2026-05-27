@@ -1,0 +1,62 @@
+.bwp-widget-banner .featured-banner {
+  position: relative;
+}
+.bwp-widget-banner {
+  position: relative;
+  z-index: 1;
+}
+.bwp-widget-banner .bwp-image {
+  overflow: hidden;
+}
+.bwp-widget-banner .banner-wrapper-infor {
+  width: 100%;
+  display: flex;
+}
+.bwp-widget-banner .banner-wrapper-infor.position-absolute {
+  position: absolute;
+}
+.bwp-widget-banner .bwp-button {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+.bwp-widget-banner .bwp-button:before {
+  content: "";
+  width: 0;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  transition: all .3s ease;
+}
+.bwp-widget-banner .bwp-button:hover:before {
+  width: 100%;
+  left: 0;
+}
+.bwp-widget-banner .bwp-button:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  transition: all .3s ease;
+}
+.bwp-widget-banner .bwp-button:hover:after {
+  width: 60%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.bwp-widget-banner .row--banners {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+.bwp-widget-banner.style-2 .banner-wrapper-infor .info {
+  background: var(--white);
+  padding: 30px 15px 0;
+  width: 100%;
+}
