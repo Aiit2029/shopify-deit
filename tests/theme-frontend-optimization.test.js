@@ -58,6 +58,16 @@ const checks = [
       assert.equal(product.sections['product-template'].settings.show_sticky_cart, true);
     },
   },
+  {
+    name: 'collection product cards have optimized browsing styles',
+    run() {
+      const css = read('assets/seendoor-optimization.css');
+      assert(css.includes('.product-card__name a'));
+      assert(css.includes('-webkit-line-clamp: 2'));
+      assert(css.includes('.product-card:hover .product-card__image-wrapper img'));
+      assert(css.includes('.page-collection .products__col'));
+    },
+  },
 ];
 
 let failed = 0;
