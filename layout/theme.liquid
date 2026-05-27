@@ -25,7 +25,7 @@
 			{{ settings.font-family-base-google-link }}
 		{% endif %}
 		<link rel="canonical" href="{{ canonical_url }}">
-		<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no, user-scalable=no">
+		<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
 		<meta name="theme-color" content="{{ settings.color_primary }}">
 		{% include 'header-styles' %}
 		{% include 'header-javascript' %}
@@ -59,18 +59,14 @@
 				when '6'
 					section 'header_6'
 			endcase -%}
-                    <!-- Smartsupp Live Chat script -->
-<script type="text/javascript">
-var _smartsupp = _smartsupp || {};
-_smartsupp.key = 'ed264771a60ef8a56489734df8027cbe343e7a99';_smartsupp.orientation = "right";_smartsupp.offsetY = 220;_smartsupp.offsetX = 0; 
-window.smartsupp||(function(d) {
-var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
-s=d.getElementsByTagName('script')[0];c=d.createElement('script');
-c.type='text/javascript';c.charset='utf-8';c.async=true;
-c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
-})(document);
+                    <!-- Smartsupp Live Chat settings; loader is deferred in seendoor-optimization.js -->
+<script>
+window._smartsupp = window._smartsupp || {};
+window._smartsupp.key = 'ed264771a60ef8a56489734df8027cbe343e7a99';
+window._smartsupp.orientation = 'right';
+window._smartsupp.offsetY = 220;
+window._smartsupp.offsetX = 0;
 </script>
-<noscript> Powered by <a href=“https://www.smartsupp.com” target=“_blank”>Smartsupp</a></noscript>
 		</header>
 		<main class="main-content" role="main">
 			{{ content_for_layout }}
@@ -192,6 +188,7 @@ c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
 			} 
 		</script>
 		{% include 'footer-javascript' %}
+	<script src="{{ 'seendoor-optimization.js' | asset_url }}" defer="defer"></script>
 	<script src="{{ '//cdn.shopify.com/s/files/1/0194/1736/6592/t/1/assets/booster-page-speed-optimizer.js?23' }}" defer="defer"></script>
 {%- sections 'smi-group' -%}
 {%- render 'foxify-footer' -%} {% sections 'foxify-footer-group' %}   </body>

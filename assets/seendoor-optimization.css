@@ -1,0 +1,25 @@
+:root {
+  --sd-warm-surface: #f7f3ee;
+  --sd-charcoal: #1f1e1b;
+  --sd-brass: #ac8058;
+  --sd-brass-dark: #8f6846;
+  --sd-terracotta: #8a3a2f;
+  --sd-border: #e7dfd6;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--sd-brass);
+  outline-offset: 3px;
+}
+
+@media (max-width: 767px) {
+  .smartsupp-widget,
+  #smartsupp-widget-container {
+    bottom: 86px !important;
+  }
+}

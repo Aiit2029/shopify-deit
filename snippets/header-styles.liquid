@@ -9,6 +9,7 @@
 {{ 'css-effect.css' | asset_url | stylesheet_tag }}
 {{ 'css-section.css' | asset_url | stylesheet_tag }}
 {{ 'css-site.css' | asset_url | stylesheet_tag }}
+{{ 'seendoor-optimization.css' | asset_url | stylesheet_tag }}
 {%- assign page_type = request.page_type | handle -%}
 {%- if page_type contains 'collection' or page_type contains 'search' -%}
   {{ 'css-collection.css' | asset_url | stylesheet_tag }}
