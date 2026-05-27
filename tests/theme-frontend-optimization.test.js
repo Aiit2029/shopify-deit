@@ -126,6 +126,17 @@ const checks = [
     },
   },
   {
+    name: 'homepage JSON template sections are all ordered for Shopify sync',
+    run() {
+      const index = JSON.parse(read('templates/index.json'));
+      const order = index.order || [];
+      const missingFromOrder = Object.keys(index.sections || {}).filter((id) => !order.includes(id));
+      const unknownInOrder = order.filter((id) => !index.sections[id]);
+      assert.deepEqual(missingFromOrder, []);
+      assert.deepEqual(unknownInOrder, []);
+    },
+  },
+  {
     name: 'homepage uses consistent 1750px content width',
     run() {
       const index = JSON.parse(read('templates/index.json'));
