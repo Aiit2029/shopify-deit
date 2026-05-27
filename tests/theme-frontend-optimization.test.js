@@ -149,6 +149,19 @@ const checks = [
     },
   },
   {
+    name: 'homepage custom URL settings use relative fallback links',
+    run() {
+      const index = JSON.parse(read('templates/index.json'));
+      for (const sectionId of ['sd_room_selector', 'sd_footer_trust']) {
+        const section = index.sections[sectionId];
+        const encoded = JSON.stringify(section);
+        assert(!encoded.includes('shopify://policies/'));
+        assert(!encoded.includes('shopify://pages/'));
+        assert(!encoded.includes('shopify://collections/'));
+      }
+    },
+  },
+  {
     name: 'homepage JSON template sections are all ordered for Shopify sync',
     run() {
       const index = JSON.parse(read('templates/index.json'));
