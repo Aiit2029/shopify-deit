@@ -1,0 +1,182 @@
+{%- liquid
+  if section.settings.fullwidth
+    assign container = 'container-full'
+  elsif section.settings.max_width != blank
+    assign container = 'bwp-container'
+  else
+    assign container = 'container'
+  endif
+
+  assign max_width = ''
+  if section.settings.fullwidth == false and section.settings.max_width != blank
+    capture max_width
+      echo 'style="max-width: ' | append: section.settings.max_width | append: ';"'
+    endcapture
+  endif
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .sd-room-section {
+    margin: {{ section.settings.margin }};
+  }
+{%- endstyle -%}
+
+<section class="wpbingo-section sd-room-section wpbingo-section--{{ section.id }} overflow-hidden">
+  <div class="{{ container }}" {{ max_width }}>
+    <div class="sd-room-selector" aria-label="{{ section.settings.aria_label | escape }}">
+      <div class="sd-section-heading">
+        <div class="sd-section-heading__copy">
+          {%- if section.settings.eyebrow != blank -%}
+            <span class="sd-eyebrow">{{ section.settings.eyebrow }}</span>
+          {%- endif -%}
+          {%- if section.settings.heading != blank -%}
+            <span class="sd-title">{{ section.settings.heading }}</span>
+          {%- endif -%}
+          {%- if section.settings.copy != blank -%}
+            <span class="sd-copy">{{ section.settings.copy }}</span>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.link_label != blank and section.settings.link_url != blank -%}
+          <a class="sd-text-link" href="{{ section.settings.link_url }}">{{ section.settings.link_label }}</a>
+        {%- endif -%}
+      </div>
+
+      <div class="sd-room-selector__grid">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign card_url = block.settings.link
+            if block.settings.collection != blank
+              assign card_url = block.settings.collection.url
+            endif
+            if card_url == blank
+              assign card_url = '#'
+            endif
+            assign image_alt = block.settings.image.alt | default: block.settings.title
+          -%}
+          <a class="sd-room-card" href="{{ card_url }}" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', sizes: '(min-width: 1200px) 16vw, (min-width: 750px) 33vw, 86vw', alt: image_alt }}
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'sd-room-card__placeholder' }}
+            {%- endif -%}
+            <span class="sd-room-card__copy">
+              {%- if block.settings.title != blank -%}
+                <span class="sd-room-card__label">{{ block.settings.title }}</span>
+              {%- endif -%}
+              {%- if block.settings.caption != blank -%}
+                <span class="sd-room-card__title">{{ block.settings.caption }}</span>
+              {%- endif -%}
+            </span>
+          </a>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "SD Room Selector",
+  "class": "wpbingo-framework",
+  "settings": [
+    {
+      "type": "text",
+      "id": "max_width",
+      "label": "Width container",
+      "default": "1750px"
+    },
+    {
+      "type": "checkbox",
+      "id": "fullwidth",
+      "label": "Fullwidth",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "margin",
+      "label": "Margin",
+      "default": "70px 0 0 0"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Accessibility label",
+      "default": "Shop lighting by room"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Shop by room"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Choose the atmosphere first"
+    },
+    {
+      "type": "textarea",
+      "id": "copy",
+      "label": "Copy",
+      "default": "Most lighting decisions start with a room, not a fixture. Begin with the space you want to change, then refine the light."
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link label",
+      "default": "Explore rooms"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "room",
+      "name": "Room card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Room",
+          "default": "Living Room"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption",
+          "default": "Soft layers for gathering"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Fallback link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SD Room Selector",
+      "blocks": [
+        { "type": "room" },
+        { "type": "room" },
+        { "type": "room" }
+      ]
+    }
+  ]
+}
+{% endschema %}

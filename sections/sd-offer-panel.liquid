@@ -1,0 +1,149 @@
+{%- liquid
+  if section.settings.fullwidth
+    assign container = 'container-full'
+  elsif section.settings.max_width != blank
+    assign container = 'bwp-container'
+  else
+    assign container = 'container'
+  endif
+
+  assign max_width = ''
+  if section.settings.fullwidth == false and section.settings.max_width != blank
+    capture max_width
+      echo 'style="max-width: ' | append: section.settings.max_width | append: ';"'
+    endcapture
+  endif
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .sd-offer-section {
+    margin: {{ section.settings.margin }};
+  }
+{%- endstyle -%}
+
+<section class="wpbingo-section sd-offer-section wpbingo-section--{{ section.id }} overflow-hidden">
+  <div class="{{ container }}" {{ max_width }}>
+    <div class="sd-offer-panel" aria-label="{{ section.settings.aria_label | escape }}">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="sd-eyebrow">{{ section.settings.eyebrow }}</span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <span class="sd-title">{{ section.settings.heading }}</span>
+        {%- endif -%}
+        {%- if section.settings.copy != blank -%}
+          <span class="sd-copy">{{ section.settings.copy }}</span>
+        {%- endif -%}
+      </div>
+      <div class="sd-offer-panel__grid">
+        {%- for block in section.blocks -%}
+          <span class="sd-offer-card" {{ block.shopify_attributes }}>
+            {%- if block.settings.amount != blank -%}
+              <span class="sd-offer-card__amount">{{ block.settings.amount }}</span>
+            {%- endif -%}
+            {%- if block.settings.label != blank -%}
+              <span class="sd-offer-card__label">{{ block.settings.label }}</span>
+            {%- endif -%}
+            {%- if block.settings.code != blank -%}
+              <button type="button" class="sd-offer-card__code" data-sd-copy-code="{{ block.settings.code | escape }}">{{ block.settings.code }}</button>
+            {%- endif -%}
+          </span>
+        {%- endfor -%}
+      </div>
+    </div>
+    <div id="copy-toast">{{ section.settings.toast_text }}</div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "SD Offer Panel",
+  "class": "wpbingo-framework",
+  "settings": [
+    {
+      "type": "text",
+      "id": "max_width",
+      "label": "Width container",
+      "default": "1750px"
+    },
+    {
+      "type": "checkbox",
+      "id": "fullwidth",
+      "label": "Fullwidth",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "margin",
+      "label": "Margin",
+      "default": "70px 0 0 0"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Accessibility label",
+      "default": "Summer Home Refresh offers"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Limited time offer"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Build the look, save by layer"
+    },
+    {
+      "type": "textarea",
+      "id": "copy",
+      "label": "Copy",
+      "default": "Use the topbar as a light reminder, then keep the detailed offer here when shoppers already understand the room story and product range."
+    },
+    {
+      "type": "text",
+      "id": "toast_text",
+      "label": "Copied toast text",
+      "default": "Code Copied"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "offer",
+      "name": "Offer",
+      "settings": [
+        {
+          "type": "text",
+          "id": "amount",
+          "label": "Amount",
+          "default": "10% Off"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Style one room"
+        },
+        {
+          "type": "text",
+          "id": "code",
+          "label": "Code",
+          "default": "SD10"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SD Offer Panel",
+      "blocks": [
+        { "type": "offer" },
+        { "type": "offer" },
+        { "type": "offer" }
+      ]
+    }
+  ]
+}
+{% endschema %}

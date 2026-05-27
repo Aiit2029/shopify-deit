@@ -621,11 +621,17 @@ body.template-collection .active-facets__button:hover {
 .sd-footer-trust__item {
   align-items: center;
   border-right: 1px solid var(--sd-gallery-stone);
+  color: inherit;
   display: grid;
   gap: 14px;
   grid-template-columns: 46px 1fr;
   min-height: 118px;
   padding: 24px 28px;
+  text-decoration: none;
+}
+
+.sd-footer-trust__item:hover {
+  background: rgba(253, 246, 232, 0.54);
 }
 
 .sd-footer-trust__item:last-child {

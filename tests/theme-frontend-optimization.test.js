@@ -119,10 +119,33 @@ const checks = [
       const position = (id) => order.indexOf(id);
       assert(position('sd_room_selector') > position('slideshow_4PmnVM'));
       assert(position('sd_room_selector') < position('featured_title_yBA3WE'));
-      assert(position('featured_image_with_text_Kr6QBJ') < position('featured_title_FFe3By'));
-      assert(position('featured_title_FFe3By') < position('slideshow_pCwUPy'));
+      assert(position('featured_image_with_text_Kr6QBJ') < position('sd_offer_panel'));
+      assert(position('sd_offer_panel') < position('slideshow_pCwUPy'));
       assert(position('featured_blog_post_L7cwnj') < position('sd_footer_trust'));
       assert(!order.includes('featured_policy_LCEaXC'));
+    },
+  },
+  {
+    name: 'homepage editable redesign uses native Shopify sections',
+    run() {
+      const index = JSON.parse(read('templates/index.json'));
+      assert.equal(index.sections.sd_room_selector.type, 'sd-room-selector');
+      assert.equal(index.sections.sd_offer_panel.type, 'sd-offer-panel');
+      assert.equal(index.sections.sd_footer_trust.type, 'sd-footer-trust');
+
+      const roomSection = read('sections/sd-room-selector.liquid');
+      const offerSection = read('sections/sd-offer-panel.liquid');
+      const trustSection = read('sections/sd-footer-trust.liquid');
+      assert(roomSection.includes('"type": "collection"'));
+      assert(roomSection.includes('"type": "image_picker"'));
+      assert(offerSection.includes('data-sd-copy-code'));
+      assert(trustSection.includes('"type": "select"'));
+
+      for (const section of Object.values(index.sections)) {
+        if (section.type !== 'featured-title') continue;
+        const encodedSection = JSON.stringify(section);
+        assert(!encodedSection.includes('<div class=\\"sd-'));
+      }
     },
   },
   {

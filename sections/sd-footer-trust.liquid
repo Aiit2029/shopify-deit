@@ -1,0 +1,139 @@
+{%- liquid
+  if section.settings.fullwidth
+    assign container = 'container-full'
+  elsif section.settings.max_width != blank
+    assign container = 'bwp-container'
+  else
+    assign container = 'container'
+  endif
+
+  assign max_width = ''
+  if section.settings.fullwidth == false and section.settings.max_width != blank
+    capture max_width
+      echo 'style="max-width: ' | append: section.settings.max_width | append: ';"'
+    endcapture
+  endif
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .sd-footer-trust-section {
+    margin: {{ section.settings.margin }};
+  }
+{%- endstyle -%}
+
+<section class="wpbingo-section sd-footer-trust-section wpbingo-section--{{ section.id }} overflow-hidden">
+  <div class="{{ container }}" {{ max_width }}>
+    <div class="sd-footer-trust" aria-label="{{ section.settings.aria_label | escape }}">
+      {%- for block in section.blocks -%}
+        {%- capture trust_content -%}
+          <span class="sd-footer-trust__icon" aria-hidden="true">
+            {%- case block.settings.icon -%}
+              {%- when 'shipping' -%}
+                <svg viewBox="0 0 24 24" fill="none"><path d="M3 7h11v10H3z"></path><path d="M14 10h4l3 3v4h-7z"></path><path d="M7 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path><path d="M18 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path></svg>
+              {%- when 'secure' -%}
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"></path><path d="M9 12l2 2 4-5"></path></svg>
+              {%- when 'returns' -%}
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 7v6h6"></path><path d="M20 17v-6h-6"></path><path d="M6 13a7 7 0 0 0 12 3"></path><path d="M18 11A7 7 0 0 0 6 8"></path></svg>
+              {%- else -%}
+                <svg viewBox="0 0 24 24" fill="none"><path d="M21 12a8 8 0 0 1-8 8H7l-4 2 1.5-4A8 8 0 1 1 21 12z"></path><path d="M8 12h.01"></path><path d="M12 12h.01"></path><path d="M16 12h.01"></path></svg>
+            {%- endcase -%}
+          </span>
+          <span>
+            {%- if block.settings.title != blank -%}
+              <span class="sd-footer-trust__title">{{ block.settings.title }}</span>
+            {%- endif -%}
+            {%- if block.settings.copy != blank -%}
+              <span class="sd-footer-trust__copy">{{ block.settings.copy }}</span>
+            {%- endif -%}
+          </span>
+        {%- endcapture -%}
+        {%- if block.settings.link != blank -%}
+          <a class="sd-footer-trust__item" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>{{ trust_content }}</a>
+        {%- else -%}
+          <span class="sd-footer-trust__item" {{ block.shopify_attributes }}>{{ trust_content }}</span>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "SD Footer Trust",
+  "class": "wpbingo-framework",
+  "settings": [
+    {
+      "type": "text",
+      "id": "max_width",
+      "label": "Width container",
+      "default": "1750px"
+    },
+    {
+      "type": "checkbox",
+      "id": "fullwidth",
+      "label": "Fullwidth",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "margin",
+      "label": "Margin",
+      "default": "50px 0 0 0"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Accessibility label",
+      "default": "Store benefits"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "shipping",
+          "options": [
+            { "value": "shipping", "label": "Shipping" },
+            { "value": "secure", "label": "Secure payment" },
+            { "value": "returns", "label": "Returns" },
+            { "value": "support", "label": "Support" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "text",
+          "id": "copy",
+          "label": "Copy",
+          "default": "Free shipping over EUR50"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Optional link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SD Footer Trust",
+      "blocks": [
+        { "type": "trust_item" },
+        { "type": "trust_item" },
+        { "type": "trust_item" },
+        { "type": "trust_item" }
+      ]
+    }
+  ]
+}
+{% endschema %}
