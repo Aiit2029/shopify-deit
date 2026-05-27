@@ -1,0 +1,988 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seendoor Homepage Redesign Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sd-ink: #1d1b18;
+      --sd-muted: #574e44;
+      --sd-paper: #f8f4ec;
+      --sd-surface: #ffffff;
+      --sd-stone: #eee7dc;
+      --sd-border: #e6dcce;
+      --sd-brass: #a8794b;
+      --sd-brass-dark: #835e39;
+      --sd-clay: #835e39;
+      --sd-glow: #fdf6e8;
+      --sd-night: #24231f;
+      --sd-width: 1750px;
+      --sd-shadow: 0 20px 55px rgba(29, 27, 24, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--sd-paper);
+      color: var(--sd-ink);
+      font-family: Montserrat, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    img,
+    svg {
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      margin: 0 auto;
+      max-width: var(--sd-width);
+      padding: 0 28px;
+      width: 100%;
+    }
+
+    .topbar {
+      background: var(--sd-night);
+      color: #f8f4ec;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      padding: 9px 0;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .header {
+      background: rgba(248, 244, 236, 0.92);
+      border-bottom: 1px solid rgba(29, 27, 24, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header__inner {
+      align-items: center;
+      display: grid;
+      gap: 30px;
+      grid-template-columns: 1fr auto 1fr;
+      min-height: 88px;
+    }
+
+    .search {
+      border: 1px solid var(--sd-border);
+      color: var(--sd-muted);
+      max-width: 360px;
+      padding: 12px 16px;
+    }
+
+    .brand {
+      align-items: center;
+      display: inline-flex;
+      font-size: 28px;
+      font-weight: 700;
+      gap: 10px;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      border: 2px solid var(--sd-ink);
+      height: 34px;
+      position: relative;
+      transform: skew(-12deg);
+      width: 24px;
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      border-left: 2px solid var(--sd-ink);
+      content: "";
+      height: 34px;
+      left: 9px;
+      position: absolute;
+      top: -2px;
+      transform: skew(24deg);
+    }
+
+    .brand-mark::after {
+      left: 17px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 30px;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      color: var(--sd-muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav a:hover {
+      color: var(--sd-brass-dark);
+    }
+
+    .section {
+      margin: 0 auto;
+      max-width: var(--sd-width);
+      padding: 74px 28px;
+      width: 100%;
+    }
+
+    .section--tight {
+      padding-top: 34px;
+      padding-bottom: 34px;
+    }
+
+    .section--no-top {
+      padding-top: 0;
+    }
+
+    .section-kicker {
+      color: var(--sd-brass-dark);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      margin: 0 0 12px;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-family: "Playfair Display", serif;
+      font-size: 44px;
+      font-weight: 600;
+      letter-spacing: 0;
+      line-height: 1.12;
+      margin: 0;
+    }
+
+    .section-copy {
+      color: var(--sd-muted);
+      margin: 16px 0 0;
+      max-width: 720px;
+    }
+
+    .heading-row {
+      align-items: end;
+      display: flex;
+      gap: 28px;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
+    .text-link {
+      border-bottom: 1px solid var(--sd-brass);
+      color: var(--sd-brass-dark);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      padding-bottom: 4px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .hero {
+      padding-top: 28px;
+    }
+
+    .hero-panel {
+      background:
+        radial-gradient(circle at 72% 28%, rgba(253, 246, 232, 0.38), rgba(253, 246, 232, 0) 30%),
+        linear-gradient(90deg, rgba(29, 27, 24, 0.82), rgba(29, 27, 24, 0.42), rgba(29, 27, 24, 0.06)),
+        url("https://cdn.shopify.com/s/files/1/0704/2534/6105/files/2K_202605081052.jpg") center / cover;
+      min-height: 640px;
+      position: relative;
+    }
+
+    .hero-content {
+      color: #fff;
+      max-width: 720px;
+      padding: 92px 70px;
+    }
+
+    .hero-eyebrow {
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      margin: 0 0 18px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-family: "Playfair Display", serif;
+      font-size: 70px;
+      font-weight: 600;
+      letter-spacing: 0;
+      line-height: 1.03;
+      margin: 0;
+    }
+
+    .hero p {
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 18px;
+      margin: 22px 0 34px;
+      max-width: 590px;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      align-items: center;
+      border: 1px solid transparent;
+      display: inline-flex;
+      font-size: 13px;
+      font-weight: 700;
+      justify-content: center;
+      letter-spacing: 0.12em;
+      min-height: 48px;
+      padding: 0 24px;
+      text-transform: uppercase;
+      transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button--light {
+      background: #fff;
+      color: var(--sd-ink);
+    }
+
+    .button--light:hover {
+      background: var(--sd-brass);
+      border-color: var(--sd-brass);
+      color: #fff;
+    }
+
+    .button--outline {
+      border-color: rgba(255, 255, 255, 0.7);
+      color: #fff;
+    }
+
+    .button--outline:hover {
+      background: var(--sd-glow);
+      border-color: var(--sd-glow);
+      color: var(--sd-ink);
+    }
+
+    .button--dark {
+      background: var(--sd-ink);
+      color: #fff;
+    }
+
+    .button--dark:hover {
+      background: var(--sd-brass-dark);
+      border-color: var(--sd-brass-dark);
+      color: #fff;
+    }
+
+    .trust {
+      background: linear-gradient(135deg, var(--sd-surface), var(--sd-glow));
+      border: 1px solid var(--sd-border);
+      display: grid;
+      gap: 0;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .trust-item {
+      align-items: center;
+      border-right: 1px solid var(--sd-border);
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 46px 1fr;
+      min-height: 118px;
+      padding: 24px 28px;
+    }
+
+    .trust-item:last-child {
+      border-right: 0;
+    }
+
+    .trust-icon {
+      align-items: center;
+      background: #f3eadb;
+      color: var(--sd-brass-dark);
+      display: grid;
+      height: 46px;
+      justify-items: center;
+      width: 46px;
+    }
+
+    .trust-icon svg {
+      height: 24px;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.8;
+      width: 24px;
+    }
+
+    .trust h3 {
+      font-size: 15px;
+      margin: 0;
+    }
+
+    .trust p {
+      color: var(--sd-muted);
+      font-size: 13px;
+      line-height: 1.5;
+      margin: 3px 0 0;
+    }
+
+    .offer {
+      background: var(--sd-night);
+      color: #fff;
+      display: grid;
+      gap: 34px;
+      grid-template-columns: 0.95fr 1.35fr;
+      padding: 46px;
+    }
+
+    .offer .section-kicker {
+      color: #d8b27f;
+    }
+
+    .offer .section-copy {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .offer-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .offer-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      min-height: 190px;
+      padding: 24px;
+    }
+
+    .offer-card strong {
+      display: block;
+      font-family: "Playfair Display", serif;
+      font-size: 40px;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .offer-card span {
+      color: rgba(255, 255, 255, 0.78);
+      display: block;
+      margin-bottom: 18px;
+    }
+
+    .code {
+      border: 1px solid rgba(255, 255, 255, 0.64);
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      padding: 8px 12px;
+    }
+
+    .room-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .room-card {
+      background: var(--sd-night);
+      color: #fff;
+      min-height: 320px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .room-card img {
+      height: 100%;
+      inset: 0;
+      object-fit: cover;
+      opacity: 0.72;
+      position: absolute;
+      transition: opacity 220ms ease, transform 280ms ease;
+      width: 100%;
+    }
+
+    .room-card::after {
+      background: linear-gradient(180deg, rgba(29, 27, 24, 0.06), rgba(29, 27, 24, 0.68));
+      content: "";
+      inset: 0;
+      position: absolute;
+    }
+
+    .room-card:hover img {
+      opacity: 0.9;
+      transform: scale(1.035);
+    }
+
+    .room-card__copy {
+      bottom: 0;
+      left: 0;
+      padding: 22px;
+      position: absolute;
+      right: 0;
+      z-index: 1;
+    }
+
+    .room-card__copy span {
+      color: rgba(255, 255, 255, 0.72);
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .room-card__copy h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 26px;
+      line-height: 1.05;
+      margin: 0;
+    }
+
+    .category-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .category-card,
+    .product-card,
+    .article-card {
+      background: var(--sd-surface);
+      border: 1px solid rgba(230, 220, 206, 0.82);
+      transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    }
+
+    .category-card:hover,
+    .product-card:hover,
+    .article-card:hover {
+      background: var(--sd-glow);
+      border-color: rgba(168, 121, 75, 0.5);
+      box-shadow: var(--sd-shadow);
+      transform: translateY(-3px);
+    }
+
+    .category-card img {
+      aspect-ratio: 1 / 1.18;
+      height: auto;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    .category-card h3,
+    .product-card h3,
+    .article-card h3 {
+      font-size: 16px;
+      line-height: 1.35;
+      margin: 0;
+    }
+
+    .category-card h3 {
+      padding: 18px 18px 20px;
+    }
+
+    .product-grid {
+      display: grid;
+      gap: 22px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .product-card img {
+      aspect-ratio: 1 / 1;
+      background: var(--sd-stone);
+      object-fit: cover;
+      width: 100%;
+    }
+
+    .product-info {
+      padding: 18px;
+    }
+
+    .price {
+      color: var(--sd-clay);
+      font-weight: 700;
+      margin-top: 10px;
+    }
+
+    .series {
+      background: #efe7dc;
+      display: grid;
+      gap: 36px;
+      grid-template-columns: 1.1fr 0.9fr;
+      padding: 42px;
+    }
+
+    .series img {
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    .series-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .series-item {
+      align-items: center;
+      background: rgba(255, 255, 255, 0.64);
+      border: 1px solid rgba(168, 121, 75, 0.2);
+      display: flex;
+      justify-content: space-between;
+      padding: 18px 20px;
+    }
+
+    .quick {
+      background: linear-gradient(135deg, var(--sd-stone), var(--sd-glow));
+      border: 1px solid var(--sd-border);
+      color: var(--sd-ink);
+      display: grid;
+      gap: 28px;
+      grid-template-columns: 1fr auto;
+      padding: 40px 44px;
+    }
+
+    .quick p {
+      color: var(--sd-muted);
+      margin: 8px 0 0;
+    }
+
+    .philosophy {
+      background: var(--sd-surface);
+      display: grid;
+      gap: 0;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .philosophy img {
+      height: 100%;
+      min-height: 420px;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    .philosophy-copy {
+      align-content: center;
+      display: grid;
+      padding: 64px;
+    }
+
+    .article-grid {
+      display: grid;
+      gap: 22px;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .article-card img {
+      aspect-ratio: 1 / 1.18;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    .article-card h3 {
+      font-style: italic;
+      padding: 16px;
+    }
+
+    .footer {
+      background: #f1ece4;
+      border-top: 1px solid var(--sd-border);
+      margin-top: 40px;
+      padding: 58px 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      gap: 32px;
+      grid-template-columns: 1.2fr 1fr 1fr 1fr;
+    }
+
+    .footer h3 {
+      font-size: 14px;
+      margin: 0 0 16px;
+    }
+
+    .footer p,
+    .footer a {
+      color: var(--sd-muted);
+      display: block;
+      font-size: 14px;
+      margin: 0 0 10px;
+    }
+
+    @media (max-width: 1200px) {
+      .category-grid,
+      .room-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .product-grid,
+      .trust {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .trust-item:nth-child(2) {
+        border-right: 0;
+      }
+
+      .trust-item:nth-child(1),
+      .trust-item:nth-child(2) {
+        border-bottom: 1px solid var(--sd-border);
+      }
+
+      .offer,
+      .series,
+      .philosophy,
+      .quick {
+        grid-template-columns: 1fr;
+      }
+
+      .article-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 767px) {
+      .shell,
+      .section {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .header__inner {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        padding: 18px 0;
+      }
+
+      .search,
+      .nav {
+        display: none;
+      }
+
+      .hero-panel {
+        min-height: 520px;
+      }
+
+      .hero-content {
+        padding: 54px 24px;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .section-title {
+        font-size: 32px;
+      }
+
+      .heading-row {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .category-grid,
+      .room-grid,
+      .product-grid,
+      .offer-grid,
+      .article-grid,
+      .trust,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .trust-item,
+      .trust-item:nth-child(2) {
+        border-bottom: 1px solid var(--sd-border);
+        border-right: 0;
+      }
+
+      .trust-item:last-child {
+        border-bottom: 0;
+      }
+
+      .offer,
+      .series,
+      .quick,
+      .philosophy-copy {
+        padding: 28px;
+      }
+
+      .philosophy img {
+        min-height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">Summer Home Refresh Sale | Save more when you complete the room</div>
+
+  <header class="header">
+    <div class="shell header__inner">
+      <div class="search">Search lighting, hardware, rooms...</div>
+      <a class="brand" href="#">
+        <span class="brand-mark" aria-hidden="true"></span>
+        SEENDOOR
+      </a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#">Home</a>
+        <a href="#">Lighting</a>
+        <a href="#">Best Sellers</a>
+        <a href="#">New Arrivals</a>
+        <a href="#">Homeware</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section hero">
+      <div class="hero-panel">
+        <div class="hero-content">
+          <p class="hero-eyebrow">Summer Home Refresh</p>
+          <h1>Layer light into every room</h1>
+          <p>Softer evenings, cleaner details, and tiered savings on lighting and hardware for the rooms you use every day.</p>
+          <div class="button-row">
+            <a class="button button--light" href="#">Shop Summer Refresh</a>
+            <a class="button button--outline" href="#">Explore New Arrivals</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="heading-row">
+        <div>
+          <p class="section-kicker">Shop by room</p>
+          <h2 class="section-title">Choose the atmosphere first</h2>
+          <p class="section-copy">Most lighting decisions start with a room, not a fixture. Begin with the space you want to change, then refine the light.</p>
+        </div>
+        <a class="text-link" href="#">Explore rooms</a>
+      </div>
+      <div class="room-grid">
+        <a class="room-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/1772267733247.jpg" alt="Living room lighting"><div class="room-card__copy"><span>Living Room</span><h3>Soft layers for gathering</h3></div></a>
+        <a class="room-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/1770278628151_1_8f42bf6a-0805-4863-ab6c-524f489da4eb.jpg" alt="Dining room lighting"><div class="room-card__copy"><span>Dining Room</span><h3>Warm focus over the table</h3></div></a>
+        <a class="room-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/1772434332257.jpg" alt="Bedroom lighting"><div class="room-card__copy"><span>Bedroom</span><h3>Quiet light for retreat</h3></div></a>
+        <a class="room-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/1772438262503.jpg" alt="Kitchen lighting"><div class="room-card__copy"><span>Kitchen</span><h3>Clear task light with warmth</h3></div></a>
+        <a class="room-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/1772505493147.jpg" alt="Bathroom lighting"><div class="room-card__copy"><span>Bathroom</span><h3>Calm glow for daily rituals</h3></div></a>
+        <a class="room-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/fMvkvcvaW.jpg" alt="Outdoor lighting"><div class="room-card__copy"><span>Outdoor</span><h3>A welcoming threshold</h3></div></a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="heading-row">
+        <div>
+          <p class="section-kicker">Shop by fixture</p>
+          <h2 class="section-title">Then choose the shape of the light</h2>
+          <p class="section-copy">Browse by chandelier, ceiling light, pendant, wall sconce, table lamp, and floor lamp once the room direction is clear.</p>
+        </div>
+        <a class="text-link" href="#">View all</a>
+      </div>
+      <div class="category-grid">
+        <a class="category-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/b5686b4746834eed07b17d8bb2a8eb0b.jpg" alt="Chandeliers"><h3>Chandeliers</h3></a>
+        <a class="category-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/1_e9e1369e-4599-4551-87a8-6a1a80a5ace6.jpg" alt="Ceiling lights"><h3>Ceiling Lights</h3></a>
+        <a class="category-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/1_3395f63f-88fe-4b25-bdc1-e0d16f08dbc9.jpg" alt="Pendant lights"><h3>Pendant Lights</h3></a>
+        <a class="category-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/1_acf8a10b-46d4-4146-9641-f80b97dddbe5.jpg" alt="Wall sconces"><h3>Wall Sconces</h3></a>
+        <a class="category-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/2_8a95a5ca-fe71-4fc2-ad5f-51069f3e3bef.jpg" alt="Table lamps"><h3>Table Lamps</h3></a>
+        <a class="category-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/1_ab1600b7-d1e8-4aff-b3a8-b9490f6f54c1.jpg" alt="Floor lamps"><h3>Floor Lamps</h3></a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="heading-row">
+        <div>
+          <p class="section-kicker">Best sellers and new arrivals</p>
+          <h2 class="section-title">Pieces customers return to again and again</h2>
+        </div>
+        <a class="text-link" href="#">Shop best sellers</a>
+      </div>
+      <div class="product-grid">
+        <a class="product-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/1770278628151_1_8f42bf6a-0805-4863-ab6c-524f489da4eb.jpg" alt="Glass pendant light"><div class="product-info"><h3>Glass pendants for warm dining rooms</h3><div class="price">From EUR79.90</div></div></a>
+        <a class="product-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/1772267733247.jpg" alt="Design lighting series"><div class="product-info"><h3>Design series statement lighting</h3><div class="price">From EUR109.00</div></div></a>
+        <a class="product-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/1772434332257.jpg" alt="Scandinavian lamp"><div class="product-info"><h3>Scandinavian silhouettes for calm rooms</h3><div class="price">From EUR89.90</div></div></a>
+        <a class="product-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/20260302_f86b8c0431a210d51deeb85859b45657.jpg" alt="Colorful lighting"><div class="product-info"><h3>Color accents for playful corners</h3><div class="price">From EUR69.90</div></div></a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="series">
+        <img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/1770278628151_1_8f42bf6a-0805-4863-ab6c-524f489da4eb.jpg" alt="Dining room lighting scene">
+        <div>
+          <p class="section-kicker">Design series</p>
+          <h2 class="section-title">Find your design language</h2>
+          <p class="section-copy">Move from function to atmosphere with collections shaped around finish, proportion, and the way each room is used.</p>
+          <div class="series-list">
+            <a class="series-item" href="#"><span>Design Series</span><span>Explore</span></a>
+            <a class="series-item" href="#"><span>Asteria Series</span><span>Explore</span></a>
+            <a class="series-item" href="#"><span>Scandinavian Series</span><span>Explore</span></a>
+            <a class="series-item" href="#"><span>Color Series</span><span>Explore</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="philosophy">
+        <img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/23_26675162-ad64-4bee-a2f0-ea5e8c4b87ad.jpg" alt="Seendoor interior detail">
+        <div class="philosophy-copy">
+          <p class="section-kicker">Our philosophy</p>
+          <h2 class="section-title">The scenery begins behind your door</h2>
+          <p class="section-copy">From the warmth of a lamp to the curve of a handle, Seendoor designs the details that make a room feel personal, grounded, and quietly complete.</p>
+          <div class="button-row" style="margin-top: 28px;">
+            <a class="button button--dark" href="#">About Seendoor</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="offer">
+        <div>
+          <p class="section-kicker">Limited time offer</p>
+          <h2 class="section-title">Build the look, save by layer</h2>
+          <p class="section-copy">Use the topbar as a light reminder, then keep the detailed offer here when shoppers already understand the room story and product range.</p>
+        </div>
+        <div class="offer-grid">
+          <div class="offer-card">
+            <strong>10% Off</strong>
+            <span>Style one room</span>
+            <span class="code">SD10</span>
+          </div>
+          <div class="offer-card">
+            <strong>13% Off</strong>
+            <span>Refresh two corners</span>
+            <span class="code">SD13</span>
+          </div>
+          <div class="offer-card">
+            <strong>15% Off</strong>
+            <span>Complete the look</span>
+            <span class="code">SD15</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="quick">
+        <div>
+          <h2 class="section-title">Ready when your project is</h2>
+          <p>In-stock lighting for quick room updates, last-mile renovations, and finishing touches.</p>
+        </div>
+        <a class="button button--dark" href="#">Shop quick ship</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="heading-row">
+        <div>
+          <p class="section-kicker">Inspiration and guides</p>
+          <h2 class="section-title">Practical ideas for warmer rooms</h2>
+          <p class="section-copy">Better layers of light, thoughtful finishing details, and simple styling decisions that change how home feels.</p>
+        </div>
+        <a class="text-link" href="#">Read more</a>
+      </div>
+      <div class="article-grid">
+        <a class="article-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/1772435779022.jpg" alt="Cabinet hardware guide"><h3>Your cabinet doors are basic. Your handles should not be.</h3></a>
+        <a class="article-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/1770278628151_1_8f42bf6a-0805-4863-ab6c-524f489da4eb.jpg" alt="Dining room lighting guide"><h3>Create a warm and romantic dining atmosphere</h3></a>
+        <a class="article-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/1772438262503.jpg" alt="Kitchen lighting guide"><h3>Illuminate the delicious moments of cooking</h3></a>
+        <a class="article-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/1772505493147.jpg" alt="Bathroom lighting guide"><h3>Bathroom lighting for a calmer private space</h3></a>
+        <a class="article-card" href="#"><img src="https://cdn.shopify.com/s/files/1/0704/2534/6105/files/fMvkvcvaW.jpg" alt="Cabinet pulls guide"><h3>The elegance and function of cabinet pulls</h3></a>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="trust">
+        <div class="trust-item">
+          <div class="trust-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7z"/><path d="M7 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M18 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+          </div>
+          <div>
+            <h3>Free Shipping</h3>
+            <p>Free shipping over EUR50</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-5"/></svg>
+          </div>
+          <div>
+            <h3>Secure Payment</h3>
+            <p>Encrypted checkout</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 7v6h6"/><path d="M20 17v-6h-6"/><path d="M6 13a7 7 0 0 0 12 3"/><path d="M18 11A7 7 0 0 0 6 8"/></svg>
+          </div>
+          <div>
+            <h3>Easy Returns</h3>
+            <p>14-day return policy</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M21 12a8 8 0 0 1-8 8H7l-4 2 1.5-4A8 8 0 1 1 21 12z"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg>
+          </div>
+          <div>
+            <h3>Design Support</h3>
+            <p>Help within 1-2 business days</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-grid">
+      <div>
+        <a class="brand" href="#"><span class="brand-mark" aria-hidden="true"></span>SEENDOOR</a>
+        <p style="margin-top: 20px;">support@seendoor.com</p>
+        <p>Monday to Friday 9:00 AM - 6:00 PM (GMT+8)</p>
+      </div>
+      <div>
+        <h3>Help and Support</h3>
+        <a href="#">About Us</a>
+        <a href="#">Contact Us</a>
+        <a href="#">FAQs</a>
+        <a href="#">Order Tracking</a>
+      </div>
+      <div>
+        <h3>Our Policies</h3>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Shipping Policy</a>
+        <a href="#">Returns and Refund Policy</a>
+      </div>
+      <div>
+        <h3>Sign Up For Emails</h3>
+        <p>New sales, new arrivals, and room ideas.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
