@@ -5,6 +5,15 @@
   --sd-brass-dark: #8f6846;
   --sd-terracotta: #8a3a2f;
   --sd-border: #e7dfd6;
+  --sd-gallery-ink: #1d1b18;
+  --sd-gallery-paper: #faf7f1;
+  --sd-gallery-porcelain: #ffffff;
+  --sd-gallery-stone: #eee7dc;
+  --sd-gallery-brass: #aa7d4f;
+  --sd-gallery-sage: #71816f;
+  --sd-gallery-clay: #963f32;
+  --sd-gallery-blue: #496a72;
+  --sd-gallery-shadow: 0 18px 48px rgba(29, 27, 24, 0.08);
 }
 
 a:focus-visible,
@@ -24,108 +33,140 @@ textarea:focus-visible,
   }
 }
 
-.mothers-day-banner {
+.sd-seasonal-event {
   align-items: center;
-  background-image: url('https://cdn.shopify.com/s/files/1/0704/2534/6105/files/A_breathtaking_panorama_of_the_202605071044_3aace522-12c8-4717-a992-cb428c07a02f.jpg');
+  background-color: var(--sd-gallery-ink);
+  background-image:
+    linear-gradient(110deg, rgba(29, 27, 24, 0.8), rgba(29, 27, 24, 0.42)),
+    url('https://cdn.shopify.com/s/files/1/0704/2534/6105/files/A_breathtaking_panorama_of_the_202605071044_3aace522-12c8-4717-a992-cb428c07a02f.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
   justify-content: center;
+  min-height: 340px;
   overflow: hidden;
-  padding: 60px 20px;
+  padding: clamp(46px, 6vw, 92px) 20px;
   position: relative;
   text-align: center;
   width: 100%;
 }
 
-.mothers-day-banner::before {
-  background: rgba(31, 30, 27, 0.24);
+.sd-seasonal-event::before {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(29, 27, 24, 0.28));
   content: "";
   inset: 0;
   position: absolute;
   z-index: 1;
 }
 
-.mothers-day-content {
+.sd-seasonal-event__inner {
   margin: 0 auto;
-  max-width: 1400px;
+  max-width: 1180px;
   position: relative;
   z-index: 2;
 }
 
-.mothers-day-title {
+.sd-seasonal-event__eyebrow {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  line-height: 1.5;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+}
+
+.sd-seasonal-event__title {
   color: #fff;
   font-family: var(--font-family-second);
-  font-size: 48px;
+  font-size: clamp(34px, 4vw, 58px);
   font-weight: 600;
-  letter-spacing: 4px;
-  line-height: 1.2;
-  margin-bottom: 40px;
+  letter-spacing: 0;
+  line-height: 1.08;
+  margin: 0 auto 14px;
+  max-width: 820px;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-.mothers-day-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 60px;
+.sd-seasonal-event__copy {
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 0 auto 30px;
+  max-width: 640px;
+}
+
+.sd-seasonal-event__offers {
+  display: grid;
+  gap: clamp(12px, 2vw, 24px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   justify-content: center;
 }
 
-.mothers-day-card {
+.sd-seasonal-event__offer {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 4px;
   color: #fff;
+  min-height: 128px;
+  padding: 22px 20px;
   text-align: center;
-  transition: transform 220ms ease;
+  transition: background-color 220ms ease, border-color 220ms ease, transform 220ms ease;
 }
 
-.mothers-day-card:hover {
+.sd-seasonal-event__offer:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.56);
   transform: translateY(-4px);
 }
 
-.card-main {
+.sd-seasonal-event__deal {
   align-items: center;
   display: flex;
-  gap: 20px;
+  gap: 16px;
   justify-content: center;
 }
 
-.card-discount {
+.sd-seasonal-event__discount {
   font-family: var(--font-family-second);
-  font-size: 44px;
+  font-size: clamp(30px, 3vw, 42px);
   font-weight: 700;
+  line-height: 1;
 }
 
-.card-divider {
+.sd-seasonal-event__divider {
   background: rgba(255, 255, 255, 0.4);
   height: 30px;
   width: 1px;
 }
 
-.card-code {
-  background: transparent;
-  border: 2px solid #fff;
-  border-radius: 30px;
+.sd-seasonal-event__code {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid #fff;
+  border-radius: 2px;
   color: #fff;
   cursor: pointer;
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: 2px;
-  padding: 8px 24px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  min-height: 38px;
+  padding: 8px 18px;
   transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
 }
 
-.card-code:hover,
-.card-code.is-copied {
+.sd-seasonal-event__code:hover,
+.sd-seasonal-event__code.is-copied {
   background: #fff;
   color: var(--sd-charcoal);
 }
 
-.card-label {
+.sd-seasonal-event__label {
   font-size: 16px;
-  letter-spacing: 1px;
+  letter-spacing: 0.04em;
+  line-height: 1.45;
   margin-top: 12px;
   opacity: 0.9;
-  text-transform: uppercase;
 }
 
 #copy-toast {
@@ -150,53 +191,43 @@ textarea:focus-visible,
 }
 
 @media (max-width: 1024px) {
-  .mothers-day-title {
-    font-size: 38px;
-  }
-
-  .card-discount {
-    font-size: 36px;
-  }
-
-  .mothers-day-cards {
-    gap: 40px;
+  .sd-seasonal-event__offers {
+    grid-template-columns: 1fr;
+    margin: 0 auto;
+    max-width: 520px;
   }
 }
 
 @media (max-width: 767px) {
-  .mothers-day-banner {
-    background-image: url('https://cdn.shopify.com/s/files/1/0704/2534/6105/files/A_breathtaking_panorama_of_the_202605071044112.jpg');
-    padding: 34px 14px;
+  .sd-seasonal-event {
+    background-image:
+      linear-gradient(110deg, rgba(29, 27, 24, 0.82), rgba(29, 27, 24, 0.52)),
+      url('https://cdn.shopify.com/s/files/1/0704/2534/6105/files/A_breathtaking_panorama_of_the_202605071044112.jpg');
+    min-height: 0;
+    padding: 36px 14px;
   }
 
-  .mothers-day-title {
-    font-size: 26px;
-    letter-spacing: 1px;
-    margin-bottom: 22px;
+  .sd-seasonal-event__eyebrow {
+    font-size: 11px;
+    margin-bottom: 10px;
   }
 
-  .mothers-day-cards {
-    flex-direction: column;
-    gap: 18px;
+  .sd-seasonal-event__title {
+    font-size: 28px;
   }
 
-  .mothers-day-card {
-    background: rgba(31, 30, 27, 0.18);
-    border: 1px solid rgba(255, 255, 255, 0.42);
-    padding: 14px 10px;
+  .sd-seasonal-event__copy {
+    font-size: 14px;
+    margin-bottom: 20px;
   }
 
-  .card-main {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .card-divider {
+  .sd-seasonal-event__divider {
     display: none;
   }
 
-  .card-discount {
-    font-size: 32px;
+  .sd-seasonal-event__deal {
+    flex-direction: column;
+    gap: 10px;
   }
 }
 
@@ -225,7 +256,9 @@ textarea:focus-visible,
 }
 
 .product-card__image-wrapper {
-  background: #f6f3ef;
+  background: var(--sd-gallery-stone);
+  border: 1px solid rgba(170, 125, 79, 0.14);
+  transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
 }
 
 .product-card__image-wrapper img {
@@ -236,6 +269,135 @@ textarea:focus-visible,
   .product-card:hover .product-card__image-wrapper img {
     transform: scale(1.025);
   }
+
+  .product-card:hover .product-card__image-wrapper {
+    border-color: rgba(170, 125, 79, 0.32);
+    box-shadow: var(--sd-gallery-shadow);
+  }
+}
+
+body.template-index,
+body.template-collection,
+body.template-product {
+  background: var(--sd-gallery-paper);
+  color: var(--sd-gallery-ink);
+}
+
+body.template-index .main-content,
+body.template-collection .main-content,
+body.template-product .main-content {
+  background:
+    linear-gradient(180deg, var(--sd-gallery-porcelain) 0, var(--sd-gallery-paper) 46%, #f4efe7 100%);
+}
+
+.bwp-header .header-desktop,
+.header-sticky {
+  border-bottom: 1px solid rgba(29, 27, 24, 0.08);
+  box-shadow: 0 10px 30px rgba(29, 27, 24, 0.04);
+}
+
+body.template-index .wpbingo-section:not(.wpbingo-section--slideshow) {
+  position: relative;
+}
+
+body.template-index .wpbingo-section__title,
+body.template-index .wpbingo-section__title h2,
+body.template-collection .wpbingo-breadcrumbs__title,
+body.template-product .product-single__title {
+  color: var(--sd-gallery-ink);
+  letter-spacing: 0;
+}
+
+body.template-index .wpbingo-section__content-top {
+  border-radius: 0;
+}
+
+body.template-index .wpbingo-section--products {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(250, 247, 241, 0));
+}
+
+body.template-index .wpbingo-section--products .button_view a,
+body.template-index .wpbingo-section--image-text .button a,
+body.template-product .btn,
+body.template-collection .active-facets__button {
+  border-color: var(--sd-gallery-brass);
+  color: var(--sd-gallery-ink);
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+body.template-index .wpbingo-section--products .button_view a:hover,
+body.template-index .wpbingo-section--image-text .button a:hover,
+body.template-product .btn:hover,
+body.template-collection .active-facets__button:hover {
+  background: var(--sd-gallery-ink);
+  border-color: var(--sd-gallery-ink);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+body.template-collection .page-collection {
+  background: linear-gradient(180deg, var(--sd-gallery-porcelain) 0, var(--sd-gallery-paper) 100%);
+}
+
+body.template-collection .collection-content {
+  color: var(--sd-gallery-ink);
+  position: relative;
+  z-index: 1;
+}
+
+.page-collection .product-card__content {
+  padding-top: 16px;
+}
+
+.page-collection .product-card__name {
+  margin-bottom: 8px;
+}
+
+.page-collection .product-card__label {
+  z-index: 20;
+}
+
+.page-collection.dropdown #main-collection-filters,
+.page-collection.dropdown .FacetsWrapperDesktop {
+  position: relative;
+  z-index: 420;
+}
+
+.page-collection.dropdown .FacetsWrapperDesktop .js-filter {
+  position: relative;
+  z-index: 420;
+}
+
+.page-collection.dropdown .FacetsWrapperDesktop .js-filter.show,
+.page-collection.dropdown .FacetsWrapperDesktop .js-filter:hover {
+  z-index: 430;
+}
+
+.page-collection.dropdown .FacetsWrapperDesktop .facets__display {
+  border-top-color: var(--sd-gallery-brass);
+  box-shadow: 0 20px 46px rgba(29, 27, 24, 0.12);
+  z-index: 420;
+}
+
+.page-collection .products__row {
+  position: relative;
+  z-index: 1;
+}
+
+body.template-product .product-single {
+  background: var(--sd-gallery-porcelain);
+}
+
+body.template-product .bwp-single-info {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(170, 125, 79, 0.14);
+  padding: clamp(18px, 2.4vw, 34px);
+}
+
+body.template-product .product-single .price-container .price-sale,
+body.template-product .product-single .price-container .on-sale,
+body.template-product .product-single .price-container .product-price--sale {
+  color: var(--sd-gallery-clay);
 }
 
 @media (max-width: 767px) {
@@ -254,12 +416,35 @@ textarea:focus-visible,
 }
 
 .sd-coupon-panel {
-  background: #fbf8f4;
+  background: linear-gradient(135deg, #fffaf4, #f2eadf);
   border: 1px solid var(--sd-border);
   display: grid;
-  gap: 8px;
+  gap: 10px;
   margin: 0 0 18px;
-  padding: 12px;
+  padding: 14px;
+}
+
+.sd-coupon-panel__header {
+  border-bottom: 1px solid rgba(170, 125, 79, 0.22);
+  color: var(--sd-gallery-ink);
+  display: grid;
+  gap: 4px;
+  padding-bottom: 10px;
+}
+
+.sd-coupon-panel__header span {
+  color: var(--sd-gallery-brass);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.sd-coupon-panel__header strong {
+  font-family: var(--font-family-second);
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.25;
 }
 
 .sd-coupon-panel__row {

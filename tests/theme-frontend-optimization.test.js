@@ -75,6 +75,42 @@ const checks = [
       assert(!headerJs.includes('code.jquery.com/jquery-1.9.1.min.js'));
     },
   },
+  {
+    name: 'seasonal campaign copy is current across homepage and product page',
+    run() {
+      const index = read('templates/index.json');
+      const product = read('templates/product.json');
+      const settings = read('config/settings_data.json');
+      assert(!/Mother'?s Day|Black Friday|Ends 19 May/i.test(index));
+      assert(!/Mother'?s Day|Black Friday|Ends 19 May/i.test(product));
+      assert(!/Mother'?s Day|Black Friday|Ends 19 May/i.test(settings));
+      assert(index.includes('Summer Home Refresh'));
+      assert(product.includes('Summer Home Refresh'));
+      assert(settings.includes('Summer Home Refresh'));
+    },
+  },
+  {
+    name: 'deep redesign tokens and editorial surfaces are present',
+    run() {
+      const css = read('assets/seendoor-optimization.css');
+      assert(css.includes('--sd-gallery-ink'));
+      assert(css.includes('--sd-gallery-paper'));
+      assert(css.includes('.sd-seasonal-event'));
+      assert(css.includes('.wpbingo-section--products'));
+      assert(css.includes('.collection-content'));
+    },
+  },
+  {
+    name: 'collection filter dropdowns layer above sale badges',
+    run() {
+      const css = read('assets/seendoor-optimization.css');
+      assert(css.includes('.page-collection.dropdown .FacetsWrapperDesktop'));
+      assert(css.includes('.page-collection.dropdown .FacetsWrapperDesktop .facets__display'));
+      assert(css.includes('z-index: 420'));
+      assert(css.includes('.page-collection .product-card__label'));
+      assert(css.includes('z-index: 20'));
+    },
+  },
 ];
 
 let failed = 0;
