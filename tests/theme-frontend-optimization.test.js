@@ -68,6 +68,13 @@ const checks = [
       assert(css.includes('.page-collection .products__col'));
     },
   },
+  {
+    name: 'theme does not load legacy jQuery CDN globally',
+    run() {
+      const headerJs = read('snippets/header-javascript.liquid');
+      assert(!headerJs.includes('code.jquery.com/jquery-1.9.1.min.js'));
+    },
+  },
 ];
 
 let failed = 0;
