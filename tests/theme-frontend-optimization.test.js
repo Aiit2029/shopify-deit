@@ -227,6 +227,16 @@ const checks = [
       assert(css.includes('background: var(--sd-gallery-glow)'));
     },
   },
+  {
+    name: 'product list view-all buttons keep readable contrast',
+    run() {
+      const css = read('assets/seendoor-optimization.css');
+      assert(css.includes('.wpbingo-section--products .button_view a::before'));
+      assert(css.includes('background: var(--sd-gallery-ink)'));
+      assert(css.includes('color: #fff'));
+      assert(css.includes('content: none'));
+    },
+  },
 ];
 
 let failed = 0;

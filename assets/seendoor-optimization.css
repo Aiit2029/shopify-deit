@@ -350,6 +350,26 @@ body.template-collection .active-facets__button:hover {
   transform: translateY(-1px);
 }
 
+.wpbingo-section--products .button_view a::before,
+.wpbingo-section--products .button_view a:before {
+  content: none;
+  display: none;
+}
+
+.wpbingo-section--products .button_view a {
+  background: var(--sd-gallery-ink);
+  border: 1px solid var(--sd-gallery-ink);
+  color: #fff;
+  min-width: 136px;
+  text-align: center;
+}
+
+.wpbingo-section--products .button_view a:hover {
+  background: var(--sd-gallery-brass);
+  border-color: var(--sd-gallery-brass);
+  color: #fff;
+}
+
 .sd-section-heading {
   align-items: flex-end;
   display: flex;
