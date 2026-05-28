@@ -259,15 +259,31 @@ const checks = [
     name: 'homepage color system removes isolated promo and sage colors',
     run() {
       const css = read('assets/seendoor-optimization.css');
+      const variables = read('assets/css-variables.css');
       const index = read('templates/index.json');
       const settings = read('config/settings_data.json');
+      assert(css.includes('--sd-page-ground: #f8f3eb'));
+      assert(css.includes('--sd-section-panel: #fffaf3'));
+      assert(css.includes('--body-bg-color: var(--sd-page-ground);'));
+      assert(variables.includes('--body-bg-color:#f8f3eb'));
+      assert(settings.includes('"color_body_bg":"#f8f3eb"'));
       assert(css.includes('--sd-gallery-glow: #fdf6e8'));
       assert(css.includes('--sd-gallery-muted: #574e44'));
       assert(css.includes('--sd-gallery-clay: #835e39'));
+      assert(css.includes('body.template-index .main-content'));
+      assert(css.includes('background: var(--sd-page-ground);'));
+      assert(css.includes('body.template-index .wpbingo-section:not(.wpbingo-section--slideshow)'));
       assert(!css.includes('#963f32'));
       assert(!css.includes('#71816f'));
       assert(!css.includes('#b01818'));
+      assert(!css.includes('#f4efe7'));
       assert(!index.includes('#963f32'));
+      assert(!index.includes('#783228'));
+      assert(!index.includes('#413d3d'));
+      assert(!index.includes('#2d312b'));
+      assert(!settings.includes('#bd0000'));
+      assert(!settings.includes('#7f4227'));
+      assert(!settings.includes('#ff0000'));
       assert(!settings.includes('Use SD10 / SD13 / SD15'));
     },
   },
@@ -286,8 +302,15 @@ const checks = [
     run() {
       const css = read('assets/seendoor-optimization.css');
       assert(css.includes('.wpbingo-section--products .button_view a::before'));
-      assert(css.includes('background: var(--sd-gallery-ink)'));
-      assert(css.includes('color: #fff'));
+      assert(css.includes('body.template-index .wpbingo-section--products .button_view a::before'));
+      assert(css.includes('content: none !important'));
+      assert(css.includes('body.template-index .wpbingo-section--products .button_view a,'));
+      assert(css.includes('body.template-index .wpbingo-section--products .button_view a:visited'));
+      assert(css.includes('background: var(--sd-gallery-ink) !important'));
+      assert(css.includes('color: #fff !important'));
+      assert(css.includes('body.template-index .wpbingo-section--products .button_view a span'));
+      assert(css.includes('body.template-index .wpbingo-section--products .button_view a:hover'));
+      assert(css.includes('background: var(--sd-gallery-brass) !important'));
       assert(css.includes('content: none'));
     },
   },

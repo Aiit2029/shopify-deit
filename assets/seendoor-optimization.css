@@ -5,9 +5,12 @@
   --sd-brass-dark: #8f6846;
   --sd-terracotta: #8a3a2f;
   --sd-border: #e7dfd6;
+  --sd-page-ground: #f8f3eb;
+  --sd-section-panel: #fffaf3;
+  --sd-section-panel-strong: #fdf6e8;
   --sd-gallery-ink: #1d1b18;
   --sd-gallery-muted: #574e44;
-  --sd-gallery-paper: #faf7f1;
+  --sd-gallery-paper: #f8f3eb;
   --sd-gallery-porcelain: #ffffff;
   --sd-gallery-stone: #eee7dc;
   --sd-gallery-brass: #aa7d4f;
@@ -247,8 +250,9 @@ textarea:focus-visible,
 }
 
 .product-card .product-price.price-sale,
-.product-card .price-sale {
-  color: var(--sd-gallery-clay);
+.product-card .price-sale,
+.product-card__price .product-price.price-sale {
+  color: var(--sd-gallery-clay) !important;
   font-weight: 500;
 }
 
@@ -281,15 +285,15 @@ textarea:focus-visible,
 body.template-index,
 body.template-collection,
 body.template-product {
-  background: var(--sd-gallery-paper);
+  --body-bg-color: var(--sd-page-ground);
+  background: var(--sd-page-ground);
   color: var(--sd-gallery-ink);
 }
 
 body.template-index .main-content,
 body.template-collection .main-content,
 body.template-product .main-content {
-  background:
-    linear-gradient(180deg, var(--sd-gallery-porcelain) 0, var(--sd-gallery-paper) 46%, #f4efe7 100%);
+  background: var(--sd-page-ground);
 }
 
 .bwp-header .header-desktop,
@@ -299,6 +303,7 @@ body.template-product .main-content {
 }
 
 body.template-index .wpbingo-section:not(.wpbingo-section--slideshow) {
+  background: var(--sd-page-ground);
   position: relative;
 }
 
@@ -329,7 +334,7 @@ body.template-index .wpbingo-section__content-top {
 }
 
 body.template-index .wpbingo-section--products {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(250, 247, 241, 0));
+  background: var(--sd-page-ground);
 }
 
 body.template-index .wpbingo-section--products .button_view a,
@@ -357,6 +362,12 @@ body.template-collection .active-facets__button:hover {
   display: none;
 }
 
+body.template-index .wpbingo-section--products .button_view a::before,
+body.template-index .wpbingo-section--products .button_view a:before {
+  content: none !important;
+  display: none !important;
+}
+
 .wpbingo-section--products .button_view a {
   background: var(--sd-gallery-ink);
   border: 1px solid var(--sd-gallery-ink);
@@ -369,6 +380,37 @@ body.template-collection .active-facets__button:hover {
   background: var(--sd-gallery-brass);
   border-color: var(--sd-gallery-brass);
   color: #fff;
+}
+
+body.template-index .wpbingo-section--products .button_view a,
+body.template-index .wpbingo-section--products .button_view a:visited {
+  background: var(--sd-gallery-ink) !important;
+  border-color: var(--sd-gallery-ink) !important;
+  color: #fff !important;
+}
+
+body.template-index .wpbingo-section--products .button_view a span,
+body.template-index .wpbingo-section--products .button_view a i,
+body.template-index .wpbingo-section--products .button_view a svg {
+  color: #fff !important;
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+body.template-index .wpbingo-section--products .button_view a:hover,
+body.template-index .wpbingo-section--products .button_view a:focus-visible {
+  background: var(--sd-gallery-brass) !important;
+  border-color: var(--sd-gallery-brass) !important;
+  color: #fff !important;
+}
+
+body.template-index .wpbingo-section--products .button_view a:hover span,
+body.template-index .wpbingo-section--products .button_view a:focus-visible span,
+body.template-index .wpbingo-section--products .button_view a:hover i,
+body.template-index .wpbingo-section--products .button_view a:focus-visible i,
+body.template-index .wpbingo-section--products .button_view a:hover svg,
+body.template-index .wpbingo-section--products .button_view a:focus-visible svg {
+  color: #fff !important;
 }
 
 .sd-section-heading {
@@ -485,7 +527,7 @@ body.template-collection .active-facets__button:hover {
 }
 
 .sd-room-selector {
-  background: linear-gradient(180deg, rgba(253, 246, 232, 0.72), rgba(255, 255, 255, 0));
+  background: var(--sd-page-ground);
   border-top: 1px solid rgba(170, 125, 79, 0.14);
   display: block;
   padding-top: clamp(22px, 3vw, 36px);
@@ -634,7 +676,7 @@ body.template-collection .active-facets__button:hover {
 }
 
 .sd-footer-trust {
-  background: linear-gradient(135deg, #fff, var(--sd-gallery-glow));
+  background: var(--sd-section-panel);
   border: 1px solid var(--sd-gallery-soft-line);
   display: grid;
   gap: 0;
@@ -700,7 +742,7 @@ body.template-collection .active-facets__button:hover {
 }
 
 body.template-collection .page-collection {
-  background: linear-gradient(180deg, var(--sd-gallery-porcelain) 0, var(--sd-gallery-paper) 100%);
+  background: var(--sd-page-ground);
 }
 
 .sd-collection-quick-links-section {
@@ -868,7 +910,7 @@ body.template-product .product-single .price-container .product-price--sale {
 }
 
 .sd-coupon-panel {
-  background: linear-gradient(135deg, #fffaf4, #f2eadf);
+  background: var(--sd-section-panel);
   border: 1px solid var(--sd-border);
   display: grid;
   gap: 10px;
