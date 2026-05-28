@@ -194,11 +194,65 @@ const checks = [
       const index = read('templates/index.json');
       assert(index.includes('sd-room-selector'));
       assert(index.includes('Shop by room'));
-      assert(index.includes('Choose the atmosphere first'));
+      assert(index.includes('Start with the room'));
       assert(index.includes('Living Room'));
       assert(index.includes('Dining Room'));
       assert(index.includes('sd-footer-trust'));
-      assert(index.includes('Design Support'));
+      assert(index.includes('Lighting Support'));
+    },
+  },
+  {
+    name: 'approved coupon codes stay fixed across campaign surfaces',
+    run() {
+      const indexRaw = read('templates/index.json');
+      const index = JSON.parse(indexRaw);
+      const productRaw = read('templates/product.json');
+      const product = JSON.parse(productRaw);
+      const settings = read('config/settings_data.json');
+      const productCoupon = product.sections['product-template'].blocks.custom_code_block_JBLzLY.settings.custom_code;
+
+      const offer = index.sections.sd_offer_panel;
+      const codes = offer.block_order.map((id) => offer.blocks[id].settings.code);
+      assert.deepEqual(codes, ['SD10', 'SD13', 'SD15']);
+      assert(indexRaw.includes('Layer your summer light, save more'));
+      assert(indexRaw.includes('Use SD10, SD13, or SD15'));
+      assert(productCoupon.includes('data-sd-copy-code="SD10"'));
+      assert(productCoupon.includes('data-sd-copy-code="SD13"'));
+      assert(productCoupon.includes('data-sd-copy-code="SD15"'));
+      assert(!indexRaw.includes('LIGHT10'));
+      assert(!productRaw.includes('LIGHT10'));
+      assert(!settings.includes('LIGHT10'));
+    },
+  },
+  {
+    name: 'homepage copy follows competitor-informed lighting journey',
+    run() {
+      const index = read('templates/index.json');
+      assert(index.includes('Lighting that shapes the room'));
+      assert(index.includes('Discover refined fixtures for warm dinners, quiet corners, and beautifully layered homes.'));
+      assert(index.includes('Start with the room'));
+      assert(index.includes('Then choose the fixture type'));
+      assert(index.includes('Designed around atmosphere'));
+      assert(index.includes('Every fixture is selected for the way it changes a room'));
+      assert(index.includes('Support within 24 hours'));
+    },
+  },
+  {
+    name: 'collection page has editable scene category rail before product grid',
+    run() {
+      const collection = read('templates/collection.liquid');
+      const section = read('sections/sd-collection-quick-links.liquid');
+      const settings = read('config/settings_data.json');
+      const css = read('assets/seendoor-optimization.css');
+
+      assert(collection.includes("{% section 'sd-collection-quick-links' %}"));
+      assert(section.includes('"name": "SD Collection Quick Links"'));
+      assert(section.includes('"type": "collection"'));
+      assert(section.includes('"type": "image_picker"'));
+      assert(settings.includes('"sd-collection-quick-links"'));
+      assert(settings.includes('Shop lighting by room'));
+      assert(css.includes('.sd-collection-quick-links__rail'));
+      assert(css.includes('grid-auto-flow: column'));
     },
   },
   {
