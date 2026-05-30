@@ -1,1 +1,914 @@
-{"sections":{"breadcrumb":{"type":"product-breadcrumb","settings":{"color_breadcrumb":"#707070","text_align":"left"}},"product-template":{"type":"product-template","blocks":{"f8ae0d1a-50de-4376-8f6b-868c274e1ce2":{"type":"title","settings":{"product_title_margin":"0 0 10px","title_size":24,"title_color":"#010101","title_transform":"unset"}},"a3c3adcb-cf66-4d15-9b30-4210264db1c0":{"type":"price","settings":{"product_price_margin":"15px 0 17px","price_size":20,"price_color":"#414042","price_color_sale":"#bd0000"}},"a064944a-4bd2-4106-95e4-16c1de990486":{"type":"border","settings":{"border_color":"#cccccc","border_height":1,"border_space":"15px 0"}},"bl_custom_html_css_js_liquid_block_code_fbJRJK":{"type":"shopify:\/\/apps\/bl-custom-html-css-js-liquid\/blocks\/block-code\/96fc73ef-2727-4174-82ec-12cfce5b3426","settings":{"html_code":"","css_code":"","js_code":"","liquid_code":"<div class=\"t4s-liquid_custom_liquid_mQfdP8 t4s-pr__custom-liquid t4s-rte--list\">\n  <style>\n    .coupon-copy {\n      cursor: pointer;\n      display: inline-block;\n      line-height: 1;\n      padding: 4px 5px 6px 5px;\n      border-radius: 5px;\n      color: #fff1f1;\n      background-color: #fe9323;\n    }\n  <\/style>\n  <div class=\"product-form__custom-liquid\">\n    <div style=\"\n        border: 0px dashed;\n        min-height: 50px;\n        width: 100%;\n        color: black;\n        padding: rem;\n        font-size: 16px;\n      \">\n      <a style=\"color: #f64a00; font-weight: 600\" plerdy-tracking-id=\"76061976401\"><\/a>\n      <p style=\"color: black\"><\/p>\n      <p>\n        <a style=\"color: #000\" plerdy-tracking-id=\"45244727501\" class=\"discount-text\">🔥 All Products Get 10% off<\/a> \n        <span class=\"code-text\">Code:<\/span>\n        <a style=\"color: #000\" plerdy-tracking-id=\"17481893501\" class=\"coupon-code\">SD10<\/a>\n        <span data-code=\"OOD10\" class=\"coupon-copy\" onclick=\"copyCode(event);\" style=\"float: right\" plerdy-tracking-id=\"27551823001\">copy<\/span>\n    <\/div>\n    <script>\n      \/\/ 语言映射表\n      const translations = {\n        en: {\n          discountText: \"🔥 Buy 1 Get 10% off\",\n          codeText: \"Code:\",\n          copyText: \"copy\",\n          copiedText: \"copied!\"\n          discountText: \"🔥 Buy 2 Get 13% off\",\n          codeText: \"Code:\",\n          copyText: \"copy\",\n          copiedText: \"copied!\"\n        },\n        de: {\n          discountText: \"✅ 10% Rabatt auf alle Produkte!\",\n          codeText: \"Code:\",\n          copyText: \"kopieren\",\n          copiedText: \"kopiert!\"\n        }\n      };\n\n      \/\/ 检测页面语言并更新文本\n      function updateLanguage() {\n        const lang = document.documentElement.lang || 'en';\n        const translation = translations[lang] || translations['en'];\n        \n        \/\/ 更新折扣文本\n        const discountTexts = document.querySelectorAll('.discount-text');\n        discountTexts.forEach(el => el.textContent = translation.discountText);\n        \n        \/\/ 更新\"Code:\"文本\n        const codeTexts = document.querySelectorAll('.code-text');\n        codeTexts.forEach(el => el.textContent = translation.codeText);\n        \n        \/\/ 更新\"copy\"按钮文本\n        const copyButtons = document.querySelectorAll('.coupon-copy');\n        copyButtons.forEach(el => el.textContent = translation.copyText);\n      }\n\n      \/\/ 复制到剪贴板\n      function copyToClipboard(str) {\n        let el = document.createElement(\"textarea\");\n        el.value = str;\n        el.setAttribute(\"readonly\", \"\");\n        el.style.position = \"absolute\";\n        el.style.left = \"-9999px\";\n        document.body.appendChild(el);\n        let selected =\n          document.getSelection().rangeCount > 0\n            ? document.getSelection().getRangeAt(0)\n            : false;\n        el.select();\n        document.execCommand(\"copy\");\n        document.body.removeChild(el);\n        if (selected) {\n          document.getSelection().removeAllRanges();\n          document.getSelection().addRange(selected);\n        }\n      }\n\n      \/\/ 复制折扣码\n      function copyCode(e) {\n        let $this = e.target;\n        copyToClipboard($this.getAttribute(\"data-code\"));\n        \n        const lang = document.documentElement.lang || 'en';\n        const translation = translations[lang] || translations['en'];\n        \n        $this.innerText = translation.copiedText;\n        setTimeout(function () {\n          $this.innerText = translation.copyText;\n        }, 1500);\n      }\n\n      \/\/ 页面加载时更新语言\n      document.addEventListener('DOMContentLoaded', updateLanguage);\n    <\/script>\n  <\/div>\n<\/div>"}},"61dc1536-4060-4a7b-8978-6b15781156e7":{"type":"form_atc","settings":{"product_available_enable":false,"product_selector":"radio","total_product_solid":80,"quantity_enabled":true,"quantity_selector":"text","atc_button_color":"#414042","enable_payment_button":true,"payment_button_color":"#b8946d","payment_text_color":"#ffffff","show_back_in_stock":true,"back_in_stock_title":"Notify me when available","back_in_stock_title_form":"Back in stock alert","back_in_stock_content":"We will send you a notification as soon as this product is available again.","bis_color":"#414042","bis_text_color":"#ffffff","bis_hover_color":"#b8946d","bis_text_hover_color":"#ffffff"}},"b46e544a-3024-4b16-a177-ad395195c8cb":{"type":"ask-share","settings":{"product_ask-share_margin":"0 0 15px","social_ask_a_question":true,"ask_a_question_title":"Question","delivery_return":false,"delivery_return_title":"Shipping info","delivery_return_heading":"Shipping info","delivery_return_content":"<p><b>Return Policy:<\/b> We will gladly accept returns for any reason within 30 days of receipt of delivery.<\/p>\n\n<p><b>Availability:<\/b> Ships anywhere in the United States<\/p>\n\n<p><b>Processing Time:<\/b> Allow 3-4 business days processing time for your order to ship.<\/p>","social_sharing_products":true,"product_share_title":"Share"}},"bl_custom_html_css_js_liquid_block_code_7V8nFY":{"type":"shopify:\/\/apps\/bl-custom-html-css-js-liquid\/blocks\/block-code\/96fc73ef-2727-4174-82ec-12cfce5b3426","disabled":true,"settings":{"html_code":"<table style=\"width:100%; text-align:center; border-collapse:collapse;\">\n  <tbody>\n<tr>\n    <td style=\"padding:20px;\">\n      <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0704\/2534\/6105\/files\/1_caab8e31-80cd-42b5-a62e-39a2605a6d59.jpg?v=1757589801\" alt=\"Free Shipping\" style=\"width:40px; margin-bottom:8px;\"><br>\n      Free Shipping\n    <\/td>\n    <td style=\"padding:20px;\">\n      <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0704\/2534\/6105\/files\/2_16a79afe-9e1d-4eac-b952-16e2d0d88c85.jpg?v=1757589802\" alt=\"14-Day Returns\" style=\"width:40px; margin-bottom:8px;\"><br>\n      14-Day Returns\n    <\/td>\n    <td style=\"padding:20px;\">\n      <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0704\/2534\/6105\/files\/3_77d2515e-75c5-4ad1-b33a-047a9013bcd7.jpg?v=1757589801\" alt=\"Secure Payment\" style=\"width:40px; margin-bottom:8px;\"><br>\n      Customer Support\n    <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","css_code":"","js_code":"","liquid_code":""}},"67aec254-2684-477e-aa65-3b8ecbd11df1":{"type":"trust_barget","settings":{"product_trust_barget_margin":"","trust_barget_bg":"rgba(0,0,0,0)","trust_barget_title":"Guaranteed Checkout"}},"custom_code_block_hi6AxG":{"type":"custom_code_block","settings":{"custom_code":"<p><span style=\"font-size: 18px; font-family: Fairplay Display;color:black;\">Design Inspiration<\/span><\/p>\n<p><span style=\"font-size: 14px; font-family: Montserrat;color:black;\">The Hanton Collection draws its inspiration from the order of modern architecture and the strength of industrial design.<br>Crafted from metal, ceramic, and glass, its subtle angular details balance durability with minimalist elegance.<br>Available in a variety of finishes, Hanton adapts effortlessly to different interiors—whether in the living room, dining area, or even the bathroom, thanks to its damp rating.<br>More than just lighting, it embodies an industrial-modern lifestyle: understated, rational, and built to last.<\/span><\/p>"}},"bl_custom_html_css_js_liquid_block_code_TfBdqE":{"type":"shopify:\/\/apps\/bl-custom-html-css-js-liquid\/blocks\/block-code\/96fc73ef-2727-4174-82ec-12cfce5b3426","disabled":true,"settings":{"html_code":"<p><span style=\"font-size: 18px; font-family: Montserrat;\">Design Inspiration<\/span><\/p>\n<p><span style=\"font-size: 14px; font-family: Montserrat;\">The Hanton Collection draws its inspiration from the order of modern architecture and the strength of industrial design.<\/span><br><span style=\"font-size: 15px; font-family: Montserrat;\">Crafted from metal, ceramic, and glass, its subtle angular details balance durability with minimalist elegance.<\/span><br><span style=\"font-size: 15px; font-family: Montserrat;\">Available in a variety of finishes, Hanton adapts effortlessly to different interiors—whether in the living room, dining area, or even the bathroom, thanks to its damp rating.<\/span><br><span style=\"font-size: 15px; font-family: Montserrat;\">More than just lighting, it embodies an industrial-modern lifestyle: understated, rational, and built to last.<\/span><\/p>","css_code":"","js_code":"","liquid_code":""}},"custom_code_block_PKD3UE":{"type":"custom_code_block","settings":{"custom_code":"<div style=\"background-color:#f9f7f3; border-radius:12px; padding:30px 20px; text-align:center; max-width:800px; margin-bottom:20px;margin-top:20px;\">\n\n  <!-- 长方形图片 -->\n  <img src=\"https:\/\/www.bowcharms.com\/media\/editor\/368\/image\/2025\/09\/12\/71bb99ba452a7f007569fdf06f9693be.jpg\" alt=\"Designer Banner\" style=\"width:100%; max-width:760px; height:auto; border-radius:8px; margin-bottom:25px; display:block; margin-left:auto; margin-right:auto;\">\n\n  <!-- 文案内容 -->\n  <p style=\"font-family:'Montserrat', sans-serif; font-size:15px; line-height:1.8; color:black; margin:0 0 20px; text-align:left;\">\n    The seendoor design team is a U.S.-based studio renowned for their professionalism and meticulous attention to detail. \n    They consistently craft designs that balance functionality with elegance, ensuring every project reflects precision, quality, and timeless style.\n  <\/p>\n\n  <!-- 作者 -->\n  <p style=\"font-family:'Montserrat', sans-serif; font-size:13px; letter-spacing:1px; font-weight:500; color:black; margin:0; text-align:left;\">\n    – SEENDOOR DESIGN TEAM\n  <\/p>\n\n<\/div>"}},"bl_custom_html_css_js_liquid_block_code_geyFbn":{"type":"shopify:\/\/apps\/bl-custom-html-css-js-liquid\/blocks\/block-code\/96fc73ef-2727-4174-82ec-12cfce5b3426","disabled":true,"settings":{"html_code":"The seendoor design team is a U.S.-based studio renowned for their professionalism and meticulous attention to detail.\nThey consistently craft designs that balance functionality with elegance, ensuring every project reflects precision, quality, and timeless style.","css_code":"","js_code":"","liquid_code":""}},"product_tab_ykkYAa":{"type":"product_tab","settings":{"product_product_tab_margin":"","product_tab_selector":"metafields","tab_title":"Dimensions","tab_content":"","tab_metafields":"custom.product_dimensions"}},"product_tab_6nWyLU":{"type":"product_tab","settings":{"product_product_tab_margin":"","product_tab_selector":"custom","tab_title":"Care Information","tab_content":"<ul>\n<li><span style=\"font-size: 15px;\">Assembly: Professional installation is recommended. Assembly required. Can be hung from a sloped ceiling..<\/span><\/li>\n<li><span style=\"font-size: 15px;\">Care: Wipe with a damp cloth. Avoid the use of chemicals and household cleaners as they may damage the finish..<\/span><\/li>\n<\/ul>","tab_metafields":""}},"product_tab_tpBLBK":{"type":"product_tab","settings":{"product_product_tab_margin":"","product_tab_selector":"metafields","tab_title":"Details","tab_content":"","tab_metafields":"custom.product_page_details"}},"product_tab_hELxtp":{"type":"product_tab","settings":{"product_product_tab_margin":"","product_tab_selector":"custom","tab_title":"Shipping & Returns","tab_content":"<div class=\"sdr-header\">\n<ul>\n<li>\n<span style=\"font-size: 15px;\">Shipping<\/span><br><span style=\"font-size: 15px;\">Free Shipping on orders over $50+<\/span>\n<\/li>\n<li>\n<span style=\"font-size: 15px;\">Returns<\/span><br><span style=\"font-size: 15px;\">14 Day Return Policy – hassle-free and easy process<\/span>\n<\/li>\n<\/ul>\n<\/div>","tab_metafields":""}}},"block_order":["f8ae0d1a-50de-4376-8f6b-868c274e1ce2","a3c3adcb-cf66-4d15-9b30-4210264db1c0","a064944a-4bd2-4106-95e4-16c1de990486","bl_custom_html_css_js_liquid_block_code_fbJRJK","61dc1536-4060-4a7b-8978-6b15781156e7","b46e544a-3024-4b16-a177-ad395195c8cb","bl_custom_html_css_js_liquid_block_code_7V8nFY","67aec254-2684-477e-aa65-3b8ecbd11df1","custom_code_block_hi6AxG","bl_custom_html_css_js_liquid_block_code_TfBdqE","custom_code_block_PKD3UE","bl_custom_html_css_js_liquid_block_code_geyFbn","product_tab_ykkYAa","product_tab_6nWyLU","product_tab_tpBLBK","product_tab_hELxtp"],"custom_css":[".product-single .price-container .on-sale {order: 1; margin-right: 10px;}",".product-single .price-container .product-single__price--wrapper {order: 2;}",".product-single .variants__label span,.product-single .variants__label {color: #010101; font-weight: 500; font-size: 16px;}","@media (max-width: 768px) {.product-single .single-option-selector label {font-size: 14px; }}","@media (min-width: 992px) {.col-lg-5, .col-lg-7 {flex: 0 0 50%; max-width: 50%; } .bwp-single-info {padding-left: 30px; }}",".metafield-rich_text_field {font-size: 14px;}"],"settings":{"bg_section":"#ffffff","padding_section":"0px 0px 0px 0px","product_button_wishlist":true,"product_button_compare":true,"show_sticky_cart":true,"media_layout":"thumbnails","position_thumbnails":"bottom","thumbnail_count":5,"enable_video_looping":false,"show_sidebar":false,"position_sidebar":"left","heading_sidebar":"Top rate products","collection_sidebar":"frontpage","collection_limit":4}},"featured_title_iNWKLy":{"type":"featured-title","blocks":{"title_kNzjyQ":{"type":"title","settings":{"title":"#LifeWithSeendoor","font":"","color":"#413d3d","font_size":25,"line_height":35,"letter_spacing":0,"font_weight":"400","margin":"0px 0px 0px 0px","align":"left","width":100,"color_mobi":"#413d3d","font_size_mobi":20,"line_height_mobi":20,"letter_spacing_mobi":0,"margin_mobi":"0px 0px 0px 0px","align_mobi":"left","width_mobi":100}},"title_kEmRK8":{"type":"title","settings":{"title":"Share Your Living Moments","font":"Montserrat","color":"#4e4e4e","font_size":16,"line_height":35,"letter_spacing":1,"font_weight":"400","margin":"0px 0px 0px 0px","align":"left","width":100,"color_mobi":"#4e4e4e","font_size_mobi":14,"line_height_mobi":30,"letter_spacing_mobi":0,"margin_mobi":"0px 0px 10px 0px","align_mobi":"left","width_mobi":100}}},"block_order":["title_kNzjyQ","title_kEmRK8"],"disabled":true,"name":"Title","settings":{"max_width":"","fullwidth":false,"padding":"","margin":"80px 0 20px 0 | | 30px 0 0 0","color_bg":"","width_bg":"container","padding_bg":""}},"featured_instagram_shop_FT9kTY":{"type":"featured-instagram-shop","blocks":{"image_6qzk4p":{"type":"image","settings":{"name":"","image":"shopify:\/\/shop_images\/460.jpg","url_lookbook":""}},"image_mwxnVq":{"type":"image","settings":{"name":"","image":"shopify:\/\/shop_images\/456.jpg","url_lookbook":""}},"image_xaVnWU":{"type":"image","settings":{"name":"","image":"shopify:\/\/shop_images\/457.jpg","url_lookbook":""}},"image_hk3Cac":{"type":"image","settings":{"name":"","image":"shopify:\/\/shop_images\/458.jpg","url_lookbook":""}},"image_Dcx3qV":{"type":"image","settings":{"name":"","image":"shopify:\/\/shop_images\/455.jpg","url_lookbook":""}},"image_eD8wqK":{"type":"image","settings":{"name":"","image":"shopify:\/\/shop_images\/454.jpg","url_lookbook":""}},"image_rfHh6d":{"type":"image","settings":{"name":"","image":"shopify:\/\/shop_images\/459.jpg","url_lookbook":""}}},"block_order":["image_6qzk4p","image_mwxnVq","image_xaVnWU","image_hk3Cac","image_Dcx3qV","image_eD8wqK","image_rfHh6d"],"disabled":true,"custom_css":[".wpbingo-section--lookbook .wpbingo-lookbook__item a {pointer-events: none; \/* 禁止点击 *\/ cursor: default; \/* 鼠标变普通指针 *\/ text-decoration: none; \/* 去掉下划线（可选） *\/ color: inherit; \/* 链接颜色继承周围文本 *\/}"],"name":"Instagram Shop","settings":{"color_bg":"","width_bg":"container","padding_bg":"","max_width":"","fullwidth":false,"padding":"","margin":"","margin_content":"0 -4px 0 -4px","padding_item":"0 4px 0 4px","margin_item":"0 0 8px 0","navigation":true,"pagination":true,"infinite":true,"half_slider":true,"autoplay":false,"autoplay_speed":"10000","rows":1,"columns":4,"column1440":4,"column1":4,"column2":3,"column3":1,"column4":1}},"featured_lookbook_split_Xn838g":{"type":"featured-lookbook-split","blocks":{"image_Cz4kGz":{"type":"image","settings":{"title":"look-1","image":"shopify:\/\/shop_images\/2_e86c73e6-550a-4775-871e-42ca4ec42b47.jpg","title_lookbook":""}},"item_pwwLRN":{"type":"item","settings":{"name_pin":"look-1","product":"hanton-modern-henry-pendant-light-modern-metal-ceiling-fixture-for-kitchen-living","display":"top-left","top":50,"left":50}},"image_9LXUJd":{"type":"image","settings":{"title":"look-2","image":"shopify:\/\/shop_images\/hanton1.jpg","title_lookbook":""}},"item_3jp9Rp":{"type":"item","disabled":true,"settings":{"name_pin":"look-2","product":"","display":"top-left","top":50,"left":50}},"image_YbdyHX":{"type":"image","settings":{"title":"","image":"shopify:\/\/shop_images\/480666500bcbf821db93217557b8f2fd_538832a8-ff9f-4e35-80a2-7b0cd2e5c54b.jpg","title_lookbook":""}},"item_cc8TRw":{"type":"item","disabled":true,"settings":{"name_pin":"","product":"","display":"top-left","top":50,"left":50}}},"block_order":["image_Cz4kGz","item_pwwLRN","image_9LXUJd","item_3jp9Rp","image_YbdyHX","item_cc8TRw"],"disabled":true,"name":"Lookbook Split","settings":{"max_width":"","fullwidth":false,"padding":"","margin":"80px 0 80px 0 | | 30px 0 30px 0","height_lookbook":544}},"slideshow_ExX38E":{"type":"slideshow","blocks":{"image_JaiKnY":{"type":"image","settings":{"title":"slider_1","size_img":"cover","pos_img":"center_center","caption_width":"","vertical_align":"middle","horizontal_align":"left","align":"left","padding":"0% 0% 0% 0%","size_img_mobi":"cover","pos_img_mobi":"center_center","disable_absolute":true,"vertical_align_mobi":"middle","horizontal_align_mobi":"left","align_mobi":"left","padding_mobi":"0% 0% 0% 0%"}},"title_bnfGji":{"type":"title","disabled":true,"settings":{"slide_name":"slider_1","title":"Heading","color":"#ffffff","font_size":60,"line_height":70,"letter_spacing":0,"font_weight":"300","margin":"0px 0px 0px 0px","effect":"leftright","color_mobi":"#ffffff","font_size_mobi":30,"line_height_mobi":35,"letter_spacing_mobi":0,"margin_mobi":"0px 0px 0px 0px"}},"button_WmewV6":{"type":"button","disabled":true,"settings":{"slide_name":"slider_1","icon_title":"","font_icon":14,"pos_icon":0,"margin_icon":"0px 0px 0px 0px","title":"Heading","button_link":"","border":false,"border_radius":"0px 0px 0px 0px","border_width":0,"color":"#000000","background":"#ffffff","border_color":"#ffffff","color_hover":"#ffffff","background_hover":"#ed5d43","border_color_hover":"#ffffff","font_size":15,"line_height":45,"letter_spacing":0,"font_weight":"400","margin":"0px 0px 0px 0px","padding":"0px 0px 0px 0px","effect":"leftright","font_size_mobi":15,"line_height_mobi":15,"letter_spacing_mobi":0,"border_mobi":false,"border_radius_mobi":"0px 0px 0px 0px","border_width_mobi":0,"color_mobi":"#000000","background_mobi":"#ffffff","border_color_mobi":"#ffffff","color_hover_mobi":"#ffffff","background_hover_mobi":"#ed5d43","border_color_hover_mobi":"#ffffff","margin_mobi":"0px 0px 0px 0px","padding_mobi":"0px 0px 0px 0px"}}},"block_order":["image_JaiKnY","title_bnfGji","button_WmewV6"],"name":"Slideshow","settings":{"max_width":"","fullwidth":false,"navigation":true,"pagination":true,"fade":true,"autoplay":true,"autoplay_speed":"8000","min_height_slider":"","border_arrow":"0px 0px 0px 0px","border_radius_arrow":"0px 0px 0px 0px","bg_arrow":"#000000","border_color_arrow":"#000000","color_arrow":"#000000","bg_arrow_hover":"#000000","border_color_arrow_hover":"#000000","color_arrow_hover":"#000000","border_dots":"0px 0px 0px 0px","border_radius_dots":"0px 0px 0px 0px","bg_dots":"#000000","border_color_dots":"#000000","bg_dots_hover":"#000000","border_color_dots_hover":"#000000"}},"featured_title_rLCwWQ":{"type":"featured-title","blocks":{"title_yUgzHY":{"type":"title","settings":{"title":"Shop The Collections","font":"","color":"#413d3d","font_size":25,"line_height":35,"letter_spacing":0,"font_weight":"400","margin":"0px 0px 0px 0px","align":"left","width":100,"color_mobi":"#413d3d","font_size_mobi":20,"line_height_mobi":20,"letter_spacing_mobi":0,"margin_mobi":"0px 0px 0px 0px","align_mobi":"left","width_mobi":100}},"title_jTPPjY":{"type":"title","disabled":true,"settings":{"title":"Share Your Living Moments","font":"Montserrat","color":"#4e4e4e","font_size":16,"line_height":35,"letter_spacing":1,"font_weight":"400","margin":"0px 0px 0px 0px","align":"left","width":100,"color_mobi":"#4e4e4e","font_size_mobi":14,"line_height_mobi":30,"letter_spacing_mobi":0,"margin_mobi":"0px 0px 10px 0px","align_mobi":"left","width_mobi":100}}},"block_order":["title_yUgzHY","title_jTPPjY"],"name":"Title","settings":{"max_width":"","fullwidth":false,"padding":"","margin":"80px 0 20px 0 | | 30px 0 0 0","color_bg":"","width_bg":"container","padding_bg":""}},"featured_products_VjiEPD":{"type":"featured-products","custom_css":[".slick-dots {margin: 0px 0px 20px 0px;}","@media screen and (min-width: 768px) {.wpbingo-section--products .button_view a {letter-spacing: 2px; font-weight: 400; padding: 0px 20px; }}","@media screen and (max-width: 767px) {.wpbingo-section--products .button_view a {letter-spacing: 0; font-size: 14px; padding: 0px 20px; }}"],"name":"Products list","settings":{"max_width":"","fullwidth":false,"padding":"","margin":"0px 0 0 0 | | 20px 0 0 0","title":"","featured_products":"hanton","limit":8,"button":"View all","button_url":"","navigation":false,"dots":true,"infinite":true,"half_slider":true,"autoplay":false,"autoplay_speed":"10000","columns":4,"column1440":4,"column1":4,"column2":3,"column3":1,"column4":1}},"featured_image_with_text_JdxEHM":{"type":"featured-image-with-text","blocks":{"css_eyjyAA":{"type":"css","settings":{"bg_content":"#f3f0eb","color_title":"#413d3d","font_size_title":25,"line_height_title":22,"letter_spacing_title":0,"font_weight_title":"400","margin_title":"0px 0px 20px 0px","color_desc":"#414042","font_size_desc":16,"line_height_desc":35,"margin_desc":"0px 0px 0px 0px","border":false,"border_width":0,"bg_button":"","color_button":"#000000","border_color_button":"#dddddd","bg_hover_button":"","color_hover_button":"#000000","border_color_hover_button":"#dddddd","border_radius":"0px 0px 0px 0px","font_size_button":16,"line_height_button":22,"letter_spacing_button":0,"font_weight_button":"500","padding_button":"0px 0px 0px 0px","font_size_title_mobi":20,"line_height_title_mobi":30,"margin_title_mobi":"30px 0px 10px 0px","font_size_desc_mobi":15,"line_height_desc_mobi":30,"margin_desc_mobi":"0px 0px 0px 0px","border_radius_mobi":"0px 0px 0px 0px","border_width_mobi":0,"font_size_button_mobi":16,"line_height_button_mobi":22,"padding_button_mobi":"0px 0px 0px 0px"}}},"block_order":["css_eyjyAA"],"custom_css":[".wpbingo-section--image-text .image-text {display: flex; flex-direction: row-reverse; \/* 左图右文 *\/}",".wpbingo-section--image-text .col-content .image-text__image {padding-left: 30px; padding-right: 30px;}"],"name":"Image with text","settings":{"max_width":"","fullwidth":false,"padding":"","margin":"80px 0 0 0 | | 30px 0 0 0","title":"Styling Guidance","desc":"Not sure how to bring it all together?\nOur products are designed with versatility in mind, making it easy to create a cohesive look in your home—no extra work needed.","button":"","button_link":"","image":"shopify:\/\/shop_images\/13_2c6d0073-7fef-48f5-8939-bd202a34b4db.jpg"}},"featured_title_r3K9bM":{"type":"featured-title","blocks":{"title_3ypnBH":{"type":"title","settings":{"title":"Sale","font":"","color":"#413d3d","font_size":25,"line_height":35,"letter_spacing":0,"font_weight":"400","margin":"0px 0px 0px 0px","align":"left","width":100,"color_mobi":"#413d3d","font_size_mobi":20,"line_height_mobi":20,"letter_spacing_mobi":0,"margin_mobi":"0px 0px 0px 0px","align_mobi":"left","width_mobi":100}},"title_FHjiUQ":{"type":"title","disabled":true,"settings":{"title":"Share Your Living Moments","font":"Montserrat","color":"#4e4e4e","font_size":16,"line_height":35,"letter_spacing":1,"font_weight":"400","margin":"0px 0px 0px 0px","align":"left","width":100,"color_mobi":"#4e4e4e","font_size_mobi":14,"line_height_mobi":30,"letter_spacing_mobi":0,"margin_mobi":"0px 0px 10px 0px","align_mobi":"left","width_mobi":100}}},"block_order":["title_3ypnBH","title_FHjiUQ"],"name":"Title","settings":{"max_width":"","fullwidth":false,"padding":"","margin":"80px 0 20px 0 | | 30px 0 0 0","color_bg":"","width_bg":"container","padding_bg":""}},"featured_products_dKdg6m":{"type":"featured-products","custom_css":[".slick-dots {margin: 0px 0px 20px 0px;}","@media screen and (min-width: 768px) {.wpbingo-section--products .button_view a {letter-spacing: 2px; font-weight: 400; padding: 0px 20px; }}","@media screen and (max-width: 767px) {.wpbingo-section--products .button_view a {letter-spacing: 0; font-size: 14px; padding: 0px 20px; }}"],"name":"Products list","settings":{"max_width":"","fullwidth":false,"padding":"","margin":"0px 0 0 0 | | 30px 0 0 0","title":"","featured_products":"sale-lighting","limit":8,"button":"View all","button_url":"","navigation":false,"dots":true,"infinite":true,"half_slider":true,"autoplay":false,"autoplay_speed":"10000","columns":4,"column1440":4,"column1":4,"column2":3,"column3":1,"column4":1}},"featured_image_with_text_GTMqCA":{"type":"featured-image-with-text","blocks":{"css_pWzHNx":{"type":"css","settings":{"bg_content":"#f3f0eb","color_title":"#413d3d","font_size_title":25,"line_height_title":22,"letter_spacing_title":0,"font_weight_title":"400","margin_title":"0px 0px 20px 0px","color_desc":"#414042","font_size_desc":16,"line_height_desc":35,"margin_desc":"0px 0px 0px 0px","border":false,"border_width":0,"bg_button":"","color_button":"#000000","border_color_button":"#dddddd","bg_hover_button":"","color_hover_button":"#000000","border_color_hover_button":"#dddddd","border_radius":"0px 0px 0px 0px","font_size_button":16,"line_height_button":22,"letter_spacing_button":0,"font_weight_button":"500","padding_button":"0px 0px 0px 0px","font_size_title_mobi":20,"line_height_title_mobi":30,"margin_title_mobi":"30px 0px 10px 0px","font_size_desc_mobi":15,"line_height_desc_mobi":30,"margin_desc_mobi":"0px 0px 0px 0px","border_radius_mobi":"0px 0px 0px 0px","border_width_mobi":0,"font_size_button_mobi":16,"line_height_button_mobi":22,"padding_button_mobi":"0px 0px 0px 0px"}}},"block_order":["css_pWzHNx"],"custom_css":[".wpbingo-section--image-text .col-content .image-text__image {padding-left: 30px; padding-right: 20px;}"],"name":"Image with text","settings":{"max_width":"","fullwidth":false,"padding":"","margin":"80px 0 0 0 | | 30px 0 0 0","title":"Our Mission","desc":"Seendoor aims to create the scenery behind your door.\n<br>\nWe create a warm connection between people and life with tangible sophistication;\nwe use the perfect balance of light and shadow to outline the contours of your unique life.\n<br>\nOpen the door, encounter the light, and return to your ideal home.","button":"","button_link":"","image":"shopify:\/\/shop_images\/15_e2ac667f-eb38-4793-9228-472e1d7c90ff.jpg"}}},"order":["breadcrumb","product-template","featured_title_iNWKLy","featured_instagram_shop_FT9kTY","featured_lookbook_split_Xn838g","slideshow_ExX38E","featured_title_rLCwWQ","featured_products_VjiEPD","featured_image_with_text_JdxEHM","featured_title_r3K9bM","featured_products_dKdg6m","featured_image_with_text_GTMqCA"]}
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "product-breadcrumb",
+      "settings": {
+        "color_breadcrumb": "#707070",
+        "text_align": "left"
+      }
+    },
+    "product-template": {
+      "type": "product-template",
+      "blocks": {
+        "f8ae0d1a-50de-4376-8f6b-868c274e1ce2": {
+          "type": "title",
+          "settings": {
+            "product_title_margin": "0 0 10px",
+            "title_size": 24,
+            "title_color": "#010101",
+            "title_transform": "unset"
+          }
+        },
+        "a3c3adcb-cf66-4d15-9b30-4210264db1c0": {
+          "type": "price",
+          "settings": {
+            "product_price_margin": "15px 0 17px",
+            "price_size": 20,
+            "price_color": "#414042",
+            "price_color_sale": "#bd0000"
+          }
+        },
+        "a064944a-4bd2-4106-95e4-16c1de990486": {
+          "type": "border",
+          "settings": {
+            "border_color": "#cccccc",
+            "border_height": 1,
+            "border_space": "15px 0"
+          }
+        },
+        "bl_custom_html_css_js_liquid_block_code_fbJRJK": {
+          "type": "shopify://apps/bl-custom-html-css-js-liquid/blocks/block-code/96fc73ef-2727-4174-82ec-12cfce5b3426",
+          "settings": {
+            "html_code": "",
+            "css_code": "",
+            "js_code": "",
+            "liquid_code": "<div class=\"t4s-liquid_custom_liquid_mQfdP8 t4s-pr__custom-liquid t4s-rte--list\">\n  <style>\n    .coupon-copy {\n      cursor: pointer;\n      display: inline-block;\n      line-height: 1;\n      padding: 4px 5px 6px 5px;\n      border-radius: 5px;\n      color: #fff1f1;\n      background-color: #fe9323;\n    }\n  </style>\n  <div class=\"product-form__custom-liquid\">\n    <div style=\"\n        border: 0px dashed;\n        min-height: 50px;\n        width: 100%;\n        color: black;\n        padding: rem;\n        font-size: 16px;\n      \">\n      <a style=\"color: #f64a00; font-weight: 600\" plerdy-tracking-id=\"76061976401\"></a>\n      <p style=\"color: black\"></p>\n      <p>\n        <a style=\"color: #000\" plerdy-tracking-id=\"45244727501\" class=\"discount-text\">🔥 All Products Get 10% off</a> \n        <span class=\"code-text\">Code:</span>\n        <a style=\"color: #000\" plerdy-tracking-id=\"17481893501\" class=\"coupon-code\">SD10</a>\n        <span data-code=\"OOD10\" class=\"coupon-copy\" onclick=\"copyCode(event);\" style=\"float: right\" plerdy-tracking-id=\"27551823001\">copy</span>\n    </div>\n    <script>\n      // 语言映射表\n      const translations = {\n        en: {\n          discountText: \"🔥 Buy 1 Get 10% off\",\n          codeText: \"Code:\",\n          copyText: \"copy\",\n          copiedText: \"copied!\"\n          discountText: \"🔥 Buy 2 Get 13% off\",\n          codeText: \"Code:\",\n          copyText: \"copy\",\n          copiedText: \"copied!\"\n        },\n        de: {\n          discountText: \"✅ 10% Rabatt auf alle Produkte!\",\n          codeText: \"Code:\",\n          copyText: \"kopieren\",\n          copiedText: \"kopiert!\"\n        }\n      };\n\n      // 检测页面语言并更新文本\n      function updateLanguage() {\n        const lang = document.documentElement.lang || 'en';\n        const translation = translations[lang] || translations['en'];\n        \n        // 更新折扣文本\n        const discountTexts = document.querySelectorAll('.discount-text');\n        discountTexts.forEach(el => el.textContent = translation.discountText);\n        \n        // 更新\"Code:\"文本\n        const codeTexts = document.querySelectorAll('.code-text');\n        codeTexts.forEach(el => el.textContent = translation.codeText);\n        \n        // 更新\"copy\"按钮文本\n        const copyButtons = document.querySelectorAll('.coupon-copy');\n        copyButtons.forEach(el => el.textContent = translation.copyText);\n      }\n\n      // 复制到剪贴板\n      function copyToClipboard(str) {\n        let el = document.createElement(\"textarea\");\n        el.value = str;\n        el.setAttribute(\"readonly\", \"\");\n        el.style.position = \"absolute\";\n        el.style.left = \"-9999px\";\n        document.body.appendChild(el);\n        let selected =\n          document.getSelection().rangeCount > 0\n            ? document.getSelection().getRangeAt(0)\n            : false;\n        el.select();\n        document.execCommand(\"copy\");\n        document.body.removeChild(el);\n        if (selected) {\n          document.getSelection().removeAllRanges();\n          document.getSelection().addRange(selected);\n        }\n      }\n\n      // 复制折扣码\n      function copyCode(e) {\n        let $this = e.target;\n        copyToClipboard($this.getAttribute(\"data-code\"));\n        \n        const lang = document.documentElement.lang || 'en';\n        const translation = translations[lang] || translations['en'];\n        \n        $this.innerText = translation.copiedText;\n        setTimeout(function () {\n          $this.innerText = translation.copyText;\n        }, 1500);\n      }\n\n      // 页面加载时更新语言\n      document.addEventListener('DOMContentLoaded', updateLanguage);\n    </script>\n  </div>\n</div>"
+          }
+        },
+        "61dc1536-4060-4a7b-8978-6b15781156e7": {
+          "type": "form_atc",
+          "settings": {
+            "product_available_enable": false,
+            "product_selector": "radio",
+            "total_product_solid": 80,
+            "quantity_enabled": true,
+            "quantity_selector": "text",
+            "atc_button_color": "#414042",
+            "enable_payment_button": true,
+            "payment_button_color": "#b8946d",
+            "payment_text_color": "#ffffff",
+            "show_back_in_stock": true,
+            "back_in_stock_title": "Notify me when available",
+            "back_in_stock_title_form": "Back in stock alert",
+            "back_in_stock_content": "We will send you a notification as soon as this product is available again.",
+            "bis_color": "#414042",
+            "bis_text_color": "#ffffff",
+            "bis_hover_color": "#b8946d",
+            "bis_text_hover_color": "#ffffff"
+          }
+        },
+        "b46e544a-3024-4b16-a177-ad395195c8cb": {
+          "type": "ask-share",
+          "settings": {
+            "product_ask-share_margin": "0 0 15px",
+            "social_ask_a_question": true,
+            "ask_a_question_title": "Question",
+            "delivery_return": false,
+            "delivery_return_title": "Shipping info",
+            "delivery_return_heading": "Shipping info",
+            "delivery_return_content": "<p><b>Return Policy:</b> We will gladly accept returns for any reason within 30 days of receipt of delivery.</p>\n\n<p><b>Availability:</b> Ships anywhere in the United States</p>\n\n<p><b>Processing Time:</b> Allow 3-4 business days processing time for your order to ship.</p>",
+            "social_sharing_products": true,
+            "product_share_title": "Share"
+          }
+        },
+        "bl_custom_html_css_js_liquid_block_code_7V8nFY": {
+          "type": "shopify://apps/bl-custom-html-css-js-liquid/blocks/block-code/96fc73ef-2727-4174-82ec-12cfce5b3426",
+          "disabled": true,
+          "settings": {
+            "html_code": "<table style=\"width:100%; text-align:center; border-collapse:collapse;\">\n  <tbody>\n<tr>\n    <td style=\"padding:20px;\">\n      <img src=\"https://cdn.shopify.com/s/files/1/0704/2534/6105/files/1_caab8e31-80cd-42b5-a62e-39a2605a6d59.jpg?v=1757589801\" alt=\"Free Shipping\" style=\"width:40px; margin-bottom:8px;\"><br>\n      Free Shipping\n    </td>\n    <td style=\"padding:20px;\">\n      <img src=\"https://cdn.shopify.com/s/files/1/0704/2534/6105/files/2_16a79afe-9e1d-4eac-b952-16e2d0d88c85.jpg?v=1757589802\" alt=\"14-Day Returns\" style=\"width:40px; margin-bottom:8px;\"><br>\n      14-Day Returns\n    </td>\n    <td style=\"padding:20px;\">\n      <img src=\"https://cdn.shopify.com/s/files/1/0704/2534/6105/files/3_77d2515e-75c5-4ad1-b33a-047a9013bcd7.jpg?v=1757589801\" alt=\"Secure Payment\" style=\"width:40px; margin-bottom:8px;\"><br>\n      Customer Support\n    </td>\n  </tr>\n</tbody>\n</table>",
+            "css_code": "",
+            "js_code": "",
+            "liquid_code": ""
+          }
+        },
+        "67aec254-2684-477e-aa65-3b8ecbd11df1": {
+          "type": "trust_barget",
+          "settings": {
+            "product_trust_barget_margin": "",
+            "trust_barget_bg": "rgba(0,0,0,0)",
+            "trust_barget_title": "Guaranteed Checkout"
+          }
+        },
+        "custom_code_block_hi6AxG": {
+          "type": "custom_code_block",
+          "settings": {
+            "custom_code": "<p><span style=\"font-size: 18px; font-family: Fairplay Display;color:black;\">Design Inspiration</span></p>\n<p><span style=\"font-size: 14px; font-family: Montserrat;color:black;\">The Hanton Collection draws its inspiration from the order of modern architecture and the strength of industrial design.<br>Crafted from metal, ceramic, and glass, its subtle angular details balance durability with minimalist elegance.<br>Available in a variety of finishes, Hanton adapts effortlessly to different interiors—whether in the living room, dining area, or even the bathroom, thanks to its damp rating.<br>More than just lighting, it embodies an industrial-modern lifestyle: understated, rational, and built to last.</span></p>"
+          }
+        },
+        "bl_custom_html_css_js_liquid_block_code_TfBdqE": {
+          "type": "shopify://apps/bl-custom-html-css-js-liquid/blocks/block-code/96fc73ef-2727-4174-82ec-12cfce5b3426",
+          "disabled": true,
+          "settings": {
+            "html_code": "<p><span style=\"font-size: 18px; font-family: Montserrat;\">Design Inspiration</span></p>\n<p><span style=\"font-size: 14px; font-family: Montserrat;\">The Hanton Collection draws its inspiration from the order of modern architecture and the strength of industrial design.</span><br><span style=\"font-size: 15px; font-family: Montserrat;\">Crafted from metal, ceramic, and glass, its subtle angular details balance durability with minimalist elegance.</span><br><span style=\"font-size: 15px; font-family: Montserrat;\">Available in a variety of finishes, Hanton adapts effortlessly to different interiors—whether in the living room, dining area, or even the bathroom, thanks to its damp rating.</span><br><span style=\"font-size: 15px; font-family: Montserrat;\">More than just lighting, it embodies an industrial-modern lifestyle: understated, rational, and built to last.</span></p>",
+            "css_code": "",
+            "js_code": "",
+            "liquid_code": ""
+          }
+        },
+        "custom_code_block_PKD3UE": {
+          "type": "custom_code_block",
+          "settings": {
+            "custom_code": "<div style=\"background-color:#f9f7f3; border-radius:12px; padding:30px 20px; text-align:center; max-width:800px; margin-bottom:20px;margin-top:20px;\">\n\n  <!-- 长方形图片 -->\n  <img src=\"https://www.bowcharms.com/media/editor/368/image/2025/09/12/71bb99ba452a7f007569fdf06f9693be.jpg\" alt=\"Designer Banner\" style=\"width:100%; max-width:760px; height:auto; border-radius:8px; margin-bottom:25px; display:block; margin-left:auto; margin-right:auto;\">\n\n  <!-- 文案内容 -->\n  <p style=\"font-family:'Montserrat', sans-serif; font-size:15px; line-height:1.8; color:black; margin:0 0 20px; text-align:left;\">\n    The seendoor design team is a U.S.-based studio renowned for their professionalism and meticulous attention to detail. \n    They consistently craft designs that balance functionality with elegance, ensuring every project reflects precision, quality, and timeless style.\n  </p>\n\n  <!-- 作者 -->\n  <p style=\"font-family:'Montserrat', sans-serif; font-size:13px; letter-spacing:1px; font-weight:500; color:black; margin:0; text-align:left;\">\n    – SEENDOOR DESIGN TEAM\n  </p>\n\n</div>"
+          }
+        },
+        "bl_custom_html_css_js_liquid_block_code_geyFbn": {
+          "type": "shopify://apps/bl-custom-html-css-js-liquid/blocks/block-code/96fc73ef-2727-4174-82ec-12cfce5b3426",
+          "disabled": true,
+          "settings": {
+            "html_code": "The seendoor design team is a U.S.-based studio renowned for their professionalism and meticulous attention to detail.\nThey consistently craft designs that balance functionality with elegance, ensuring every project reflects precision, quality, and timeless style.",
+            "css_code": "",
+            "js_code": "",
+            "liquid_code": ""
+          }
+        },
+        "product_tab_ykkYAa": {
+          "type": "product_tab",
+          "settings": {
+            "product_product_tab_margin": "",
+            "product_tab_selector": "metafields",
+            "tab_title": "Dimensions",
+            "tab_content": "",
+            "tab_metafields": "custom.product_dimensions"
+          }
+        },
+        "product_tab_6nWyLU": {
+          "type": "product_tab",
+          "settings": {
+            "product_product_tab_margin": "",
+            "product_tab_selector": "custom",
+            "tab_title": "Care Information",
+            "tab_content": "<ul>\n<li><span style=\"font-size: 15px;\">Assembly: Professional installation is recommended. Assembly required. Can be hung from a sloped ceiling..</span></li>\n<li><span style=\"font-size: 15px;\">Care: Wipe with a damp cloth. Avoid the use of chemicals and household cleaners as they may damage the finish..</span></li>\n</ul>",
+            "tab_metafields": ""
+          }
+        },
+        "product_tab_tpBLBK": {
+          "type": "product_tab",
+          "settings": {
+            "product_product_tab_margin": "",
+            "product_tab_selector": "metafields",
+            "tab_title": "Details",
+            "tab_content": "",
+            "tab_metafields": "custom.product_page_details"
+          }
+        },
+        "product_tab_hELxtp": {
+          "type": "product_tab",
+          "settings": {
+            "product_product_tab_margin": "",
+            "product_tab_selector": "custom",
+            "tab_title": "Shipping & Returns",
+            "tab_content": "<div class=\"sdr-header\">\n<ul>\n<li>\n<span style=\"font-size: 15px;\">Shipping</span><br><span style=\"font-size: 15px;\">Free Shipping on orders over $50+</span>\n</li>\n<li>\n<span style=\"font-size: 15px;\">Returns</span><br><span style=\"font-size: 15px;\">14 Day Return Policy – hassle-free and easy process</span>\n</li>\n</ul>\n</div>",
+            "tab_metafields": ""
+          }
+        }
+      },
+      "block_order": [
+        "f8ae0d1a-50de-4376-8f6b-868c274e1ce2",
+        "a3c3adcb-cf66-4d15-9b30-4210264db1c0",
+        "a064944a-4bd2-4106-95e4-16c1de990486",
+        "bl_custom_html_css_js_liquid_block_code_fbJRJK",
+        "61dc1536-4060-4a7b-8978-6b15781156e7",
+        "b46e544a-3024-4b16-a177-ad395195c8cb",
+        "bl_custom_html_css_js_liquid_block_code_7V8nFY",
+        "67aec254-2684-477e-aa65-3b8ecbd11df1",
+        "custom_code_block_hi6AxG",
+        "bl_custom_html_css_js_liquid_block_code_TfBdqE",
+        "custom_code_block_PKD3UE",
+        "bl_custom_html_css_js_liquid_block_code_geyFbn",
+        "product_tab_ykkYAa",
+        "product_tab_6nWyLU",
+        "product_tab_tpBLBK",
+        "product_tab_hELxtp"
+      ],
+      "custom_css": [
+        ".product-single .price-container .on-sale {order: 1; margin-right: 10px;}",
+        ".product-single .price-container .product-single__price--wrapper {order: 2;}",
+        ".product-single .variants__label span,.product-single .variants__label {color: #010101; font-weight: 500; font-size: 16px;}",
+        "@media (max-width: 768px) {.product-single .single-option-selector label {font-size: 14px; }}",
+        "@media (min-width: 992px) {.col-lg-5, .col-lg-7 {flex: 0 0 50%; max-width: 50%; } .bwp-single-info {padding-left: 30px; }}",
+        ".metafield-rich_text_field {font-size: 14px;}"
+      ],
+      "settings": {
+        "bg_section": "#f8f3eb",
+        "padding_section": "0px 0px 0px 0px",
+        "product_button_wishlist": true,
+        "product_button_compare": true,
+        "show_sticky_cart": true,
+        "media_layout": "thumbnails",
+        "position_thumbnails": "bottom",
+        "thumbnail_count": 5,
+        "enable_video_looping": false,
+        "show_sidebar": false,
+        "position_sidebar": "left",
+        "heading_sidebar": "Top rate products",
+        "collection_sidebar": "frontpage",
+        "collection_limit": 4
+      }
+    },
+    "featured_title_iNWKLy": {
+      "type": "featured-title",
+      "blocks": {
+        "title_kNzjyQ": {
+          "type": "title",
+          "settings": {
+            "title": "#LifeWithSeendoor",
+            "font": "",
+            "color": "#413d3d",
+            "font_size": 25,
+            "line_height": 35,
+            "letter_spacing": 0,
+            "font_weight": "400",
+            "margin": "0px 0px 0px 0px",
+            "align": "left",
+            "width": 100,
+            "color_mobi": "#413d3d",
+            "font_size_mobi": 20,
+            "line_height_mobi": 20,
+            "letter_spacing_mobi": 0,
+            "margin_mobi": "0px 0px 0px 0px",
+            "align_mobi": "left",
+            "width_mobi": 100
+          }
+        },
+        "title_kEmRK8": {
+          "type": "title",
+          "settings": {
+            "title": "Share Your Living Moments",
+            "font": "Montserrat",
+            "color": "#4e4e4e",
+            "font_size": 16,
+            "line_height": 35,
+            "letter_spacing": 1,
+            "font_weight": "400",
+            "margin": "0px 0px 0px 0px",
+            "align": "left",
+            "width": 100,
+            "color_mobi": "#4e4e4e",
+            "font_size_mobi": 14,
+            "line_height_mobi": 30,
+            "letter_spacing_mobi": 0,
+            "margin_mobi": "0px 0px 10px 0px",
+            "align_mobi": "left",
+            "width_mobi": 100
+          }
+        }
+      },
+      "block_order": [
+        "title_kNzjyQ",
+        "title_kEmRK8"
+      ],
+      "disabled": true,
+      "name": "Title",
+      "settings": {
+        "max_width": "",
+        "fullwidth": false,
+        "padding": "",
+        "margin": "80px 0 20px 0 | | 30px 0 0 0",
+        "color_bg": "",
+        "width_bg": "container",
+        "padding_bg": ""
+      }
+    },
+    "featured_instagram_shop_FT9kTY": {
+      "type": "featured-instagram-shop",
+      "blocks": {
+        "image_6qzk4p": {
+          "type": "image",
+          "settings": {
+            "name": "",
+            "image": "shopify://shop_images/460.jpg",
+            "url_lookbook": ""
+          }
+        },
+        "image_mwxnVq": {
+          "type": "image",
+          "settings": {
+            "name": "",
+            "image": "shopify://shop_images/456.jpg",
+            "url_lookbook": ""
+          }
+        },
+        "image_xaVnWU": {
+          "type": "image",
+          "settings": {
+            "name": "",
+            "image": "shopify://shop_images/457.jpg",
+            "url_lookbook": ""
+          }
+        },
+        "image_hk3Cac": {
+          "type": "image",
+          "settings": {
+            "name": "",
+            "image": "shopify://shop_images/458.jpg",
+            "url_lookbook": ""
+          }
+        },
+        "image_Dcx3qV": {
+          "type": "image",
+          "settings": {
+            "name": "",
+            "image": "shopify://shop_images/455.jpg",
+            "url_lookbook": ""
+          }
+        },
+        "image_eD8wqK": {
+          "type": "image",
+          "settings": {
+            "name": "",
+            "image": "shopify://shop_images/454.jpg",
+            "url_lookbook": ""
+          }
+        },
+        "image_rfHh6d": {
+          "type": "image",
+          "settings": {
+            "name": "",
+            "image": "shopify://shop_images/459.jpg",
+            "url_lookbook": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_6qzk4p",
+        "image_mwxnVq",
+        "image_xaVnWU",
+        "image_hk3Cac",
+        "image_Dcx3qV",
+        "image_eD8wqK",
+        "image_rfHh6d"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".wpbingo-section--lookbook .wpbingo-lookbook__item a {pointer-events: none; /* 禁止点击 */ cursor: default; /* 鼠标变普通指针 */ text-decoration: none; /* 去掉下划线（可选） */ color: inherit; /* 链接颜色继承周围文本 */}"
+      ],
+      "name": "Instagram Shop",
+      "settings": {
+        "color_bg": "",
+        "width_bg": "container",
+        "padding_bg": "",
+        "max_width": "",
+        "fullwidth": false,
+        "padding": "",
+        "margin": "",
+        "margin_content": "0 -4px 0 -4px",
+        "padding_item": "0 4px 0 4px",
+        "margin_item": "0 0 8px 0",
+        "navigation": true,
+        "pagination": true,
+        "infinite": true,
+        "half_slider": true,
+        "autoplay": false,
+        "autoplay_speed": "10000",
+        "rows": 1,
+        "columns": 4,
+        "column1440": 4,
+        "column1": 4,
+        "column2": 3,
+        "column3": 1,
+        "column4": 1
+      }
+    },
+    "featured_lookbook_split_Xn838g": {
+      "type": "featured-lookbook-split",
+      "blocks": {
+        "image_Cz4kGz": {
+          "type": "image",
+          "settings": {
+            "title": "look-1",
+            "image": "shopify://shop_images/2_e86c73e6-550a-4775-871e-42ca4ec42b47.jpg",
+            "title_lookbook": ""
+          }
+        },
+        "item_pwwLRN": {
+          "type": "item",
+          "settings": {
+            "name_pin": "look-1",
+            "product": "hanton-modern-henry-pendant-light-modern-metal-ceiling-fixture-for-kitchen-living",
+            "display": "top-left",
+            "top": 50,
+            "left": 50
+          }
+        },
+        "image_9LXUJd": {
+          "type": "image",
+          "settings": {
+            "title": "look-2",
+            "image": "shopify://shop_images/hanton1.jpg",
+            "title_lookbook": ""
+          }
+        },
+        "item_3jp9Rp": {
+          "type": "item",
+          "disabled": true,
+          "settings": {
+            "name_pin": "look-2",
+            "product": "",
+            "display": "top-left",
+            "top": 50,
+            "left": 50
+          }
+        },
+        "image_YbdyHX": {
+          "type": "image",
+          "settings": {
+            "title": "",
+            "image": "shopify://shop_images/480666500bcbf821db93217557b8f2fd_538832a8-ff9f-4e35-80a2-7b0cd2e5c54b.jpg",
+            "title_lookbook": ""
+          }
+        },
+        "item_cc8TRw": {
+          "type": "item",
+          "disabled": true,
+          "settings": {
+            "name_pin": "",
+            "product": "",
+            "display": "top-left",
+            "top": 50,
+            "left": 50
+          }
+        }
+      },
+      "block_order": [
+        "image_Cz4kGz",
+        "item_pwwLRN",
+        "image_9LXUJd",
+        "item_3jp9Rp",
+        "image_YbdyHX",
+        "item_cc8TRw"
+      ],
+      "disabled": true,
+      "name": "Lookbook Split",
+      "settings": {
+        "max_width": "",
+        "fullwidth": false,
+        "padding": "",
+        "margin": "80px 0 80px 0 | | 30px 0 30px 0",
+        "height_lookbook": 544
+      }
+    },
+    "slideshow_ExX38E": {
+      "type": "slideshow",
+      "blocks": {
+        "image_JaiKnY": {
+          "type": "image",
+          "settings": {
+            "title": "slider_1",
+            "size_img": "cover",
+            "pos_img": "center_center",
+            "caption_width": "",
+            "vertical_align": "middle",
+            "horizontal_align": "left",
+            "align": "left",
+            "padding": "0% 0% 0% 0%",
+            "size_img_mobi": "cover",
+            "pos_img_mobi": "center_center",
+            "disable_absolute": true,
+            "vertical_align_mobi": "middle",
+            "horizontal_align_mobi": "left",
+            "align_mobi": "left",
+            "padding_mobi": "0% 0% 0% 0%"
+          }
+        },
+        "title_bnfGji": {
+          "type": "title",
+          "disabled": true,
+          "settings": {
+            "slide_name": "slider_1",
+            "title": "Heading",
+            "color": "#ffffff",
+            "font_size": 60,
+            "line_height": 70,
+            "letter_spacing": 0,
+            "font_weight": "300",
+            "margin": "0px 0px 0px 0px",
+            "effect": "leftright",
+            "color_mobi": "#ffffff",
+            "font_size_mobi": 30,
+            "line_height_mobi": 35,
+            "letter_spacing_mobi": 0,
+            "margin_mobi": "0px 0px 0px 0px"
+          }
+        },
+        "button_WmewV6": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "slide_name": "slider_1",
+            "icon_title": "",
+            "font_icon": 14,
+            "pos_icon": 0,
+            "margin_icon": "0px 0px 0px 0px",
+            "title": "Heading",
+            "button_link": "",
+            "border": false,
+            "border_radius": "0px 0px 0px 0px",
+            "border_width": 0,
+            "color": "#000000",
+            "background": "#ffffff",
+            "border_color": "#ffffff",
+            "color_hover": "#ffffff",
+            "background_hover": "#ed5d43",
+            "border_color_hover": "#ffffff",
+            "font_size": 15,
+            "line_height": 45,
+            "letter_spacing": 0,
+            "font_weight": "400",
+            "margin": "0px 0px 0px 0px",
+            "padding": "0px 0px 0px 0px",
+            "effect": "leftright",
+            "font_size_mobi": 15,
+            "line_height_mobi": 15,
+            "letter_spacing_mobi": 0,
+            "border_mobi": false,
+            "border_radius_mobi": "0px 0px 0px 0px",
+            "border_width_mobi": 0,
+            "color_mobi": "#000000",
+            "background_mobi": "#ffffff",
+            "border_color_mobi": "#ffffff",
+            "color_hover_mobi": "#ffffff",
+            "background_hover_mobi": "#ed5d43",
+            "border_color_hover_mobi": "#ffffff",
+            "margin_mobi": "0px 0px 0px 0px",
+            "padding_mobi": "0px 0px 0px 0px"
+          }
+        }
+      },
+      "block_order": [
+        "image_JaiKnY",
+        "title_bnfGji",
+        "button_WmewV6"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "max_width": "",
+        "fullwidth": false,
+        "navigation": true,
+        "pagination": true,
+        "fade": true,
+        "autoplay": true,
+        "autoplay_speed": "8000",
+        "min_height_slider": "",
+        "border_arrow": "0px 0px 0px 0px",
+        "border_radius_arrow": "0px 0px 0px 0px",
+        "bg_arrow": "#000000",
+        "border_color_arrow": "#000000",
+        "color_arrow": "#000000",
+        "bg_arrow_hover": "#000000",
+        "border_color_arrow_hover": "#000000",
+        "color_arrow_hover": "#000000",
+        "border_dots": "0px 0px 0px 0px",
+        "border_radius_dots": "0px 0px 0px 0px",
+        "bg_dots": "#000000",
+        "border_color_dots": "#000000",
+        "bg_dots_hover": "#000000",
+        "border_color_dots_hover": "#000000"
+      }
+    },
+    "featured_title_rLCwWQ": {
+      "type": "featured-title",
+      "blocks": {
+        "title_yUgzHY": {
+          "type": "title",
+          "settings": {
+            "title": "Shop The Collections",
+            "font": "",
+            "color": "#413d3d",
+            "font_size": 25,
+            "line_height": 35,
+            "letter_spacing": 0,
+            "font_weight": "400",
+            "margin": "0px 0px 0px 0px",
+            "align": "left",
+            "width": 100,
+            "color_mobi": "#413d3d",
+            "font_size_mobi": 20,
+            "line_height_mobi": 20,
+            "letter_spacing_mobi": 0,
+            "margin_mobi": "0px 0px 0px 0px",
+            "align_mobi": "left",
+            "width_mobi": 100
+          }
+        },
+        "title_jTPPjY": {
+          "type": "title",
+          "disabled": true,
+          "settings": {
+            "title": "Share Your Living Moments",
+            "font": "Montserrat",
+            "color": "#4e4e4e",
+            "font_size": 16,
+            "line_height": 35,
+            "letter_spacing": 1,
+            "font_weight": "400",
+            "margin": "0px 0px 0px 0px",
+            "align": "left",
+            "width": 100,
+            "color_mobi": "#4e4e4e",
+            "font_size_mobi": 14,
+            "line_height_mobi": 30,
+            "letter_spacing_mobi": 0,
+            "margin_mobi": "0px 0px 10px 0px",
+            "align_mobi": "left",
+            "width_mobi": 100
+          }
+        }
+      },
+      "block_order": [
+        "title_yUgzHY",
+        "title_jTPPjY"
+      ],
+      "name": "Title",
+      "settings": {
+        "max_width": "",
+        "fullwidth": false,
+        "padding": "",
+        "margin": "80px 0 20px 0 | | 30px 0 0 0",
+        "color_bg": "",
+        "width_bg": "container",
+        "padding_bg": ""
+      }
+    },
+    "featured_products_VjiEPD": {
+      "type": "featured-products",
+      "custom_css": [
+        ".slick-dots {margin: 0px 0px 20px 0px;}",
+        "@media screen and (min-width: 768px) {.wpbingo-section--products .button_view a {letter-spacing: 2px; font-weight: 400; padding: 0px 20px; }}",
+        "@media screen and (max-width: 767px) {.wpbingo-section--products .button_view a {letter-spacing: 0; font-size: 14px; padding: 0px 20px; }}"
+      ],
+      "name": "Products list",
+      "settings": {
+        "max_width": "",
+        "fullwidth": false,
+        "padding": "",
+        "margin": "0px 0 0 0 | | 20px 0 0 0",
+        "title": "",
+        "featured_products": "hanton",
+        "limit": 8,
+        "button": "View all",
+        "button_url": "",
+        "navigation": false,
+        "dots": true,
+        "infinite": true,
+        "half_slider": true,
+        "autoplay": false,
+        "autoplay_speed": "10000",
+        "columns": 4,
+        "column1440": 4,
+        "column1": 4,
+        "column2": 3,
+        "column3": 1,
+        "column4": 1
+      }
+    },
+    "featured_image_with_text_JdxEHM": {
+      "type": "featured-image-with-text",
+      "blocks": {
+        "css_eyjyAA": {
+          "type": "css",
+          "settings": {
+            "bg_content": "#f3f0eb",
+            "color_title": "#413d3d",
+            "font_size_title": 25,
+            "line_height_title": 22,
+            "letter_spacing_title": 0,
+            "font_weight_title": "400",
+            "margin_title": "0px 0px 20px 0px",
+            "color_desc": "#414042",
+            "font_size_desc": 16,
+            "line_height_desc": 35,
+            "margin_desc": "0px 0px 0px 0px",
+            "border": false,
+            "border_width": 0,
+            "bg_button": "",
+            "color_button": "#000000",
+            "border_color_button": "#dddddd",
+            "bg_hover_button": "",
+            "color_hover_button": "#000000",
+            "border_color_hover_button": "#dddddd",
+            "border_radius": "0px 0px 0px 0px",
+            "font_size_button": 16,
+            "line_height_button": 22,
+            "letter_spacing_button": 0,
+            "font_weight_button": "500",
+            "padding_button": "0px 0px 0px 0px",
+            "font_size_title_mobi": 20,
+            "line_height_title_mobi": 30,
+            "margin_title_mobi": "30px 0px 10px 0px",
+            "font_size_desc_mobi": 15,
+            "line_height_desc_mobi": 30,
+            "margin_desc_mobi": "0px 0px 0px 0px",
+            "border_radius_mobi": "0px 0px 0px 0px",
+            "border_width_mobi": 0,
+            "font_size_button_mobi": 16,
+            "line_height_button_mobi": 22,
+            "padding_button_mobi": "0px 0px 0px 0px"
+          }
+        }
+      },
+      "block_order": [
+        "css_eyjyAA"
+      ],
+      "custom_css": [
+        ".wpbingo-section--image-text .image-text {display: flex; flex-direction: row-reverse; /* 左图右文 */}",
+        ".wpbingo-section--image-text .col-content .image-text__image {padding-left: 30px; padding-right: 30px;}"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "max_width": "",
+        "fullwidth": false,
+        "padding": "",
+        "margin": "80px 0 0 0 | | 30px 0 0 0",
+        "title": "Styling Guidance",
+        "desc": "Not sure how to bring it all together?\nOur products are designed with versatility in mind, making it easy to create a cohesive look in your home—no extra work needed.",
+        "button": "",
+        "button_link": "",
+        "image": "shopify://shop_images/13_2c6d0073-7fef-48f5-8939-bd202a34b4db.jpg"
+      }
+    },
+    "featured_title_r3K9bM": {
+      "type": "featured-title",
+      "blocks": {
+        "title_3ypnBH": {
+          "type": "title",
+          "settings": {
+            "title": "Sale",
+            "font": "",
+            "color": "#413d3d",
+            "font_size": 25,
+            "line_height": 35,
+            "letter_spacing": 0,
+            "font_weight": "400",
+            "margin": "0px 0px 0px 0px",
+            "align": "left",
+            "width": 100,
+            "color_mobi": "#413d3d",
+            "font_size_mobi": 20,
+            "line_height_mobi": 20,
+            "letter_spacing_mobi": 0,
+            "margin_mobi": "0px 0px 0px 0px",
+            "align_mobi": "left",
+            "width_mobi": 100
+          }
+        },
+        "title_FHjiUQ": {
+          "type": "title",
+          "disabled": true,
+          "settings": {
+            "title": "Share Your Living Moments",
+            "font": "Montserrat",
+            "color": "#4e4e4e",
+            "font_size": 16,
+            "line_height": 35,
+            "letter_spacing": 1,
+            "font_weight": "400",
+            "margin": "0px 0px 0px 0px",
+            "align": "left",
+            "width": 100,
+            "color_mobi": "#4e4e4e",
+            "font_size_mobi": 14,
+            "line_height_mobi": 30,
+            "letter_spacing_mobi": 0,
+            "margin_mobi": "0px 0px 10px 0px",
+            "align_mobi": "left",
+            "width_mobi": 100
+          }
+        }
+      },
+      "block_order": [
+        "title_3ypnBH",
+        "title_FHjiUQ"
+      ],
+      "name": "Title",
+      "settings": {
+        "max_width": "",
+        "fullwidth": false,
+        "padding": "",
+        "margin": "80px 0 20px 0 | | 30px 0 0 0",
+        "color_bg": "",
+        "width_bg": "container",
+        "padding_bg": ""
+      }
+    },
+    "featured_products_dKdg6m": {
+      "type": "featured-products",
+      "custom_css": [
+        ".slick-dots {margin: 0px 0px 20px 0px;}",
+        "@media screen and (min-width: 768px) {.wpbingo-section--products .button_view a {letter-spacing: 2px; font-weight: 400; padding: 0px 20px; }}",
+        "@media screen and (max-width: 767px) {.wpbingo-section--products .button_view a {letter-spacing: 0; font-size: 14px; padding: 0px 20px; }}"
+      ],
+      "name": "Products list",
+      "settings": {
+        "max_width": "",
+        "fullwidth": false,
+        "padding": "",
+        "margin": "0px 0 0 0 | | 30px 0 0 0",
+        "title": "",
+        "featured_products": "sale-lighting",
+        "limit": 8,
+        "button": "View all",
+        "button_url": "",
+        "navigation": false,
+        "dots": true,
+        "infinite": true,
+        "half_slider": true,
+        "autoplay": false,
+        "autoplay_speed": "10000",
+        "columns": 4,
+        "column1440": 4,
+        "column1": 4,
+        "column2": 3,
+        "column3": 1,
+        "column4": 1
+      }
+    },
+    "featured_image_with_text_GTMqCA": {
+      "type": "featured-image-with-text",
+      "blocks": {
+        "css_pWzHNx": {
+          "type": "css",
+          "settings": {
+            "bg_content": "#f3f0eb",
+            "color_title": "#413d3d",
+            "font_size_title": 25,
+            "line_height_title": 22,
+            "letter_spacing_title": 0,
+            "font_weight_title": "400",
+            "margin_title": "0px 0px 20px 0px",
+            "color_desc": "#414042",
+            "font_size_desc": 16,
+            "line_height_desc": 35,
+            "margin_desc": "0px 0px 0px 0px",
+            "border": false,
+            "border_width": 0,
+            "bg_button": "",
+            "color_button": "#000000",
+            "border_color_button": "#dddddd",
+            "bg_hover_button": "",
+            "color_hover_button": "#000000",
+            "border_color_hover_button": "#dddddd",
+            "border_radius": "0px 0px 0px 0px",
+            "font_size_button": 16,
+            "line_height_button": 22,
+            "letter_spacing_button": 0,
+            "font_weight_button": "500",
+            "padding_button": "0px 0px 0px 0px",
+            "font_size_title_mobi": 20,
+            "line_height_title_mobi": 30,
+            "margin_title_mobi": "30px 0px 10px 0px",
+            "font_size_desc_mobi": 15,
+            "line_height_desc_mobi": 30,
+            "margin_desc_mobi": "0px 0px 0px 0px",
+            "border_radius_mobi": "0px 0px 0px 0px",
+            "border_width_mobi": 0,
+            "font_size_button_mobi": 16,
+            "line_height_button_mobi": 22,
+            "padding_button_mobi": "0px 0px 0px 0px"
+          }
+        }
+      },
+      "block_order": [
+        "css_pWzHNx"
+      ],
+      "custom_css": [
+        ".wpbingo-section--image-text .col-content .image-text__image {padding-left: 30px; padding-right: 20px;}"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "max_width": "",
+        "fullwidth": false,
+        "padding": "",
+        "margin": "80px 0 0 0 | | 30px 0 0 0",
+        "title": "Our Mission",
+        "desc": "Seendoor aims to create the scenery behind your door.\n<br>\nWe create a warm connection between people and life with tangible sophistication;\nwe use the perfect balance of light and shadow to outline the contours of your unique life.\n<br>\nOpen the door, encounter the light, and return to your ideal home.",
+        "button": "",
+        "button_link": "",
+        "image": "shopify://shop_images/15_e2ac667f-eb38-4793-9228-472e1d7c90ff.jpg"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "product-template",
+    "featured_title_iNWKLy",
+    "featured_instagram_shop_FT9kTY",
+    "featured_lookbook_split_Xn838g",
+    "slideshow_ExX38E",
+    "featured_title_rLCwWQ",
+    "featured_products_VjiEPD",
+    "featured_image_with_text_JdxEHM",
+    "featured_title_r3K9bM",
+    "featured_products_dKdg6m",
+    "featured_image_with_text_GTMqCA"
+  ]
+}
