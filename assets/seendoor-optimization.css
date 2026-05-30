@@ -879,11 +879,11 @@ body.template-collection .collection-content {
 }
 
 body.template-product .product-single {
-  background: var(--sd-gallery-porcelain);
+  background: var(--sd-page-ground);
 }
 
 body.template-product .bwp-single-info {
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--sd-page-ground);
   border: 1px solid rgba(170, 125, 79, 0.14);
   padding: clamp(18px, 2.4vw, 34px);
 }
@@ -910,7 +910,7 @@ body.template-product .product-single .price-container .product-price--sale {
 }
 
 .sd-coupon-panel {
-  background: var(--sd-section-panel);
+  background: var(--sd-page-ground);
   border: 1px solid var(--sd-border);
   display: grid;
   gap: 10px;
@@ -981,7 +981,7 @@ body.template-product .product-single .price-container .product-price--sale {
 
 .sd-trust-points__item {
   align-content: center;
-  background: #fff;
+  background: var(--sd-page-ground);
   border: 1px solid var(--sd-border);
   color: var(--sd-charcoal);
   display: grid;

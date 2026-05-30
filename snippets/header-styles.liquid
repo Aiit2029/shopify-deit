@@ -24,13 +24,13 @@
   {{ 'css-cart-page.css' | asset_url | stylesheet_tag }}
 {%- endif -%}
 {%- if settings.iso_rtl != blank and settings.enable_rtl -%}
-	{%- assign is_rtl = fasle -%}
+	{%- assign is_rtl = false -%}
 	{%- assign iso_code_arr_rtl = settings.iso_rtl  | split: ";" -%}
 	{%- for iso_arr_rtl in iso_code_arr_rtl -%}
-		{%- assign iso_rtl = iso_arr_rtl | remove: " " -%}
-		{%- if iso_rtl == shop.locale -%}
-			{%- assign is_rtl = true -%}
-		{%- endif -%}
+	{%- assign iso_rtl = iso_arr_rtl | remove: " " -%}
+	{%- if iso_rtl == shop.locale -%}
+	{%- assign is_rtl = true -%}
+	{%- endif -%}
 	{%- endfor -%}
 {%- endif -%}
 {%- if is_rtl -%}
