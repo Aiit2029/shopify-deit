@@ -895,6 +895,9 @@ body.template-product .product-single .price-container .product-price--sale {
 }
 
 /* SMI collection list — override CDN white backgrounds on product page */
+body.template-product .smi-section-collection-list-1.smi-section__inner,
+body.template-product .smi-section-collection-list-1.smi-gradient,
+body.template-product .smi-color-scheme_1,
 body.template-product .smi-section-collection-list-1__main,
 body.template-product .smi-collection-item-1,
 body.template-product .smi-collection-item-1--standard,
