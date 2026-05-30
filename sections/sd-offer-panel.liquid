@@ -37,7 +37,7 @@
       </div>
       <div class="sd-offer-panel__grid">
         {%- for block in section.blocks -%}
-          <span class="sd-offer-card" {{ block.shopify_attributes }}>
+          <span class="sd-offer-card" style="--sd-card-index: {{ forloop.index0 }};" {{ block.shopify_attributes }}>
             {%- if block.settings.amount != blank -%}
               <span class="sd-offer-card__amount">{{ block.settings.amount }}</span>
             {%- endif -%}
