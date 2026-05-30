@@ -62,7 +62,7 @@
 
               assign image_alt = card_image.alt | default: card_title
             -%}
-            <a class="sd-collection-link-card" href="{{ card_url }}" role="listitem" {{ block.shopify_attributes }}>
+            <a class="sd-collection-link-card" href="{{ card_url }}" role="listitem" style="--sd-card-index: {{ forloop.index0 }};" {{ block.shopify_attributes }}>
               <span class="sd-collection-link-card__image">
                 {%- if card_image != blank -%}
                   {{ card_image | image_url: width: 520 | image_tag: loading: 'lazy', sizes: '(min-width: 1200px) 210px, (min-width: 750px) 22vw, 48vw', alt: image_alt }}

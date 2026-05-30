@@ -53,7 +53,7 @@
             endif
             assign image_alt = block.settings.image.alt | default: block.settings.title
           -%}
-          <a class="sd-room-card" href="{{ card_url }}" {{ block.shopify_attributes }}>
+          <a class="sd-room-card" href="{{ card_url }}" style="--sd-card-index: {{ forloop.index0 }};" {{ block.shopify_attributes }}>
             {%- if block.settings.image != blank -%}
               {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', sizes: '(min-width: 1200px) 16vw, (min-width: 750px) 33vw, 86vw', alt: image_alt }}
             {%- else -%}
@@ -65,6 +65,9 @@
               {%- endif -%}
               {%- if block.settings.caption != blank -%}
                 <span class="sd-room-card__title">{{ block.settings.caption }}</span>
+              {%- endif -%}
+              {%- if section.settings.card_cta_label != blank -%}
+                <span class="sd-room-card__cta">{{ section.settings.card_cta_label }}</span>
               {%- endif -%}
             </span>
           </a>
@@ -131,6 +134,12 @@
       "type": "url",
       "id": "link_url",
       "label": "Link"
+    },
+    {
+      "type": "text",
+      "id": "card_cta_label",
+      "label": "Card CTA label",
+      "default": "Shop the room"
     }
   ],
   "blocks": [
