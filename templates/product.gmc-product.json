@@ -199,7 +199,7 @@
         ".metafield-rich_text_field {font-size: 14px;}"
       ],
       "settings": {
-        "bg_section": "#f8f3eb",
+        "bg_section": "#faf8f4",
         "padding_section": "0px 0px 0px 0px",
         "product_button_wishlist": true,
         "product_button_compare": true,
