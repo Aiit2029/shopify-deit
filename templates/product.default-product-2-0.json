@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "smi_announcement_bar_2_1_ED7fbQ": {
@@ -201,79 +210,6 @@
         "tab_layout": "tab"
       }
     },
-    "featured_title_CK8rmK": {
-      "type": "featured-title",
-      "blocks": {
-        "title_WFMcVp": {
-          "type": "title",
-          "settings": {
-            "title": "Products in Collection",
-            "font": "",
-            "color": "#000000",
-            "font_size": 25,
-            "line_height": 35,
-            "letter_spacing": 0,
-            "font_weight": "400",
-            "margin": "0px 0px 40px 0px",
-            "align": "left",
-            "width": 100,
-            "color_mobi": "#000000",
-            "font_size_mobi": 20,
-            "line_height_mobi": 20,
-            "letter_spacing_mobi": 0,
-            "margin_mobi": "0px 0px 30px 0px",
-            "align_mobi": "left",
-            "width_mobi": 100
-          }
-        }
-      },
-      "block_order": [
-        "title_WFMcVp"
-      ],
-      "name": "Title",
-      "settings": {
-        "max_width": "",
-        "fullwidth": false,
-        "padding": "",
-        "margin": "-50px 0 0 0 | | -30px 0 0 0",
-        "color_bg": "",
-        "width_bg": "container",
-        "padding_bg": ""
-      }
-    },
-    "featured_products_j7BwRe": {
-      "type": "featured-products",
-      "custom_css": [
-        ".slick-dots {margin: 0px 0px 20px 0px;}",
-        "@media screen and (min-width: 768px) {.wpbingo-section--products .button_view a {letter-spacing: 2px; font-weight: 400; padding: 0px 20px; }}",
-        ".wpbingo-title__heading {font-size: 25px; font-weight: 200;}",
-        "@media screen and (max-width: 767px) {.wpbingo-section--products .button_view a {letter-spacing: 0; font-size: 14px; padding: 0px 20px; } .wpbingo-title__heading {font-size: 20px; font-weight: 200; }}"
-      ],
-      "name": "Products list",
-      "settings": {
-        "max_width": "1600px",
-        "fullwidth": false,
-        "padding": "",
-        "margin": "",
-        "title": "",
-        "featured_products": "{{ product.metafields.custom.product_collection.value }}",
-        "limit": 8,
-        "button": "View all",
-        "button_url": "shopify://collections/new-arrivals-lighting",
-        "navigation": false,
-        "dots": true,
-        "infinite": true,
-        "half_slider": true,
-        "autoplay": true,
-        "autoplay_speed": "10000",
-        "columns": 4,
-        "column1440": 4,
-        "column1": 4,
-        "column2": 3,
-        "column3": 1,
-        "column4": 1
-      }
-    },
     "featured_image_with_text_hbEeCh": {
       "type": "featured-image-with-text",
       "blocks": {
@@ -427,8 +363,6 @@
     "breadcrumb",
     "product-template",
     "product-tab",
-    "featured_title_CK8rmK",
-    "featured_products_j7BwRe",
     "featured_image_with_text_hbEeCh",
     "featured_image_with_text_yyPEck",
     "recently-viewed"
