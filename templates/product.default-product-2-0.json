@@ -197,8 +197,8 @@
         ".product-more-info.full-content {border-top: 0px solid #e8e8e8;}"
       ],
       "settings": {
-        "margin": "",
-        "tab_layout": "full-content"
+        "margin": "0",
+        "tab_layout": "tab"
       }
     },
     "featured_title_CK8rmK": {
