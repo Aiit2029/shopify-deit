@@ -176,10 +176,17 @@
           "settings": {
             "title_description": "About the Lamp"
           }
+        },
+        "tab_review_default_product_2": {
+          "type": "tab_review",
+          "settings": {
+            "title_review": "Review"
+          }
         }
       },
       "block_order": [
-        "14602642-3bec-4b7c-ba2a-595627cccceb"
+        "14602642-3bec-4b7c-ba2a-595627cccceb",
+        "tab_review_default_product_2"
       ],
       "custom_css": [
         "h2 {font-size: 17px; line-height: 1; padding-top: 10px; text-transform: none; /* 取消强制大写 */}",
