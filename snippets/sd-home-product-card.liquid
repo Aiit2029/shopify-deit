@@ -6,27 +6,27 @@
   {%- assign card_on_sale = true -%}
 {%- endif -%}
 
-<article class="sdr-product-card">
-  <a class="sdr-product-card__media" href="{{ card_url }}" aria-label="{{ product.title | escape }}">
+<article class="sdh-product-card">
+  <a class="sdh-product-card__media" href="{{ card_url }}" aria-label="{{ product.title | escape }}">
     {%- if card_on_sale -%}
       {%- assign card_saved = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
-      <span class="sdr-product-card__badge">-{{ card_saved }}%</span>
+      <span class="sdh-product-card__badge">-{{ card_saved }}%</span>
     {%- endif -%}
     {%- if card_image != blank -%}
-      {{ card_image | image_url: width: 900 | image_tag: loading: 'lazy', class: 'sdr-product-card__image', widths: '360, 540, 720, 900', sizes: '(min-width: 1200px) 24vw, (min-width: 768px) 45vw, 92vw' }}
+      {{ card_image | image_url: width: 900 | image_tag: loading: 'lazy', class: 'sdh-product-card__image', widths: '360, 540, 720, 900', sizes: '(min-width: 1200px) 24vw, (min-width: 768px) 45vw, 92vw' }}
     {%- else -%}
-      <span class="sdr-product-card__placeholder">{{ 'product-1' | placeholder_svg_tag }}</span>
+      <span class="sdh-product-card__placeholder">{{ 'product-1' | placeholder_svg_tag }}</span>
     {%- endif -%}
   </a>
-  <div class="sdr-product-card__body">
-    <a class="sdr-product-card__title" href="{{ card_url }}">{{ product.title }}</a>
-    <div class="sdr-product-card__meta">
-      <span class="sdr-product-card__price">{{ product.price | money }}</span>
+  <div class="sdh-product-card__body">
+    <a class="sdh-product-card__title" href="{{ card_url }}">{{ product.title }}</a>
+    <div class="sdh-product-card__meta">
+      <span class="sdh-product-card__price">{{ product.price | money }}</span>
       {%- if card_on_sale -%}
-        <span class="sdr-product-card__compare">{{ product.compare_at_price | money }}</span>
+        <span class="sdh-product-card__compare">{{ product.compare_at_price | money }}</span>
       {%- endif -%}
     </div>
-    <a class="sdr-product-card__link" href="{{ card_url }}">
+    <a class="sdh-product-card__link" href="{{ card_url }}">
       {%- if product.available -%}
         View product
       {%- else -%}
