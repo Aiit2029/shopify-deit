@@ -1,0 +1,94 @@
+{%- assign max_width = section.settings.max_width | default: '1750px' -%}
+<section class="sdh sdh-section--tight" style="--sdh-max: {{ max_width | escape }};" aria-label="{{ section.settings.aria_label | escape }}">
+  <div class="sdh-wrap">
+    <div class="sdh-trust-grid">
+      {%- for block in section.blocks -%}
+        <div class="sdh-trust-item" {{ block.shopify_attributes }}>
+          <span class="sdh-trust-icon" aria-hidden="true">
+            {%- case block.settings.icon -%}
+              {%- when 'shipping' -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+              {%- when 'returns' -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 7H5v4"/><path d="M5 11a7 7 0 1 0 2-5"/></svg>
+              {%- when 'secure' -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9.5 12l1.7 1.7L15 10"/></svg>
+              {%- else -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 12a8 8 0 0 1 16 0v5a2 2 0 0 1-2 2h-2"/><path d="M4 12v4a2 2 0 0 0 2 2h1"/><path d="M9 20h6"/></svg>
+            {%- endcase -%}
+          </span>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.copy }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "SD Home Trust",
+  "settings": [
+    {
+      "type": "text",
+      "id": "max_width",
+      "label": "Content width",
+      "default": "1750px"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Accessibility label",
+      "default": "Store benefits"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "shipping",
+              "label": "Shipping"
+            },
+            {
+              "value": "secure",
+              "label": "Secure"
+            },
+            {
+              "value": "returns",
+              "label": "Returns"
+            },
+            {
+              "value": "support",
+              "label": "Support"
+            }
+          ],
+          "default": "shipping"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "textarea",
+          "id": "copy",
+          "label": "Copy",
+          "default": "Free shipping over EUR50."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SD Home Trust"
+    }
+  ]
+}
+{% endschema %}

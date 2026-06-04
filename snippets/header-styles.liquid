@@ -10,6 +10,16 @@
 {{ 'css-section.css' | asset_url | stylesheet_tag }}
 {{ 'css-site.css' | asset_url | stylesheet_tag }}
 {{ 'seendoor-optimization.css' | asset_url | stylesheet_tag }}
+{{ 'sd-home-sections.css' | asset_url | stylesheet_tag }}
+<style>
+  @font-face {
+    font-family: "Moulin Seendoor";
+    src: url("{{ 'moulin-light-app.woff2' | asset_url }}") format("woff2");
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+  }
+</style>
 {%- assign page_type = request.page_type | handle -%}
 {%- if page_type contains 'collection' or page_type contains 'search' -%}
   {{ 'css-collection.css' | asset_url | stylesheet_tag }}

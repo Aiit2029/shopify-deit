@@ -10,6 +10,20 @@ const parse = (file) => JSON.parse(read(file));
 const oldBlueValues = ['#2f5d8c', '#9eb7d3', '#e8eef5'];
 const warmLegacyValues = ['#ac8058', '#835e39', '#aa7d4f', '#fdf6e8', '#963f32', '#71816f'];
 
+const homepageSectionIds = [
+  'sd_home_hero',
+  'sd_home_nav_paths',
+  'sd_home_room_menu',
+  'sd_home_best_sellers',
+  'sd_home_type_grid',
+  'sd_home_new_arrivals',
+  'sd_home_quick_ship',
+  'sd_home_homeware_grid',
+  'sd_home_style_grid',
+  'sd_home_offer',
+  'sd_home_trust',
+];
+
 const checks = [
   {
     name: 'viewport allows user zoom',
@@ -20,11 +34,13 @@ const checks = [
     },
   },
   {
-    name: 'optimization assets are loaded',
+    name: 'optimization and homepage assets are loaded',
     run() {
       const styles = read('snippets/header-styles.liquid');
       const theme = read('layout/theme.liquid');
       assert(styles.includes('seendoor-optimization.css'));
+      assert(styles.includes('sd-home-sections.css'));
+      assert(styles.includes('moulin-light-app.woff2'));
       assert(theme.includes('seendoor-optimization.js'));
     },
   },
@@ -46,20 +62,31 @@ const checks = [
     },
   },
   {
-    name: 'homepage is rebuilt as one editable Shopify section',
+    name: 'homepage is split into separate editable Shopify sections',
     run() {
       const index = parse('templates/index.json');
-      assert.deepEqual(index.order, ['sd_homepage_rebuild']);
-      assert.equal(index.sections.sd_homepage_rebuild.type, 'sd-homepage-rebuild');
+      assert.deepEqual(index.order, homepageSectionIds);
+      assert(!index.sections.sd_homepage_rebuild);
+      assert(!exists('sections/sd-homepage-rebuild.liquid'));
 
-      const section = read('sections/sd-homepage-rebuild.liquid');
-      assert(section.includes('"name": "SD Homepage Rebuild"'));
-      assert(section.includes('"type": "collection"'));
-      assert(section.includes('"type": "image_picker"'));
-      assert(section.includes('"type": "url"'));
-      assert(!read('templates/index.json').includes('sd-editorial-heading'));
-      assert(!read('templates/index.json').includes('function copyCode(code)'));
-      assert(!read('templates/index.json').includes('navigator.clipboard.writeText(code)'));
+      const expectedTypes = {
+        sd_home_hero: 'sd-home-hero',
+        sd_home_nav_paths: 'sd-home-nav-paths',
+        sd_home_room_menu: 'sd-home-room-menu',
+        sd_home_best_sellers: 'sd-home-product-carousel',
+        sd_home_type_grid: 'sd-home-card-grid',
+        sd_home_new_arrivals: 'sd-home-product-carousel',
+        sd_home_quick_ship: 'sd-home-product-carousel',
+        sd_home_homeware_grid: 'sd-home-card-grid',
+        sd_home_style_grid: 'sd-home-card-grid',
+        sd_home_offer: 'sd-home-offer-panel',
+        sd_home_trust: 'sd-home-trust',
+      };
+
+      for (const [id, type] of Object.entries(expectedTypes)) {
+        assert.equal(index.sections[id].type, type, id);
+        assert(exists(`sections/${type}.liquid`), type);
+      }
     },
   },
   {
@@ -98,66 +125,113 @@ const checks = [
     },
   },
   {
-    name: 'required quick ship surface is prominent and editable',
+    name: 'product sections are carousel sections with visible arrow controls',
     run() {
       const index = parse('templates/index.json');
-      const homepage = index.sections.sd_homepage_rebuild;
-      const encoded = JSON.stringify(homepage);
-      assert.equal(homepage.settings.quick_ship_collection, 'in-stock-quick-ship-lighting');
-      assert(encoded.includes('Quick Ship'));
-      assert(encoded.includes('Ready when the project is.'));
-      assert(encoded.includes('/collections/in-stock-quick-ship-lighting'));
-      assert(read('sections/sd-homepage-rebuild.liquid').includes('quick_ship_collection'));
+      const carouselSection = read('sections/sd-home-product-carousel.liquid');
+      assert(carouselSection.includes('data-sdh-carousel-prev'));
+      assert(carouselSection.includes('data-sdh-carousel-next'));
+      assert(carouselSection.includes('scrollBy'));
+      assert(carouselSection.includes("{% render 'sd-home-product-card', product: product %}"));
+
+      for (const id of ['sd_home_best_sellers', 'sd_home_new_arrivals', 'sd_home_quick_ship']) {
+        assert.equal(index.sections[id].type, 'sd-home-product-carousel', id);
+        assert.equal(index.sections[id].settings.show_arrows, true, id);
+        assert.equal(index.sections[id].settings.product_limit, 10, id);
+      }
     },
   },
   {
-    name: 'Moulin font is bundled and applied to homepage',
+    name: 'required quick ship surface is its own editable carousel section',
+    run() {
+      const index = parse('templates/index.json');
+      const quick = index.sections.sd_home_quick_ship;
+      const encoded = JSON.stringify(quick);
+      assert.equal(quick.type, 'sd-home-product-carousel');
+      assert.equal(quick.settings.collection, 'in-stock-quick-ship-lighting');
+      assert.equal(quick.settings.theme, 'dark');
+      assert(encoded.includes('Quick Ship'));
+      assert(encoded.includes('Ready when the project is.'));
+      assert(encoded.includes('/collections/in-stock-quick-ship-lighting'));
+    },
+  },
+  {
+    name: 'type grid uses five desktop columns to avoid orphan layout',
+    run() {
+      const index = parse('templates/index.json');
+      const typeGrid = index.sections.sd_home_type_grid;
+      assert.equal(typeGrid.type, 'sd-home-card-grid');
+      assert.equal(typeGrid.settings.columns, '5');
+      assert.equal(typeGrid.block_order.length, 5);
+      assert(read('assets/sd-home-sections.css').includes('.sdh-card-grid--5'));
+      assert(read('assets/sd-home-sections.css').includes('grid-template-columns: repeat(5, minmax(0, 1fr))'));
+    },
+  },
+  {
+    name: 'offer section keeps approved codes and supports click-to-copy',
+    run() {
+      const index = parse('templates/index.json');
+      const offer = index.sections.sd_home_offer;
+      const codes = offer.block_order.map((id) => offer.blocks[id].settings.code);
+      const offerSection = read('sections/sd-home-offer-panel.liquid');
+
+      assert.deepEqual(codes, ['SD10', 'SD13', 'SD15']);
+      assert(offerSection.includes('data-sdh-copy-code'));
+      assert(offerSection.includes('navigator.clipboard.writeText'));
+      assert(offerSection.includes('document.execCommand'));
+      assert(offerSection.includes('sdh-copy-toast'));
+      assert(read('templates/index.json').includes('Click a code to copy it.'));
+    },
+  },
+  {
+    name: 'Moulin font is bundled and applied to homepage sections',
     run() {
       assert(exists('assets/moulin-light-app.woff2'));
-      const section = read('sections/sd-homepage-rebuild.liquid');
-      assert(section.includes('@font-face'));
-      assert(section.includes('Moulin Seendoor'));
-      assert(section.includes("{{ 'moulin-light-app.woff2' | asset_url }}"));
-      assert(section.includes('font-family: "Moulin Seendoor"'));
+      const styles = read('snippets/header-styles.liquid');
+      const css = read('assets/sd-home-sections.css');
+      assert(styles.includes('@font-face'));
+      assert(styles.includes('Moulin Seendoor'));
+      assert(styles.includes("{{ 'moulin-light-app.woff2' | asset_url }}"));
+      assert(css.includes('font-family: "Moulin Seendoor"'));
     },
   },
   {
     name: 'homepage color system avoids blue text palette and old brass system',
     run() {
       const css = read('assets/seendoor-optimization.css');
-      const variables = read('assets/css-variables.css');
+      const homeCss = read('assets/sd-home-sections.css');
+      const variablesLiquid = read('assets/css-variables.css.liquid');
       const settings = read('config/settings_data.json');
-      const section = read('sections/sd-homepage-rebuild.liquid');
       const index = read('templates/index.json');
 
       assert(css.includes('--sd-canvas: #f3f2ef'));
       assert(css.includes('--sd-graphite: #181816'));
       assert(css.includes('--sd-sale: #6e2638'));
-      assert(variables.includes('--theme-color:#26352b'));
-      assert(variables.includes('--body-bg-color:#f3f2ef'));
+      assert(homeCss.includes('--sdh-canvas: #f3f2ef'));
+      assert(homeCss.includes('--sdh-forest: #26352b'));
+      assert(homeCss.includes('--sdh-oxblood: #6e2638'));
+      assert(variablesLiquid.includes('--theme-color:{{ settings.theme-color }}'));
+      assert(variablesLiquid.includes('--body-bg-color:{{ settings.color_body_bg }}'));
       assert(settings.includes('"theme-color":"#26352b"'));
       assert(settings.includes('"color_body_bg":"#f3f2ef"'));
-      assert(section.includes('--sdr-forest: #26352b'));
-      assert(section.includes('--sdr-oxblood: #6e2638'));
 
       for (const value of oldBlueValues) {
         assert(!css.includes(value), value);
-        assert(!variables.includes(value), value);
+        assert(!homeCss.includes(value), value);
         assert(!settings.includes(value), value);
-        assert(!section.includes(value), value);
         assert(!index.includes(value), value);
       }
 
       for (const value of warmLegacyValues) {
         assert(!css.includes(value), value);
+        assert(!homeCss.includes(value), value);
         assert(!settings.includes(value), value);
-        assert(!section.includes(value), value);
         assert(!index.includes(value), value);
       }
     },
   },
   {
-    name: 'approved coupon codes stay fixed',
+    name: 'approved coupon codes stay fixed across homepage and product page',
     run() {
       const indexRaw = read('templates/index.json');
       const productRaw = read('templates/product.json');
@@ -171,17 +245,16 @@ const checks = [
       assert(!indexRaw.includes('LIGHT10'));
       assert(!productRaw.includes('LIGHT10'));
       assert(!settings.includes('LIGHT10'));
-      assert(indexRaw.includes('Use SD10, SD13, or SD15 at checkout'));
     },
   },
   {
     name: 'new homepage product cards avoid old product-list button dependency',
     run() {
-      const section = read('sections/sd-homepage-rebuild.liquid');
+      const section = read('sections/sd-home-product-carousel.liquid');
       const card = read('snippets/sd-home-product-card.liquid');
       assert(section.includes("{% render 'sd-home-product-card', product: product %}"));
-      assert(card.includes('sdr-product-card__price'));
-      assert(card.includes('sdr-product-card__link'));
+      assert(card.includes('sdh-product-card__price'));
+      assert(card.includes('sdh-product-card__link'));
       assert(card.includes('View product'));
       assert(!section.includes('wpbingo-section--products'));
       assert(!section.includes('button_view'));
@@ -225,12 +298,31 @@ const checks = [
     },
   },
   {
-    name: 'homepage uses consistent 1750px content width',
+    name: 'homepage sections use consistent 1750px content width',
     run() {
       const index = parse('templates/index.json');
-      assert.equal(index.sections.sd_homepage_rebuild.settings.max_width, '1750px');
-      const section = read('sections/sd-homepage-rebuild.liquid');
-      assert(section.includes('--sdr-max: {{ max_width | escape }}'));
+      for (const id of homepageSectionIds) {
+        assert.equal(index.sections[id].settings.max_width, '1750px', id);
+      }
+    },
+  },
+  {
+    name: 'all new homepage section schemas are valid',
+    run() {
+      for (const file of [
+        'sections/sd-home-hero.liquid',
+        'sections/sd-home-nav-paths.liquid',
+        'sections/sd-home-room-menu.liquid',
+        'sections/sd-home-card-grid.liquid',
+        'sections/sd-home-product-carousel.liquid',
+        'sections/sd-home-offer-panel.liquid',
+        'sections/sd-home-trust.liquid',
+      ]) {
+        const text = read(file);
+        const match = text.match(/{% schema %}([\s\S]*?){% endschema %}/);
+        assert(match, `${file} schema missing`);
+        JSON.parse(match[1]);
+      }
     },
   },
   {
