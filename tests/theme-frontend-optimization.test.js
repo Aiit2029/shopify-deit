@@ -93,8 +93,9 @@ const checks = [
     name: 'deep redesign tokens and editorial surfaces are present',
     run() {
       const css = read('assets/seendoor-optimization.css');
-      assert(css.includes('--sd-gallery-ink'));
-      assert(css.includes('--sd-gallery-paper'));
+      assert(css.includes('--sd-graphite'));
+      assert(css.includes('--sd-canvas'));
+      assert(css.includes('--sd-steel-blue'));
       assert(css.includes('.sd-seasonal-event'));
       assert(css.includes('.wpbingo-section--products'));
       assert(css.includes('.collection-content'));
@@ -194,11 +195,11 @@ const checks = [
       const index = read('templates/index.json');
       assert(index.includes('sd-room-selector'));
       assert(index.includes('Shop by room'));
-      assert(index.includes('Start with the room'));
+      assert(index.includes('Start with the space'));
       assert(index.includes('Living Room'));
       assert(index.includes('Dining Room'));
       assert(index.includes('sd-footer-trust'));
-      assert(index.includes('Lighting Support'));
+      assert(index.includes('Design Support'));
     },
   },
   {
@@ -214,7 +215,7 @@ const checks = [
       const offer = index.sections.sd_offer_panel;
       const codes = offer.block_order.map((id) => offer.blocks[id].settings.code);
       assert.deepEqual(codes, ['SD10', 'SD13', 'SD15']);
-      assert(indexRaw.includes('Layer your summer light, save more'));
+      assert(indexRaw.includes('Build the edit, save more'));
       assert(indexRaw.includes('Use SD10, SD13, or SD15'));
       assert(productCoupon.includes('data-sd-copy-code="SD10"'));
       assert(productCoupon.includes('data-sd-copy-code="SD13"'));
@@ -225,15 +226,15 @@ const checks = [
     },
   },
   {
-    name: 'homepage copy follows competitor-informed lighting journey',
+    name: 'homepage copy follows premium design-store journey',
     run() {
       const index = read('templates/index.json');
-      assert(index.includes('Lighting that shapes the room'));
-      assert(index.includes('Discover refined fixtures for warm dinners, quiet corners, and beautifully layered homes.'));
-      assert(index.includes('Start with the room'));
+      assert(index.includes('A cleaner way to shape the room'));
+      assert(index.includes('Discover refined pieces for composed rooms, calm corners, and a more considered home.'));
+      assert(index.includes('Start with the space'));
       assert(index.includes('Then choose the fixture type'));
-      assert(index.includes('Designed around atmosphere'));
-      assert(index.includes('Every fixture is selected for the way it changes a room'));
+      assert(index.includes('Designed with a quieter point of view'));
+      assert(index.includes('A curated edit of clean silhouettes, tactile finishes, and pieces that make a room feel intentional without feeling overdone.'));
       assert(index.includes('Support within 24 hours'));
     },
   },
@@ -250,37 +251,49 @@ const checks = [
       assert(section.includes('"type": "collection"'));
       assert(section.includes('"type": "image_picker"'));
       assert(settings.includes('"sd-collection-quick-links"'));
-      assert(settings.includes('Shop lighting by room'));
+      assert(settings.includes('Shop by room'));
       assert(css.includes('.sd-collection-quick-links__rail'));
       assert(css.includes('grid-auto-flow: column'));
     },
   },
   {
-    name: 'homepage color system removes isolated promo and sage colors',
+    name: 'homepage color system uses graphite gallery neutrals',
     run() {
       const css = read('assets/seendoor-optimization.css');
       const variables = read('assets/css-variables.css');
       const index = read('templates/index.json');
       const settings = read('config/settings_data.json');
-      assert(css.includes('--sd-page-ground: #f8f3eb'));
-      assert(css.includes('--sd-section-panel: #fffaf3'));
+      assert(css.includes('--sd-canvas: #f6f7f8'));
+      assert(css.includes('--sd-surface: #ffffff'));
+      assert(css.includes('--sd-graphite: #17191c'));
+      assert(css.includes('--sd-steel-blue: #2f5d8c'));
+      assert(css.includes('--sd-sale: #7a2638'));
       assert(css.includes('--body-bg-color: var(--sd-page-ground);'));
-      assert(variables.includes('--body-bg-color:#f8f3eb'));
-      assert(settings.includes('"color_body_bg":"#f8f3eb"'));
-      assert(css.includes('--sd-gallery-glow: #fdf6e8'));
-      assert(css.includes('--sd-gallery-muted: #574e44'));
-      assert(css.includes('--sd-gallery-clay: #835e39'));
+      assert(variables.includes('--body-bg-color:#f6f7f8'));
+      assert(variables.includes('--theme-color:#2f5d8c'));
+      assert(settings.includes('"color_body_bg":"#f6f7f8"'));
+      assert(settings.includes('"theme-color":"#2f5d8c"'));
       assert(css.includes('body.template-index .main-content'));
       assert(css.includes('background: var(--sd-page-ground);'));
       assert(css.includes('body.template-index .wpbingo-section:not(.wpbingo-section--slideshow)'));
+      assert(!css.includes('#ac8058'));
+      assert(!css.includes('#835e39'));
+      assert(!css.includes('#aa7d4f'));
+      assert(!css.includes('#fdf6e8'));
+      assert(!css.includes('#e9ddd3'));
       assert(!css.includes('#963f32'));
       assert(!css.includes('#71816f'));
       assert(!css.includes('#b01818'));
       assert(!css.includes('#f4efe7'));
+      assert(!index.includes('#835e39'));
+      assert(!index.includes('#aa7d4f'));
+      assert(!index.includes('#fdf6e8'));
       assert(!index.includes('#963f32'));
       assert(!index.includes('#783228'));
       assert(!index.includes('#413d3d'));
       assert(!index.includes('#2d312b'));
+      assert(!settings.includes('#ac8058'));
+      assert(!settings.includes('#835e39'));
       assert(!settings.includes('#bd0000'));
       assert(!settings.includes('#7f4227'));
       assert(!settings.includes('#ff0000'));
@@ -294,7 +307,7 @@ const checks = [
       assert(css.includes('.sd-button--light:hover'));
       assert(css.includes('.sd-button--outline:hover'));
       assert(css.includes('.sd-room-card:hover img'));
-      assert(css.includes('background: var(--sd-gallery-glow)'));
+      assert(css.includes('background: var(--sd-slate)'));
     },
   },
   {
@@ -306,11 +319,11 @@ const checks = [
       assert(css.includes('content: none !important'));
       assert(css.includes('body.template-index .wpbingo-section--products .button_view a,'));
       assert(css.includes('body.template-index .wpbingo-section--products .button_view a:visited'));
-      assert(css.includes('background: var(--sd-gallery-ink) !important'));
+      assert(css.includes('background: var(--sd-graphite) !important'));
       assert(css.includes('color: #fff !important'));
       assert(css.includes('body.template-index .wpbingo-section--products .button_view a span'));
       assert(css.includes('body.template-index .wpbingo-section--products .button_view a:hover'));
-      assert(css.includes('background: var(--sd-gallery-brass) !important'));
+      assert(css.includes('background: var(--sd-slate) !important'));
       assert(css.includes('content: none'));
     },
   },
