@@ -1,0 +1,1577 @@
+{%- assign max_width = section.settings.max_width | default: '1750px' -%}
+{%- assign product_limit = section.settings.product_limit | default: 4 -%}
+{%- assign best_collection = collections[section.settings.best_collection] -%}
+{%- assign new_collection = collections[section.settings.new_collection] -%}
+{%- assign quick_collection = collections[section.settings.quick_ship_collection] -%}
+
+<style>
+  @font-face {
+    font-family: "Moulin Seendoor";
+    src: url("{{ 'moulin-light-app.woff2' | asset_url }}") format("woff2");
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+  }
+
+  #shopify-section-{{ section.id }} {
+    background: #f3f2ef;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-home {
+    --sdr-max: {{ max_width | escape }};
+    --sdr-canvas: #f3f2ef;
+    --sdr-paper: #fbfbf8;
+    --sdr-quiet: #e8e6e1;
+    --sdr-line: #d8d5ce;
+    --sdr-ink: #141412;
+    --sdr-text: #2b2a26;
+    --sdr-muted: #625f58;
+    --sdr-forest: #26352b;
+    --sdr-moss: #515a43;
+    --sdr-oxblood: #6e2638;
+    --sdr-clay: #7b5847;
+    --sdr-shadow: 0 22px 70px rgba(20, 20, 18, 0.08);
+    background:
+      radial-gradient(circle at top left, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0) 34vw),
+      var(--sdr-canvas);
+    color: var(--sdr-text);
+    font-family: "Moulin Seendoor", "Helvetica Neue", Arial, sans-serif;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-wrap {
+    margin: 0 auto;
+    max-width: var(--sdr-max);
+    padding: 0 clamp(16px, 3vw, 34px);
+  }
+
+  #shopify-section-{{ section.id }} .sdr-section {
+    padding: clamp(44px, 6vw, 92px) 0;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-section--tight {
+    padding-top: clamp(28px, 4vw, 58px);
+  }
+
+  #shopify-section-{{ section.id }} .sdr-kicker,
+  #shopify-section-{{ section.id }} .sdr-card__label,
+  #shopify-section-{{ section.id }} .sdr-product-card__link,
+  #shopify-section-{{ section.id }} .sdr-offer__code {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-kicker {
+    color: var(--sdr-oxblood);
+    margin: 0 0 14px;
+  }
+
+  #shopify-section-{{ section.id }} h1,
+  #shopify-section-{{ section.id }} h2,
+  #shopify-section-{{ section.id }} h3,
+  #shopify-section-{{ section.id }} p {
+    letter-spacing: 0;
+    margin-top: 0;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-heading {
+    color: var(--sdr-ink);
+    font-size: clamp(34px, 4.4vw, 76px);
+    font-weight: 300;
+    line-height: 0.98;
+    margin-bottom: 18px;
+    max-width: 980px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-section__head {
+    align-items: end;
+    display: grid;
+    gap: 22px;
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 460px);
+    margin-bottom: clamp(22px, 3vw, 38px);
+  }
+
+  #shopify-section-{{ section.id }} .sdr-title {
+    color: var(--sdr-ink);
+    font-size: clamp(30px, 3.2vw, 54px);
+    font-weight: 300;
+    line-height: 1.02;
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-copy {
+    color: var(--sdr-muted);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: clamp(15px, 1vw, 17px);
+    line-height: 1.75;
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-button {
+    align-items: center;
+    border: 1px solid var(--sdr-ink);
+    color: var(--sdr-ink);
+    display: inline-flex;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 750;
+    justify-content: center;
+    letter-spacing: 0.14em;
+    line-height: 1;
+    min-height: 48px;
+    padding: 0 24px;
+    text-transform: uppercase;
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-button:hover {
+    background: var(--sdr-forest);
+    border-color: var(--sdr-forest);
+    color: #fff;
+    transform: translateY(-1px);
+  }
+
+  #shopify-section-{{ section.id }} .sdr-button--dark {
+    background: var(--sdr-ink);
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-button--dark:hover {
+    background: var(--sdr-oxblood);
+    border-color: var(--sdr-oxblood);
+  }
+
+  #shopify-section-{{ section.id }} .sdr-button--light {
+    background: #fff;
+    border-color: #fff;
+    color: var(--sdr-ink);
+  }
+
+  #shopify-section-{{ section.id }} .sdr-button--light:hover {
+    background: var(--sdr-forest);
+    border-color: var(--sdr-forest);
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-hero {
+    min-height: clamp(620px, 76vh, 860px);
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-hero__media,
+  #shopify-section-{{ section.id }} .sdr-hero__image,
+  #shopify-section-{{ section.id }} .sdr-hero__placeholder {
+    inset: 0;
+    position: absolute;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-hero__image,
+  #shopify-section-{{ section.id }} .sdr-hero__placeholder {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-hero__placeholder {
+    background:
+      linear-gradient(125deg, rgba(20, 20, 18, 0.78), rgba(20, 20, 18, 0.18)),
+      linear-gradient(45deg, #45403b, #c9c2b6);
+  }
+
+  #shopify-section-{{ section.id }} .sdr-hero::after {
+    background:
+      linear-gradient(90deg, rgba(20, 20, 18, 0.72), rgba(20, 20, 18, 0.22) 55%, rgba(20, 20, 18, 0.06)),
+      linear-gradient(0deg, rgba(20, 20, 18, 0.35), rgba(20, 20, 18, 0));
+    content: "";
+    inset: 0;
+    position: absolute;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-hero__content {
+    align-items: end;
+    display: grid;
+    min-height: inherit;
+    padding-bottom: clamp(38px, 7vw, 94px);
+    padding-top: clamp(110px, 12vw, 150px);
+    position: relative;
+    z-index: 2;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-hero__copy {
+    max-width: 850px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-hero .sdr-kicker,
+  #shopify-section-{{ section.id }} .sdr-hero .sdr-heading,
+  #shopify-section-{{ section.id }} .sdr-hero .sdr-copy {
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-hero .sdr-copy {
+    color: rgba(255, 255, 255, 0.86);
+    max-width: 610px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-hero__notes {
+    display: grid;
+    gap: 1px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: clamp(42px, 8vw, 86px);
+    max-width: 820px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-hero__note {
+    backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    min-height: 92px;
+    padding: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-hero__note strong {
+    display: block;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-hero__note span {
+    color: rgba(255, 255, 255, 0.78);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-nav-grid {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin-top: -54px;
+    position: relative;
+    z-index: 3;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-nav-card,
+  #shopify-section-{{ section.id }} .sdr-image-card,
+  #shopify-section-{{ section.id }} .sdr-product-card {
+    color: inherit;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-nav-card {
+    background: var(--sdr-paper);
+    box-shadow: var(--sdr-shadow);
+    min-height: 250px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-nav-card__media,
+  #shopify-section-{{ section.id }} .sdr-image-card__media {
+    aspect-ratio: 4 / 3;
+    background: var(--sdr-quiet);
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-nav-card img,
+  #shopify-section-{{ section.id }} .sdr-image-card img,
+  #shopify-section-{{ section.id }} .sdr-product-card__image {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 420ms ease, opacity 220ms ease;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-nav-card:hover img,
+  #shopify-section-{{ section.id }} .sdr-image-card:hover img,
+  #shopify-section-{{ section.id }} .sdr-product-card:hover .sdr-product-card__image {
+    transform: scale(1.045);
+  }
+
+  #shopify-section-{{ section.id }} .sdr-nav-card__body {
+    padding: 18px 18px 20px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-nav-card__title {
+    color: var(--sdr-ink);
+    font-size: clamp(22px, 1.8vw, 32px);
+    font-weight: 300;
+    line-height: 1.05;
+    margin: 6px 0 8px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-nav-card__caption {
+    color: var(--sdr-muted);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-route-grid {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: 1.12fr 0.88fr;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-room-grid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #shopify-section-{{ section.id }} .sdr-room-card {
+    background: var(--sdr-paper);
+    border: 1px solid var(--sdr-line);
+    min-height: 228px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-room-card__media {
+    height: 100%;
+    inset: 0;
+    position: absolute;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-room-card__media::after {
+    background: linear-gradient(0deg, rgba(20, 20, 18, 0.64), rgba(20, 20, 18, 0.06));
+    content: "";
+    inset: 0;
+    position: absolute;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-room-card img,
+  #shopify-section-{{ section.id }} .sdr-room-card__fallback {
+    height: 100%;
+    object-fit: cover;
+    transition: transform 420ms ease;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-room-card__fallback,
+  #shopify-section-{{ section.id }} .sdr-image-fallback,
+  #shopify-section-{{ section.id }} .sdr-product-card__placeholder {
+    background:
+      linear-gradient(135deg, rgba(20, 20, 18, 0.08), rgba(255, 255, 255, 0.42)),
+      var(--sdr-quiet);
+  }
+
+  #shopify-section-{{ section.id }} .sdr-room-card:hover img {
+    transform: scale(1.05);
+  }
+
+  #shopify-section-{{ section.id }} .sdr-room-card__body {
+    bottom: 0;
+    color: #fff;
+    left: 0;
+    padding: 18px;
+    position: absolute;
+    right: 0;
+    z-index: 2;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-room-card__title {
+    color: #fff;
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 1.05;
+    margin: 0 0 8px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-room-card__caption {
+    color: rgba(255, 255, 255, 0.82);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-menu-panel {
+    background: var(--sdr-ink);
+    color: #fff;
+    display: grid;
+    gap: 1px;
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+  }
+
+  #shopify-section-{{ section.id }} .sdr-menu-group {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-menu-group h3 {
+    color: #fff;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 750;
+    letter-spacing: 0.14em;
+    line-height: 1.2;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-menu-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-menu-link {
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: rgba(255, 255, 255, 0.82);
+    display: inline-flex;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1;
+    min-height: 36px;
+    padding: 11px 13px;
+    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-menu-link:hover {
+    background: #fff;
+    border-color: #fff;
+    color: var(--sdr-ink);
+  }
+
+  #shopify-section-{{ section.id }} .sdr-type-grid,
+  #shopify-section-{{ section.id }} .sdr-style-grid {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  #shopify-section-{{ section.id }} .sdr-image-card {
+    background: var(--sdr-paper);
+    border: 1px solid var(--sdr-line);
+  }
+
+  #shopify-section-{{ section.id }} .sdr-image-card__body {
+    padding: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-image-card__title {
+    color: var(--sdr-ink);
+    font-size: 25px;
+    font-weight: 300;
+    line-height: 1.08;
+    margin: 0 0 9px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-image-card__caption {
+    color: var(--sdr-muted);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-products-band {
+    background: var(--sdr-paper);
+    border-bottom: 1px solid var(--sdr-line);
+    border-top: 1px solid var(--sdr-line);
+  }
+
+  #shopify-section-{{ section.id }} .sdr-product-row {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  #shopify-section-{{ section.id }} .sdr-product-card {
+    background: #fff;
+    border: 1px solid var(--sdr-line);
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-product-card__media {
+    aspect-ratio: 1 / 1.08;
+    background: #f6f6f3;
+    display: block;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-product-card__badge {
+    background: var(--sdr-oxblood);
+    color: #fff;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+    left: 12px;
+    line-height: 1;
+    padding: 7px 9px;
+    position: absolute;
+    top: 12px;
+    z-index: 2;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-product-card__body {
+    min-height: 152px;
+    padding: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-product-card__title {
+    color: var(--sdr-ink);
+    display: -webkit-box;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.45;
+    min-height: 43px;
+    overflow: hidden;
+    text-decoration: none;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-product-card__title:hover {
+    color: var(--sdr-forest);
+  }
+
+  #shopify-section-{{ section.id }} .sdr-product-card__meta {
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-product-card__price {
+    color: var(--sdr-oxblood);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 750;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-product-card__compare {
+    color: var(--sdr-muted);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    text-decoration: line-through;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-product-card__link {
+    color: var(--sdr-forest);
+    display: inline-flex;
+    margin-top: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-product-placeholder {
+    align-items: center;
+    background: #fff;
+    border: 1px solid var(--sdr-line);
+    color: var(--sdr-muted);
+    display: flex;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    min-height: 320px;
+    padding: 26px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-quick {
+    background: var(--sdr-ink);
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-quick .sdr-title,
+  #shopify-section-{{ section.id }} .sdr-quick .sdr-kicker {
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-quick .sdr-copy {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  #shopify-section-{{ section.id }} .sdr-quick__grid {
+    align-items: start;
+    display: grid;
+    gap: clamp(24px, 4vw, 64px);
+    grid-template-columns: minmax(260px, 0.45fr) minmax(0, 1fr);
+  }
+
+  #shopify-section-{{ section.id }} .sdr-quick .sdr-product-card {
+    border-color: rgba(255, 255, 255, 0.14);
+  }
+
+  #shopify-section-{{ section.id }} .sdr-homeware {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  #shopify-section-{{ section.id }} .sdr-offer {
+    background:
+      linear-gradient(135deg, rgba(110, 38, 56, 0.1), rgba(38, 53, 43, 0.08)),
+      var(--sdr-paper);
+    border: 1px solid var(--sdr-line);
+    display: grid;
+    gap: clamp(22px, 4vw, 54px);
+    grid-template-columns: minmax(260px, 0.95fr) minmax(0, 1.05fr);
+    padding: clamp(24px, 4vw, 52px);
+  }
+
+  #shopify-section-{{ section.id }} .sdr-offer__codes {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #shopify-section-{{ section.id }} .sdr-offer__code {
+    background: #fff;
+    border: 1px solid var(--sdr-line);
+    color: var(--sdr-ink);
+    min-height: 130px;
+    padding: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-offer__amount {
+    color: var(--sdr-oxblood);
+    display: block;
+    font-size: 30px;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 1;
+    margin: 0 0 16px;
+    text-transform: none;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-offer__label {
+    color: var(--sdr-muted);
+    display: block;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.5;
+    text-transform: none;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-trust {
+    border-top: 1px solid var(--sdr-line);
+    display: grid;
+    gap: 1px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  #shopify-section-{{ section.id }} .sdr-trust__item {
+    background: rgba(255, 255, 255, 0.46);
+    padding: 28px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-trust__icon {
+    align-items: center;
+    border: 1px solid var(--sdr-line);
+    color: var(--sdr-forest);
+    display: flex;
+    height: 42px;
+    justify-content: center;
+    margin-bottom: 18px;
+    width: 42px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-trust__icon svg {
+    height: 22px;
+    width: 22px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-trust h3 {
+    color: var(--sdr-ink);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 750;
+    line-height: 1.35;
+    margin-bottom: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-trust p {
+    color: var(--sdr-muted);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.55;
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-link-clean {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-image-fallback,
+  #shopify-section-{{ section.id }} .sdr-product-card__placeholder {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .sdr-image-fallback svg,
+  #shopify-section-{{ section.id }} .sdr-product-card__placeholder svg {
+    height: 64px;
+    opacity: 0.22;
+    width: 64px;
+  }
+
+  @media (max-width: 1200px) {
+    #shopify-section-{{ section.id }} .sdr-nav-grid,
+    #shopify-section-{{ section.id }} .sdr-type-grid,
+    #shopify-section-{{ section.id }} .sdr-style-grid,
+    #shopify-section-{{ section.id }} .sdr-product-row,
+    #shopify-section-{{ section.id }} .sdr-homeware,
+    #shopify-section-{{ section.id }} .sdr-trust {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #shopify-section-{{ section.id }} .sdr-route-grid,
+    #shopify-section-{{ section.id }} .sdr-quick__grid,
+    #shopify-section-{{ section.id }} .sdr-offer {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .sdr-section__head,
+    #shopify-section-{{ section.id }} .sdr-nav-grid,
+    #shopify-section-{{ section.id }} .sdr-room-grid,
+    #shopify-section-{{ section.id }} .sdr-type-grid,
+    #shopify-section-{{ section.id }} .sdr-style-grid,
+    #shopify-section-{{ section.id }} .sdr-product-row,
+    #shopify-section-{{ section.id }} .sdr-homeware,
+    #shopify-section-{{ section.id }} .sdr-offer__codes,
+    #shopify-section-{{ section.id }} .sdr-trust {
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .sdr-hero {
+      min-height: 680px;
+    }
+
+    #shopify-section-{{ section.id }} .sdr-hero__notes {
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .sdr-nav-grid {
+      margin-top: 0;
+      padding-top: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .sdr-room-card {
+      min-height: 250px;
+    }
+  }
+</style>
+
+<div class="sdr-home">
+  <section class="sdr-hero" aria-label="{{ section.settings.hero_heading | escape }}">
+    <div class="sdr-hero__media" aria-hidden="true">
+      {%- if section.settings.hero_image != blank -%}
+        {{ section.settings.hero_image | image_url: width: 2600 | image_tag: loading: 'eager', class: 'sdr-hero__image', widths: '900, 1300, 1800, 2200, 2600', sizes: '100vw' }}
+      {%- else -%}
+        <span class="sdr-hero__placeholder"></span>
+      {%- endif -%}
+    </div>
+    <div class="sdr-wrap sdr-hero__content">
+      <div class="sdr-hero__copy">
+        {%- if section.settings.hero_eyebrow != blank -%}
+          <p class="sdr-kicker">{{ section.settings.hero_eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.hero_heading != blank -%}
+          <h1 class="sdr-heading">{{ section.settings.hero_heading }}</h1>
+        {%- endif -%}
+        {%- if section.settings.hero_copy != blank -%}
+          <p class="sdr-copy">{{ section.settings.hero_copy }}</p>
+        {%- endif -%}
+        <div class="sdr-actions">
+          {%- if section.settings.hero_primary_label != blank -%}
+            <a class="sdr-button sdr-button--light" href="{{ section.settings.hero_primary_link | default: '#' }}">{{ section.settings.hero_primary_label }}</a>
+          {%- endif -%}
+          {%- if section.settings.hero_secondary_label != blank -%}
+            <a class="sdr-button" href="{{ section.settings.hero_secondary_link | default: '#' }}">{{ section.settings.hero_secondary_label }}</a>
+          {%- endif -%}
+        </div>
+        <div class="sdr-hero__notes">
+          <div class="sdr-hero__note">
+            <strong>Menu-first</strong>
+            <span>Start from Lighting, Best Sellers, New Arrivals, or Homeware.</span>
+          </div>
+          <div class="sdr-hero__note">
+            <strong>Quick Ship</strong>
+            <span>A dedicated fast-delivery route stays visible on the home page.</span>
+          </div>
+          <div class="sdr-hero__note">
+            <strong>Summer codes</strong>
+            <span>SD10, SD13, and SD15 remain the only campaign codes.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sdr-wrap">
+    <div class="sdr-nav-grid" aria-label="Primary shopping paths">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'nav_card' -%}
+          <a class="sdr-nav-card" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>
+            <span class="sdr-nav-card__media">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '360, 540, 720, 900', sizes: '(min-width: 1200px) 19vw, (min-width: 768px) 45vw, 92vw' }}
+              {%- else -%}
+                <span class="sdr-image-fallback">{{ 'collection-1' | placeholder_svg_tag }}</span>
+              {%- endif -%}
+            </span>
+            <span class="sdr-nav-card__body">
+              <span class="sdr-card__label">{{ block.settings.label }}</span>
+              <span class="sdr-nav-card__title">{{ block.settings.title }}</span>
+              <span class="sdr-nav-card__caption">{{ block.settings.caption }}</span>
+            </span>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <section class="sdr-section sdr-section--tight">
+    <div class="sdr-wrap">
+      <div class="sdr-section__head">
+        <div>
+          <p class="sdr-kicker">{{ section.settings.room_eyebrow }}</p>
+          <h2 class="sdr-title">{{ section.settings.room_heading }}</h2>
+        </div>
+        <p class="sdr-copy">{{ section.settings.room_copy }}</p>
+      </div>
+
+      <div class="sdr-route-grid">
+        <div class="sdr-room-grid">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'menu_link' and block.settings.group == 'room' -%}
+              <a class="sdr-room-card sdr-link-clean" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>
+                <span class="sdr-room-card__media">
+                  {%- if block.settings.image != blank -%}
+                    {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '420, 640, 900', sizes: '(min-width: 1200px) 20vw, (min-width: 768px) 31vw, 92vw' }}
+                  {%- else -%}
+                    <span class="sdr-room-card__fallback"></span>
+                  {%- endif -%}
+                </span>
+                <span class="sdr-room-card__body">
+                  <span class="sdr-room-card__title">{{ block.settings.title }}</span>
+                  <span class="sdr-room-card__caption">{{ block.settings.caption }}</span>
+                </span>
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        <aside class="sdr-menu-panel" aria-label="Lighting menu shortcuts">
+          <div class="sdr-menu-group">
+            <h3>By Room</h3>
+            <div class="sdr-menu-links">
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'menu_link' and block.settings.group == 'room' -%}
+                  <a class="sdr-menu-link" href="{{ block.settings.link | default: '#' }}">{{ block.settings.title }}</a>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+          <div class="sdr-menu-group">
+            <h3>By Type</h3>
+            <div class="sdr-menu-links">
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'menu_link' and block.settings.group == 'type' -%}
+                  <a class="sdr-menu-link" href="{{ block.settings.link | default: '#' }}">{{ block.settings.title }}</a>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+          <div class="sdr-menu-group">
+            <h3>By Style</h3>
+            <div class="sdr-menu-links">
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'menu_link' and block.settings.group == 'style' -%}
+                  <a class="sdr-menu-link" href="{{ block.settings.link | default: '#' }}">{{ block.settings.title }}</a>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="sdr-section sdr-products-band">
+    <div class="sdr-wrap">
+      <div class="sdr-section__head">
+        <div>
+          <p class="sdr-kicker">{{ section.settings.products_eyebrow }}</p>
+          <h2 class="sdr-title">{{ section.settings.products_heading }}</h2>
+        </div>
+        <p class="sdr-copy">{{ section.settings.products_copy }}</p>
+      </div>
+      <div class="sdr-product-row">
+        {%- if best_collection != blank and best_collection.products_count > 0 -%}
+          {%- for product in best_collection.products limit: product_limit -%}
+            {% render 'sd-home-product-card', product: product %}
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1..4) -%}
+            <div class="sdr-product-placeholder">Connect the Best Sellers collection in this section.</div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+      <div class="sdr-actions">
+        <a class="sdr-button sdr-button--dark" href="{{ section.settings.best_link | default: '#' }}">{{ section.settings.best_label }}</a>
+        <a class="sdr-button" href="{{ section.settings.new_link | default: '#' }}">{{ section.settings.new_label }}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sdr-section">
+    <div class="sdr-wrap">
+      <div class="sdr-section__head">
+        <div>
+          <p class="sdr-kicker">{{ section.settings.type_eyebrow }}</p>
+          <h2 class="sdr-title">{{ section.settings.type_heading }}</h2>
+        </div>
+        <p class="sdr-copy">{{ section.settings.type_copy }}</p>
+      </div>
+      <div class="sdr-type-grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'menu_link' and block.settings.group == 'type' -%}
+            <a class="sdr-image-card" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>
+              <span class="sdr-image-card__media">
+                {%- if block.settings.image != blank -%}
+                  {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '420, 640, 900', sizes: '(min-width: 1200px) 23vw, (min-width: 768px) 45vw, 92vw' }}
+                {%- else -%}
+                  <span class="sdr-image-fallback">{{ 'collection-2' | placeholder_svg_tag }}</span>
+                {%- endif -%}
+              </span>
+              <span class="sdr-image-card__body">
+                <span class="sdr-image-card__title">{{ block.settings.title }}</span>
+                <span class="sdr-image-card__caption">{{ block.settings.caption }}</span>
+              </span>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  <section class="sdr-section sdr-products-band">
+    <div class="sdr-wrap">
+      <div class="sdr-section__head">
+        <div>
+          <p class="sdr-kicker">{{ section.settings.new_eyebrow }}</p>
+          <h2 class="sdr-title">{{ section.settings.new_heading }}</h2>
+        </div>
+        <p class="sdr-copy">{{ section.settings.new_copy }}</p>
+      </div>
+      <div class="sdr-product-row">
+        {%- if new_collection != blank and new_collection.products_count > 0 -%}
+          {%- for product in new_collection.products limit: product_limit -%}
+            {% render 'sd-home-product-card', product: product %}
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1..4) -%}
+            <div class="sdr-product-placeholder">Connect the New Arrivals collection in this section.</div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  <section class="sdr-section sdr-quick">
+    <div class="sdr-wrap">
+      <div class="sdr-quick__grid">
+        <div>
+          <p class="sdr-kicker">{{ section.settings.quick_eyebrow }}</p>
+          <h2 class="sdr-title">{{ section.settings.quick_heading }}</h2>
+          <p class="sdr-copy">{{ section.settings.quick_copy }}</p>
+          <div class="sdr-actions">
+            <a class="sdr-button sdr-button--light" href="{{ section.settings.quick_link | default: '#' }}">{{ section.settings.quick_label }}</a>
+          </div>
+        </div>
+        <div class="sdr-product-row">
+          {%- if quick_collection != blank and quick_collection.products_count > 0 -%}
+            {%- for product in quick_collection.products limit: product_limit -%}
+              {% render 'sd-home-product-card', product: product %}
+            {%- endfor -%}
+          {%- else -%}
+            {%- for i in (1..4) -%}
+              <div class="sdr-product-placeholder">Connect the Quick Ship collection in this section.</div>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sdr-section">
+    <div class="sdr-wrap">
+      <div class="sdr-section__head">
+        <div>
+          <p class="sdr-kicker">{{ section.settings.homeware_eyebrow }}</p>
+          <h2 class="sdr-title">{{ section.settings.homeware_heading }}</h2>
+        </div>
+        <p class="sdr-copy">{{ section.settings.homeware_copy }}</p>
+      </div>
+      <div class="sdr-homeware">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'homeware_card' -%}
+            <a class="sdr-image-card" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>
+              <span class="sdr-image-card__media">
+                {%- if block.settings.image != blank -%}
+                  {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '420, 640, 900', sizes: '(min-width: 1200px) 23vw, (min-width: 768px) 45vw, 92vw' }}
+                {%- else -%}
+                  <span class="sdr-image-fallback">{{ 'collection-3' | placeholder_svg_tag }}</span>
+                {%- endif -%}
+              </span>
+              <span class="sdr-image-card__body">
+                <span class="sdr-image-card__title">{{ block.settings.title }}</span>
+                <span class="sdr-image-card__caption">{{ block.settings.caption }}</span>
+              </span>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  <section class="sdr-section sdr-section--tight">
+    <div class="sdr-wrap">
+      <div class="sdr-section__head">
+        <div>
+          <p class="sdr-kicker">{{ section.settings.style_eyebrow }}</p>
+          <h2 class="sdr-title">{{ section.settings.style_heading }}</h2>
+        </div>
+        <p class="sdr-copy">{{ section.settings.style_copy }}</p>
+      </div>
+      <div class="sdr-style-grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'menu_link' and block.settings.group == 'style' -%}
+            <a class="sdr-image-card" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>
+              <span class="sdr-image-card__media">
+                {%- if block.settings.image != blank -%}
+                  {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '420, 640, 900', sizes: '(min-width: 1200px) 23vw, (min-width: 768px) 45vw, 92vw' }}
+                {%- else -%}
+                  <span class="sdr-image-fallback">{{ 'collection-4' | placeholder_svg_tag }}</span>
+                {%- endif -%}
+              </span>
+              <span class="sdr-image-card__body">
+                <span class="sdr-image-card__title">{{ block.settings.title }}</span>
+                <span class="sdr-image-card__caption">{{ block.settings.caption }}</span>
+              </span>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  <section class="sdr-section">
+    <div class="sdr-wrap">
+      <div class="sdr-offer">
+        <div>
+          <p class="sdr-kicker">{{ section.settings.offer_eyebrow }}</p>
+          <h2 class="sdr-title">{{ section.settings.offer_heading }}</h2>
+          <p class="sdr-copy">{{ section.settings.offer_copy }}</p>
+        </div>
+        <div class="sdr-offer__codes" aria-label="Available discount codes">
+          <div class="sdr-offer__code"><span class="sdr-offer__amount">10% Off</span>SD10<span class="sdr-offer__label">For a focused single-piece refresh.</span></div>
+          <div class="sdr-offer__code"><span class="sdr-offer__amount">13% Off</span>SD13<span class="sdr-offer__label">For pairing two finishing details.</span></div>
+          <div class="sdr-offer__code"><span class="sdr-offer__amount">15% Off</span>SD15<span class="sdr-offer__label">For completing the full room edit.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sdr-section sdr-section--tight">
+    <div class="sdr-wrap">
+      <div class="sdr-trust" aria-label="Store benefits">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'trust_item' -%}
+            <div class="sdr-trust__item" {{ block.shopify_attributes }}>
+              <span class="sdr-trust__icon" aria-hidden="true">
+                {%- case block.settings.icon -%}
+                  {%- when 'shipping' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+                  {%- when 'returns' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 7H5v4"/><path d="M5 11a7 7 0 1 0 2-5"/></svg>
+                  {%- when 'secure' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9.5 12l1.7 1.7L15 10"/></svg>
+                  {%- else -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 12a8 8 0 0 1 16 0v5a2 2 0 0 1-2 2h-2"/><path d="M4 12v4a2 2 0 0 0 2 2h1"/><path d="M9 20h6"/></svg>
+                {%- endcase -%}
+              </span>
+              <h3>{{ block.settings.title }}</h3>
+              <p>{{ block.settings.copy }}</p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "SD Homepage Rebuild",
+  "settings": [
+    {
+      "type": "text",
+      "id": "max_width",
+      "label": "Content width",
+      "default": "1750px"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Hero eyebrow",
+      "default": "Summer Home Refresh"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Hero heading",
+      "default": "Start with the room. Finish with the right detail."
+    },
+    {
+      "type": "textarea",
+      "id": "hero_copy",
+      "label": "Hero copy",
+      "default": "A cleaner way to shop Seendoor: move from room, to lighting type, to style, to availability without losing the feeling of a considered home."
+    },
+    {
+      "type": "text",
+      "id": "hero_primary_label",
+      "label": "Primary button label",
+      "default": "Shop the summer edit"
+    },
+    {
+      "type": "url",
+      "id": "hero_primary_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "hero_secondary_label",
+      "label": "Secondary button label",
+      "default": "Browse quick ship"
+    },
+    {
+      "type": "url",
+      "id": "hero_secondary_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "text",
+      "id": "room_eyebrow",
+      "label": "Room eyebrow",
+      "default": "Lighting by room"
+    },
+    {
+      "type": "text",
+      "id": "room_heading",
+      "label": "Room heading",
+      "default": "Choose the space first, then narrow the edit."
+    },
+    {
+      "type": "textarea",
+      "id": "room_copy",
+      "label": "Room copy",
+      "default": "Room-led shopping mirrors how customers decorate: they know the project before they know the fixture name."
+    },
+    {
+      "type": "text",
+      "id": "products_eyebrow",
+      "label": "Best sellers eyebrow",
+      "default": "Best Sellers"
+    },
+    {
+      "type": "text",
+      "id": "products_heading",
+      "label": "Best sellers heading",
+      "default": "The shortlist customers return to."
+    },
+    {
+      "type": "textarea",
+      "id": "products_copy",
+      "label": "Best sellers copy",
+      "default": "A focused row gives the strongest products room to breathe instead of forcing shoppers through a dense catalogue too early."
+    },
+    {
+      "type": "collection",
+      "id": "best_collection",
+      "label": "Best Sellers collection"
+    },
+    {
+      "type": "collection",
+      "id": "new_collection",
+      "label": "New Arrivals collection"
+    },
+    {
+      "type": "collection",
+      "id": "quick_ship_collection",
+      "label": "Quick Ship collection"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "label": "Products per row",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "text",
+      "id": "best_label",
+      "label": "Best sellers button",
+      "default": "Shop Best Sellers"
+    },
+    {
+      "type": "url",
+      "id": "best_link",
+      "label": "Best sellers link"
+    },
+    {
+      "type": "text",
+      "id": "new_label",
+      "label": "New arrivals button",
+      "default": "Shop New Arrivals"
+    },
+    {
+      "type": "url",
+      "id": "new_link",
+      "label": "New arrivals link"
+    },
+    {
+      "type": "text",
+      "id": "type_eyebrow",
+      "label": "Type eyebrow",
+      "default": "Shop by type"
+    },
+    {
+      "type": "text",
+      "id": "type_heading",
+      "label": "Type heading",
+      "default": "Let the object set the rhythm."
+    },
+    {
+      "type": "textarea",
+      "id": "type_copy",
+      "label": "Type copy",
+      "default": "Pendant, ceiling, wall, table, and floor lighting stay visible because they are still the fastest path for decisive shoppers."
+    },
+    {
+      "type": "text",
+      "id": "new_eyebrow",
+      "label": "New row eyebrow",
+      "default": "New Arrivals"
+    },
+    {
+      "type": "text",
+      "id": "new_heading",
+      "label": "New row heading",
+      "default": "Fresh shapes for current projects."
+    },
+    {
+      "type": "textarea",
+      "id": "new_copy",
+      "label": "New row copy",
+      "default": "Newness sits after proven best sellers so the page builds confidence before asking shoppers to explore."
+    },
+    {
+      "type": "text",
+      "id": "quick_eyebrow",
+      "label": "Quick Ship eyebrow",
+      "default": "Quick Ship"
+    },
+    {
+      "type": "text",
+      "id": "quick_heading",
+      "label": "Quick Ship heading",
+      "default": "Ready when the project is."
+    },
+    {
+      "type": "textarea",
+      "id": "quick_copy",
+      "label": "Quick Ship copy",
+      "default": "A dedicated fast-delivery section turns urgency into a clear shopping path instead of a small service note."
+    },
+    {
+      "type": "text",
+      "id": "quick_label",
+      "label": "Quick Ship button",
+      "default": "Shop Quick Ship"
+    },
+    {
+      "type": "url",
+      "id": "quick_link",
+      "label": "Quick Ship link"
+    },
+    {
+      "type": "text",
+      "id": "homeware_eyebrow",
+      "label": "Homeware eyebrow",
+      "default": "Homeware"
+    },
+    {
+      "type": "text",
+      "id": "homeware_heading",
+      "label": "Homeware heading",
+      "default": "Finish the room beyond the light."
+    },
+    {
+      "type": "textarea",
+      "id": "homeware_copy",
+      "label": "Homeware copy",
+      "default": "Handles, pulls, ornaments, and candle holders extend the same edit into the details shoppers touch every day."
+    },
+    {
+      "type": "text",
+      "id": "style_eyebrow",
+      "label": "Style eyebrow",
+      "default": "Style edits"
+    },
+    {
+      "type": "text",
+      "id": "style_heading",
+      "label": "Style heading",
+      "default": "One catalogue, several design moods."
+    },
+    {
+      "type": "textarea",
+      "id": "style_copy",
+      "label": "Style copy",
+      "default": "Style cards help customers who arrive with taste words rather than exact product names."
+    },
+    {
+      "type": "text",
+      "id": "offer_eyebrow",
+      "label": "Offer eyebrow",
+      "default": "Summer Home Refresh"
+    },
+    {
+      "type": "text",
+      "id": "offer_heading",
+      "label": "Offer heading",
+      "default": "The offer appears after desire has been built."
+    },
+    {
+      "type": "textarea",
+      "id": "offer_copy",
+      "label": "Offer copy",
+      "default": "Keep the top bar brief and let this section explain the campaign: SD10, SD13, and SD15 support different project sizes without diluting the brand impression."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "nav_card",
+      "name": "Primary nav card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Start"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Lighting"
+        },
+        {
+          "type": "textarea",
+          "id": "caption",
+          "label": "Caption",
+          "default": "Explore the full lighting menu."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "menu_link",
+      "name": "Menu planning card",
+      "settings": [
+        {
+          "type": "select",
+          "id": "group",
+          "label": "Navigation group",
+          "options": [
+            {
+              "value": "room",
+              "label": "By Room"
+            },
+            {
+              "value": "type",
+              "label": "By Type"
+            },
+            {
+              "value": "style",
+              "label": "By Style"
+            }
+          ],
+          "default": "room"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Living Room"
+        },
+        {
+          "type": "textarea",
+          "id": "caption",
+          "label": "Caption",
+          "default": "A concise reason to shop this path."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "homeware_card",
+      "name": "Homeware card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Cabinet Handles"
+        },
+        {
+          "type": "textarea",
+          "id": "caption",
+          "label": "Caption",
+          "default": "Small details that reset the room."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "trust_item",
+      "name": "Trust item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "shipping",
+              "label": "Shipping"
+            },
+            {
+              "value": "secure",
+              "label": "Secure"
+            },
+            {
+              "value": "returns",
+              "label": "Returns"
+            },
+            {
+              "value": "support",
+              "label": "Support"
+            }
+          ],
+          "default": "shipping"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "textarea",
+          "id": "copy",
+          "label": "Copy",
+          "default": "Free shipping over EUR50."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SD Homepage Rebuild",
+      "blocks": [
+        {
+          "type": "nav_card"
+        },
+        {
+          "type": "nav_card"
+        },
+        {
+          "type": "nav_card"
+        },
+        {
+          "type": "nav_card"
+        },
+        {
+          "type": "nav_card"
+        },
+        {
+          "type": "menu_link"
+        },
+        {
+          "type": "menu_link"
+        },
+        {
+          "type": "menu_link"
+        },
+        {
+          "type": "homeware_card"
+        },
+        {
+          "type": "trust_item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
