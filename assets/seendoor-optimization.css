@@ -409,6 +409,46 @@ body.template-index .wpbingo-section__content-top {
   border-radius: 0;
 }
 
+body.template-index .wpbingo-section--title-button .wpbingo-section__inner {
+  align-items: flex-end;
+  border-top: 1px solid var(--sd-line);
+  display: flex;
+  gap: clamp(18px, 3vw, 44px);
+  justify-content: space-between;
+  padding-top: clamp(20px, 2.8vw, 34px);
+}
+
+body.template-index .wpbingo-section--title-button .content-info {
+  margin: 0;
+}
+
+body.template-index .wpbingo-section--title-button .wpbingo-title {
+  font-family: var(--font-family-base), "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 0;
+  max-width: 920px;
+}
+
+body.template-index .wpbingo-section--title-button .bwp-button {
+  align-items: center;
+  background: var(--sd-graphite);
+  border: 1px solid var(--sd-graphite);
+  color: #fff;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 700;
+  justify-content: center;
+  letter-spacing: 0.12em;
+  min-height: 42px;
+  padding: 0 18px;
+  text-transform: uppercase;
+}
+
+body.template-index .wpbingo-section--title-button .bwp-button:hover {
+  background: var(--sd-slate);
+  border-color: var(--sd-slate);
+  color: #fff;
+}
+
 body.template-index .wpbingo-section--products {
   background: var(--sd-page-ground);
 }
@@ -604,100 +644,6 @@ body.template-index .wpbingo-section--products .button_view a:focus-visible svg 
   background: var(--sd-slate);
   border-color: var(--sd-slate);
   color: #fff;
-}
-
-.sd-editorial-heading {
-  align-items: end;
-  border-top: 1px solid var(--sd-line);
-  display: grid;
-  gap: clamp(18px, 3vw, 46px);
-  grid-template-columns: minmax(0, 1fr) minmax(220px, 0.34fr);
-  padding-top: clamp(22px, 3vw, 34px);
-  text-align: left;
-}
-
-.sd-editorial-heading .sd-title {
-  max-width: 760px;
-}
-
-.sd-editorial-heading .sd-copy {
-  max-width: 720px;
-}
-
-.sd-editorial-heading__aside {
-  align-items: flex-end;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  justify-self: end;
-  max-width: 360px;
-  text-align: right;
-}
-
-.sd-editorial-heading__note {
-  color: var(--sd-muted);
-  display: block;
-  font-size: 13px;
-  line-height: 1.65;
-}
-
-.sd-editorial-heading--panel {
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid var(--sd-line);
-  box-shadow: 0 18px 48px rgba(17, 19, 21, 0.045);
-  padding: clamp(24px, 3.2vw, 42px);
-}
-
-.sd-editorial-heading--dark {
-  background:
-    radial-gradient(circle at 92% 10%, rgba(47, 93, 140, 0.28), rgba(47, 93, 140, 0) 30%),
-    linear-gradient(135deg, var(--sd-graphite), var(--sd-ink));
-  border: 1px solid rgba(232, 238, 245, 0.18);
-  color: #fff;
-  padding: clamp(24px, 3.2vw, 42px);
-}
-
-.sd-editorial-heading--dark .sd-eyebrow {
-  color: #9eb7d3;
-}
-
-.sd-editorial-heading--dark .sd-title {
-  color: #fff;
-}
-
-.sd-editorial-heading--dark .sd-copy,
-.sd-editorial-heading--dark .sd-editorial-heading__note {
-  color: rgba(255, 255, 255, 0.72);
-}
-
-.sd-editorial-heading--dark .sd-text-link {
-  border-color: #fff;
-  color: #fff;
-}
-
-.sd-editorial-heading--center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 980px;
-  text-align: center;
-}
-
-.sd-editorial-heading--center .sd-title,
-.sd-editorial-heading--center .sd-copy {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.sd-editorial-heading--center .sd-editorial-heading__aside {
-  align-items: center;
-  margin: 18px auto 0;
-  text-align: center;
-}
-
-.sd-editorial-heading--compact {
-  grid-template-columns: minmax(0, 0.76fr) minmax(220px, 0.24fr);
-  padding-top: 18px;
 }
 
 .sd-room-selector {
@@ -1219,10 +1165,6 @@ body.template-product .smi-collection-item-1__content {
 }
 
 @media (max-width: 1200px) {
-  .sd-editorial-heading {
-    grid-template-columns: minmax(0, 1fr) minmax(200px, 0.36fr);
-  }
-
   .sd-room-selector__grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -1248,22 +1190,10 @@ body.template-product .smi-collection-item-1__content {
     flex-direction: column;
   }
 
-  .sd-editorial-heading,
-  .sd-editorial-heading--compact {
-    display: block;
-    padding-top: 20px;
-  }
-
-  .sd-editorial-heading--panel,
-  .sd-editorial-heading--dark {
-    padding: 24px;
-  }
-
-  .sd-editorial-heading__aside {
+  body.template-index .wpbingo-section--title-button .wpbingo-section__inner {
     align-items: flex-start;
-    margin-top: 18px;
-    max-width: none;
-    text-align: left;
+    flex-direction: column;
+    gap: 14px;
   }
 
   .sd-room-selector__grid,
