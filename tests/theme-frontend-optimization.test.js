@@ -125,7 +125,7 @@ const checks = [
     name: 'homepage color system avoids blue text palette and old brass system',
     run() {
       const css = read('assets/seendoor-optimization.css');
-      const variables = read('assets/css-variables.css');
+      const variablesLiquid = read('assets/css-variables.css.liquid');
       const settings = read('config/settings_data.json');
       const section = read('sections/sd-homepage-rebuild.liquid');
       const index = read('templates/index.json');
@@ -133,8 +133,8 @@ const checks = [
       assert(css.includes('--sd-canvas: #f3f2ef'));
       assert(css.includes('--sd-graphite: #181816'));
       assert(css.includes('--sd-sale: #6e2638'));
-      assert(variables.includes('--theme-color:#26352b'));
-      assert(variables.includes('--body-bg-color:#f3f2ef'));
+      assert(variablesLiquid.includes('--theme-color:{{ settings.theme-color }}'));
+      assert(variablesLiquid.includes('--body-bg-color:{{ settings.color_body_bg }}'));
       assert(settings.includes('"theme-color":"#26352b"'));
       assert(settings.includes('"color_body_bg":"#f3f2ef"'));
       assert(section.includes('--sdr-forest: #26352b'));
@@ -142,7 +142,6 @@ const checks = [
 
       for (const value of oldBlueValues) {
         assert(!css.includes(value), value);
-        assert(!variables.includes(value), value);
         assert(!settings.includes(value), value);
         assert(!section.includes(value), value);
         assert(!index.includes(value), value);
