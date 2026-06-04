@@ -97,6 +97,7 @@ const checks = [
       assert(css.includes('--sd-canvas'));
       assert(css.includes('--sd-steel-blue'));
       assert(css.includes('.sd-seasonal-event'));
+      assert(css.includes('.sd-editorial-heading'));
       assert(css.includes('.wpbingo-section--products'));
       assert(css.includes('.collection-content'));
     },
@@ -120,10 +121,18 @@ const checks = [
       const position = (id) => order.indexOf(id);
       assert(position('sd_room_selector') > position('slideshow_4PmnVM'));
       assert(position('sd_room_selector') < position('featured_title_yBA3WE'));
+      assert(position('featured_title_yBA3WE') < position('smi_collection_list_1_5_GqFER6'));
+      assert(position('featured_title_cJLkQ9') < position('featured_product_tabs_bAhayC'));
+      assert(position('featured_title_ayiNMR') < position('featured_product_tabs_banner_HLWmVx'));
       assert(position('featured_image_with_text_Kr6QBJ') < position('sd_offer_panel'));
       assert(position('sd_offer_panel') < position('slideshow_pCwUPy'));
+      assert(position('slideshow_pCwUPy') < position('featured_title_PqRnhY'));
+      assert(position('featured_title_PqRnhY') < position('featured_products_ETwPwX'));
+      assert(position('featured_title_WigTyG') < position('featured_products_kmRmAj'));
       assert(position('featured_blog_post_L7cwnj') < position('sd_footer_trust'));
       assert(!order.includes('featured_policy_LCEaXC'));
+      assert(!order.includes('slideshow_BKJzH9'));
+      assert(!order.includes('slideshow_Erzhph'));
     },
   },
   {
@@ -133,14 +142,33 @@ const checks = [
       assert.equal(index.sections.sd_room_selector.type, 'sd-room-selector');
       assert.equal(index.sections.sd_offer_panel.type, 'sd-offer-panel');
       assert.equal(index.sections.sd_footer_trust.type, 'sd-footer-trust');
+      for (const sectionId of [
+        'featured_title_yBA3WE',
+        'featured_title_cJLkQ9',
+        'featured_title_ayiNMR',
+        'featured_title_PqRnhY',
+        'featured_title_WigTyG',
+        'featured_title_48rdnH',
+      ]) {
+        assert.equal(index.sections[sectionId].type, 'sd-editorial-heading', sectionId);
+      }
+      assert.equal(index.sections.smi_collection_list_1_5_GqFER6.type, 'smi-collection-list-1-5');
+      assert.equal(index.sections.featured_product_tabs_bAhayC.type, 'featured-product-tabs');
+      assert.equal(index.sections.featured_product_tabs_banner_HLWmVx.type, 'featured-product-tabs-banner');
+      assert.equal(index.sections.featured_product_tabs_banner_zwbH4n.type, 'featured-product-tabs-banner');
+      assert.equal(index.sections.featured_products_ETwPwX.type, 'featured-products');
+      assert.equal(index.sections.featured_products_kmRmAj.type, 'featured-products');
 
       const roomSection = read('sections/sd-room-selector.liquid');
       const offerSection = read('sections/sd-offer-panel.liquid');
       const trustSection = read('sections/sd-footer-trust.liquid');
+      const headingSection = read('sections/sd-editorial-heading.liquid');
       assert(roomSection.includes('"type": "collection"'));
       assert(roomSection.includes('"type": "image_picker"'));
       assert(offerSection.includes('data-sd-copy-code'));
       assert(trustSection.includes('"type": "select"'));
+      assert(headingSection.includes('"name": "SD Editorial Heading"'));
+      assert(headingSection.includes('"id": "link_url"'));
 
       for (const section of Object.values(index.sections)) {
         if (section.type !== 'featured-title') continue;
@@ -153,7 +181,16 @@ const checks = [
     name: 'homepage custom URL settings use relative fallback links',
     run() {
       const index = JSON.parse(read('templates/index.json'));
-      for (const sectionId of ['sd_room_selector', 'sd_footer_trust']) {
+      for (const sectionId of [
+        'sd_room_selector',
+        'sd_footer_trust',
+        'featured_title_yBA3WE',
+        'featured_title_cJLkQ9',
+        'featured_title_ayiNMR',
+        'featured_title_PqRnhY',
+        'featured_title_WigTyG',
+        'featured_title_48rdnH',
+      ]) {
         const section = index.sections[sectionId];
         const encoded = JSON.stringify(section);
         assert(!encoded.includes('shopify://policies/'));
@@ -232,9 +269,11 @@ const checks = [
       assert(index.includes('A cleaner way to shape the room'));
       assert(index.includes('Discover refined pieces for composed rooms, calm corners, and a more considered home.'));
       assert(index.includes('Start with the space'));
-      assert(index.includes('Then choose the fixture type'));
-      assert(index.includes('Designed with a quieter point of view'));
-      assert(index.includes('A curated edit of clean silhouettes, tactile finishes, and pieces that make a room feel intentional without feeling overdone.'));
+      assert(index.includes('Then choose the silhouette'));
+      assert(index.includes('Pieces shoppers return to first'));
+      assert(index.includes('Series with a point of view'));
+      assert(index.includes('Designed to feel collected, not crowded'));
+      assert(index.includes('Ready when the project is'));
       assert(index.includes('Support within 24 hours'));
     },
   },

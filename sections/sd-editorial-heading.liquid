@@ -1,0 +1,144 @@
+{%- liquid
+  if section.settings.fullwidth
+    assign container = 'container-full'
+  elsif section.settings.max_width != blank
+    assign container = 'bwp-container'
+  else
+    assign container = 'container'
+  endif
+
+  assign max_width = ''
+  if section.settings.fullwidth == false and section.settings.max_width != blank
+    capture max_width
+      echo 'style="max-width: ' | append: section.settings.max_width | append: ';"'
+    endcapture
+  endif
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .sd-editorial-heading-section {
+    margin: {{ section.settings.margin }};
+  }
+{%- endstyle -%}
+
+<section class="wpbingo-section sd-editorial-heading-section wpbingo-section--{{ section.id }} overflow-hidden">
+  <div class="{{ container }}" {{ max_width }}>
+    <div class="sd-editorial-heading sd-editorial-heading--{{ section.settings.tone }} sd-editorial-heading--{{ section.settings.layout }}" aria-label="{{ section.settings.aria_label | escape }}">
+      <div class="sd-editorial-heading__body">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="sd-eyebrow">{{ section.settings.eyebrow }}</span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="sd-title">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.copy != blank -%}
+          <p class="sd-copy">{{ section.settings.copy }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.note != blank or section.settings.link_label != blank -%}
+        <div class="sd-editorial-heading__aside">
+          {%- if section.settings.note != blank -%}
+            <span class="sd-editorial-heading__note">{{ section.settings.note }}</span>
+          {%- endif -%}
+          {%- if section.settings.link_label != blank and section.settings.link_url != blank -%}
+            <a class="sd-text-link" href="{{ section.settings.link_url }}">{{ section.settings.link_label }}</a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "SD Editorial Heading",
+  "class": "wpbingo-framework",
+  "settings": [
+    {
+      "type": "text",
+      "id": "max_width",
+      "label": "Width container",
+      "default": "1750px"
+    },
+    {
+      "type": "checkbox",
+      "id": "fullwidth",
+      "label": "Fullwidth",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "margin",
+      "label": "Margin",
+      "default": "56px 0 18px 0"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Accessibility label",
+      "default": "Section introduction"
+    },
+    {
+      "type": "select",
+      "id": "tone",
+      "label": "Tone",
+      "default": "clean",
+      "options": [
+        { "value": "clean", "label": "Clean" },
+        { "value": "panel", "label": "Panel" },
+        { "value": "dark", "label": "Dark" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "default": "split",
+      "options": [
+        { "value": "split", "label": "Split" },
+        { "value": "center", "label": "Center" },
+        { "value": "compact", "label": "Compact" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Editorial guide"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "A clearer way to browse"
+    },
+    {
+      "type": "textarea",
+      "id": "copy",
+      "label": "Copy",
+      "default": "Use this section to explain why the next product or collection module appears here."
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Aside note"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link label"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SD Editorial Heading"
+    }
+  ]
+}
+{% endschema %}
