@@ -4,12 +4,12 @@
  */
 @font-face {
   font-family: 'FontAwesome';
-  src: url("//seendoor.com/cdn/shop/t/17/assets/fontawesome-webfont.eot?v=88752339179571016061779154597");
-  src: url("//seendoor.com/cdn/shop/t/17/assets/fontawesome-webfont.eot?v=88752339179571016061779154597") format('embedded-opentype'),
-    url("//seendoor.com/cdn/shop/t/17/assets/fontawesome-webfont.woff2?v=32207045845775034261779154600") format('woff2'),
-    url("//seendoor.com/cdn/shop/t/17/assets/fontawesome-webfont.woff?v=158931929418379554281779154599") format('woff'),
-    url("//seendoor.com/cdn/shop/t/17/assets/fontawesome-webfont.ttf?v=57926983875037866361779154599") format('truetype'),
-    url("//seendoor.com/cdn/shop/t/17/assets/fontawesome-webfont.svg?v=97865491090583646451779154598") format('svg');
+  src: url("//seendoor.com/cdn/shop/t/20/assets/fontawesome-webfont.eot?v=88752339179571016061780449546");
+  src: url("//seendoor.com/cdn/shop/t/20/assets/fontawesome-webfont.eot?v=88752339179571016061780449546") format('embedded-opentype'),
+    url("//seendoor.com/cdn/shop/t/20/assets/fontawesome-webfont.woff2?v=32207045845775034261780449548") format('woff2'),
+    url("//seendoor.com/cdn/shop/t/20/assets/fontawesome-webfont.woff?v=158931929418379554281780449548") format('woff'),
+    url("//seendoor.com/cdn/shop/t/20/assets/fontawesome-webfont.ttf?v=57926983875037866361780449547") format('truetype'),
+    url("//seendoor.com/cdn/shop/t/20/assets/fontawesome-webfont.svg?v=97865491090583646451780449547") format('svg');
   font-weight: normal;
   font-style: normal;
 }

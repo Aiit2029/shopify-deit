@@ -1,12 +1,12 @@
 <!doctype html>
 {%- if settings.iso_rtl != blank and settings.enable_rtl -%}
-	{%- assign is_rtl = false -%}
+	{%- assign is_rtl = fasle -%}
 	{%- assign iso_code_arr_rtl = settings.iso_rtl  | split: ";" -%}
 	{%- for iso_arr_rtl in iso_code_arr_rtl -%}
-	{%- assign iso_rtl = iso_arr_rtl | remove: " " -%}
-	{%- if iso_rtl == shop.locale -%}
-	{%- assign is_rtl = true -%}
-	{%- endif -%}
+		{%- assign iso_rtl = iso_arr_rtl | remove: " " -%}
+		{%- if iso_rtl == shop.locale -%}
+			{%- assign is_rtl = true -%}
+		{%- endif -%}
 	{%- endfor -%}
 {%- endif -%}
 <html lang="{{ shop.locale }}"{% if is_rtl %} dir="rtl" class="rtl"{% endif %}>

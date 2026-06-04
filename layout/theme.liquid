@@ -1,12 +1,12 @@
 <!doctype html>
 {%- if settings.iso_rtl != blank and settings.enable_rtl -%}
-	{%- assign is_rtl = false -%}
+	{%- assign is_rtl = fasle -%}
 	{%- assign iso_code_arr_rtl = settings.iso_rtl  | split: ";" -%}
 	{%- for iso_arr_rtl in iso_code_arr_rtl -%}
-	{%- assign iso_rtl = iso_arr_rtl | remove: " " -%}
-	{%- if iso_rtl == shop.locale -%}
-	{%- assign is_rtl = true -%}
-	{%- endif -%}
+		{%- assign iso_rtl = iso_arr_rtl | remove: " " -%}
+		{%- if iso_rtl == shop.locale -%}
+			{%- assign is_rtl = true -%}
+		{%- endif -%}
 	{%- endfor -%}
 {%- endif -%}
 <html lang="{{ shop.locale }}"{% if is_rtl %} dir="rtl" class="rtl"{% endif %}>
@@ -25,7 +25,7 @@
 			{{ settings.font-family-base-google-link }}
 		{% endif %}
 		<link rel="canonical" href="{{ canonical_url }}">
-		<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+		<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no, user-scalable=no">
 		<meta name="theme-color" content="{{ settings.color_primary }}">
 		{% include 'header-styles' %}
 		{% include 'header-javascript' %}
@@ -36,16 +36,16 @@
 		{%- assign layout_filter = settings.layout_filter -%}
 	{%- endif -%}
 	<body id="{{ page_title | handle }}" class="{{ layout_filter }} {% if customer %} customer-logged-in {% endif %}template-{{ request.page_type | handle }}{% if is_rtl %} rtl{% endif %}"> {% sections 'foxify-header-group' %}
-	  <!-- DEBUG START -->	
+	  <!-- DEBUG START -->
 	<div id="pre-loading" class="pre-loading loading-page">
 			<div class="pre-loading__bar"></div>
 		</div>
 		{% section 'header-campar' %}
 		{% section 'header-topbar' %}
 		<header class="header">
-			{%- liquid 
-			assign layout_header = settings.layout_header 
-			case layout_header 
+			{%- liquid
+			assign layout_header = settings.layout_header
+			case layout_header
 				when '3'
 					section 'header_3'
 				when '1'
@@ -59,23 +59,27 @@
 				when '6'
 					section 'header_6'
 			endcase -%}
-                    <!-- Smartsupp Live Chat settings; loader is deferred in seendoor-optimization.js -->
-<script>
-window._smartsupp = window._smartsupp || {};
-window._smartsupp.key = 'ed264771a60ef8a56489734df8027cbe343e7a99';
-window._smartsupp.orientation = 'right';
-window._smartsupp.offsetY = 220;
-window._smartsupp.offsetX = 0;
+                    <!-- Smartsupp Live Chat script -->
+<script type="text/javascript">
+var _smartsupp = _smartsupp || {};
+_smartsupp.key = 'ed264771a60ef8a56489734df8027cbe343e7a99';_smartsupp.orientation = "right";_smartsupp.offsetY = 220;_smartsupp.offsetX = 0;
+window.smartsupp||(function(d) {
+var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
+s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+c.type='text/javascript';c.charset='utf-8';c.async=true;
+c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+})(document);
 </script>
+<noscript> Powered by <a href=“https://www.smartsupp.com” target=“_blank”>Smartsupp</a></noscript>
 		</header>
 		<main class="main-content" role="main">
 			{{ content_for_layout }}
 		</main>
 		<footer class="bwp-footer{% if settings.show_menu_bottom %} have-menu-bottom{% endif %}">
 			{% section 'footer-top' %}
-			{%- liquid 
-			assign layout_footer = settings.layout_footer 
-			case layout_footer 
+			{%- liquid
+			assign layout_footer = settings.layout_footer
+			case layout_footer
 				when '1'
 					section 'footer_1'
 				when '2'
@@ -185,10 +189,9 @@ window._smartsupp.offsetX = 0;
 				shippingCalcSubmitButtonDisabled: {{ settings.shipping_calculator_submit_button_label_disabled | default: 'Calculating...' | json }},
 				{% if customer %}shippingCalcCustomerIsLoggedIn: true,{% endif %}
 				shippingCalcMoneyFormat: {{ shop.money_with_currency_format | json }}
-			} 
+			}
 		</script>
 		{% include 'footer-javascript' %}
-	<script src="{{ 'seendoor-optimization.js' | asset_url }}" defer="defer"></script>
 	<script src="{{ '//cdn.shopify.com/s/files/1/0194/1736/6592/t/1/assets/booster-page-speed-optimizer.js?23' }}" defer="defer"></script>
 {%- sections 'smi-group' -%}
 {%- render 'foxify-footer' -%} {% sections 'foxify-footer-group' %}   </body>

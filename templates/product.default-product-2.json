@@ -9,18 +9,18 @@
  */
 {
   "sections": {
-    "smi_announcement_bar_2_1_ED7fbQ": {
+    "smi_announcement_bar_2_1_yNWjQN": {
       "type": "smi-announcement-bar-2-1",
       "blocks": {
-        "announcement_Gap6xM": {
+        "announcement_ejfi9q": {
           "type": "announcement",
           "settings": {
             "icon": "none",
             "icon_size": 24,
-            "content": "<p>🌸 Mother's Day Sale On Now  ·  Buy 1 = 10% Off  ·  Buy 2 = 13% Off  ·  Buy 3+ = 15% Off  ·  Free Shipping over €50  ·  Ends 19 May 🌸</p>"
+            "content": "<p>Summer Home Refresh Sale On Now  ·  Buy 1 = 10% Off  ·  Buy 2 = 13% Off  ·  Buy 3+ = 15% Off  ·  Free Shipping over €50  ·  Ends 16 June</p>"
           }
         },
-        "color_nwNACd": {
+        "color_yGR7j6": {
           "type": "color",
           "settings": {
             "background_color": "#010101",
@@ -30,8 +30,8 @@
         }
       },
       "block_order": [
-        "announcement_Gap6xM",
-        "color_nwNACd"
+        "announcement_ejfi9q",
+        "color_yGR7j6"
       ],
       "name": "✧Announcement bar 2-1",
       "settings": {
@@ -92,6 +92,12 @@
             "inventory_outstock_color": "#e52828"
           }
         },
+        "custom_code_block_JBLzLY": {
+          "type": "custom_code_block",
+          "settings": {
+            "custom_code": "<div class=\"t4s-liquid_custom_liquid_mQfdP8 t4s-pr__custom-liquid t4s-rte--list\">\n  <style>\n    .coupon-copy {\n      cursor: pointer;\n      display: inline-block;\n      line-height: 1;\n      padding: 4px 5px 6px 5px;\n      border-radius: 5px;\n      color: #fff1f1;\n      background-color: #B8946D; /* 修改背景色 */\n    }\n  </style>\n  <div class=\"product-form__custom-liquid\">\n    <div style=\"\n        border: 0px dashed;\n        min-height: 20px;\n        width: 100%;\n        color: black;\n        padding: rem;\n        font-size: 16px;\n      \">\n      <p style=\"color: black\"></p>\n      <p>\n        <a style=\"color: #000\" plerdy-tracking-id=\"45244727501\">⇨ Buy 1 Get 10% Off </a> Code:<a style=\"color: #000\" plerdy-tracking-id=\"17481893501\">\n          SD10</a>\n        <span data-code=\"SD10\" class=\"coupon-copy\" onclick=\"copyCode(event);\" style=\"float: right\" plerdy-tracking-id=\"27551823001\">copy</span>\n      </p>\n      <p>\n        <a style=\"color: #000\" plerdy-tracking-id=\"45244727501\">⇨ Buy 2 Get 13% Off </a> Code:<a style=\"color: #000\" plerdy-tracking-id=\"17481893501\">\n          SD13</a>\n        <span data-code=\"SD13\" class=\"coupon-copy\" onclick=\"copyCode(event);\" style=\"float: right\" plerdy-tracking-id=\"27551823001\">copy</span>\n      </p>\n      <p>\n        <a style=\"color: #000\" plerdy-tracking-id=\"45244727501\">⇨ Buy 3 Get 15% Off </a> Code:<a style=\"color: #000\" plerdy-tracking-id=\"17481893501\">\n          SD15</a>\n        <span data-code=\"SD15\" class=\"coupon-copy\" onclick=\"copyCode(event);\" style=\"float: right\" plerdy-tracking-id=\"27551823001\">copy</span>\n      </p>\n    </div>\n    <script>\n      function copyToClipboard(str) {\n        let el = document.createElement(\"textarea\");\n        el.value = str;\n        el.setAttribute(\"readonly\", \"\");\n        el.style.position = \"absolute\";\n        el.style.left = \"-9999px\";\n        document.body.appendChild(el);\n        let selected =\n          document.getSelection().rangeCount > 0\n            ? document.getSelection().getRangeAt(0)\n            : false;\n        el.select();\n        document.execCommand(\"copy\");\n        document.body.removeChild(el);\n        if (selected) {\n          document.getSelection().removeAllRanges();\n          document.getSelection().addRange(selected);\n        }\n      }\n      function copyCode(e) {\n        let $this = e.target;\n        copyToClipboard($this.getAttribute(\"data-code\"));\n        $this.innerText = \"copied!\";\n        setTimeout(function () {\n          $this.innerText = \"copy\";\n        }, 1500);\n      }\n    </script>\n  </div>\n</div>"
+          }
+        },
         "61dc1536-4060-4a7b-8978-6b15781156e7": {
           "type": "form_atc",
           "settings": {
@@ -128,10 +134,10 @@
             "product_share_title": "Share"
           }
         },
-        "custom_code_block_Artgb8": {
+        "custom_code_block_ikBVBE": {
           "type": "custom_code_block",
           "settings": {
-            "custom_code": "<table style=\"width:100%; text-align:center; border-collapse:collapse;\">\n  <tbody>\n<tr>\n    <td style=\"padding:5px;\">\n      <img src=\"https://cdn.shopify.com/s/files/1/0704/2534/6105/files/1_caab8e31-80cd-42b5-a62e-39a2605a6d59.jpg?v=1757589801\" alt=\"Free Shipping\" style=\"width:40px; margin-bottom:8px;\"><br>\n     <span style=\"color:#010101;line-height:0;font-size:15px;\">€50+ Free Shipping</span> \n    </td>\n    <td style=\"padding:5px;\">\n      <img src=\"https://cdn.shopify.com/s/files/1/0704/2534/6105/files/2_16a79afe-9e1d-4eac-b952-16e2d0d88c85.jpg?v=1757589802\" alt=\"14-Day Returns\" style=\"width:40px; margin-bottom:8px;\"><br>\n      <span style=\"color:#010101;line-height:0;font-size:15px;\">14-Day Returns\n    </span>\n</td>\n    <td style=\"padding:5px;\">\n      <img src=\"https://cdn.shopify.com/s/files/1/0704/2534/6105/files/3_77d2515e-75c5-4ad1-b33a-047a9013bcd7.jpg?v=1757589801\" alt=\"Secure Payment\" style=\"width:40px; margin-bottom:8px;\"><br>\n     <span style=\"color:#010101;line-height:0;font-size:15px;\">Customer Support\n    </span>\n</td>\n  </tr>\n</tbody>\n</table>"
+            "custom_code": "<table style=\"width:100%; text-align:center; border-collapse:collapse;\">\n  <tbody>\n<tr>\n    <td style=\"padding:5px;\">\n      <img src=\"//cdn.shopify.com/s/files/1/0704/2534/6105/files/1_caab8e31-80cd-42b5-a62e-39a2605a6d59.jpg?v=1757589801\" alt=\"Free Shipping\" style=\"width:40px; margin-bottom:8px;\"><br>\n     <span style=\"color:#010101;line-height:0;font-size:15px;\">€50+ Free Shipping</span> \n    </td>\n    <td style=\"padding:5px;\">\n      <img src=\"//cdn.shopify.com/s/files/1/0704/2534/6105/files/2_16a79afe-9e1d-4eac-b952-16e2d0d88c85.jpg?v=1757589802\" alt=\"14-Day Returns\" style=\"width:40px; margin-bottom:8px;\"><br>\n      <span style=\"color:#010101;line-height:0;font-size:15px;\">14-Day Returns\n    </span>\n</td>\n    <td style=\"padding:5px;\">\n      <img src=\"//cdn.shopify.com/s/files/1/0704/2534/6105/files/3_77d2515e-75c5-4ad1-b33a-047a9013bcd7.jpg?v=1757589801\" alt=\"Secure Payment\" style=\"width:40px; margin-bottom:8px;\"><br>\n     <span style=\"color:#010101;line-height:0;font-size:15px;\">Customer Support\n    </span>\n</td>\n  </tr>\n</tbody>\n</table>"
           }
         },
         "67aec254-2684-477e-aa65-3b8ecbd11df1": {
@@ -148,9 +154,10 @@
         "a3c3adcb-cf66-4d15-9b30-4210264db1c0",
         "a064944a-4bd2-4106-95e4-16c1de990486",
         "082a27dc-21c3-4f13-8119-690ae1b6666c",
+        "custom_code_block_JBLzLY",
         "61dc1536-4060-4a7b-8978-6b15781156e7",
         "b46e544a-3024-4b16-a177-ad395195c8cb",
-        "custom_code_block_Artgb8",
+        "custom_code_block_ikBVBE",
         "67aec254-2684-477e-aa65-3b8ecbd11df1"
       ],
       "custom_css": [
@@ -161,7 +168,7 @@
         "@media (min-width: 992px) {.col-lg-5, .col-lg-7 {flex: 0 0 50%; max-width: 50%; } .bwp-single-info {padding-left: 30px; }}"
       ],
       "settings": {
-        "bg_section": "#faf8f4",
+        "bg_section": "#ffffff",
         "padding_section": "0px 0px 0px 0px",
         "product_button_wishlist": true,
         "product_button_compare": true,
@@ -186,7 +193,7 @@
             "title_description": "About the Lamp"
           }
         },
-        "tab_review_default_product_2": {
+        "tab_review_pUU4Jr": {
           "type": "tab_review",
           "settings": {
             "title_review": "Review"
@@ -195,11 +202,11 @@
       },
       "block_order": [
         "14602642-3bec-4b7c-ba2a-595627cccceb",
-        "tab_review_default_product_2"
+        "tab_review_pUU4Jr"
       ],
       "custom_css": [
         "h2 {font-size: 17px; line-height: 1; padding-top: 10px; text-transform: none; /* 取消强制大写 */}",
-        "@media (min-width: 1023px) {.product-more-info {padding-top: 50px; padding-bottom: 0px; }}",
+        "@media (min-width: 1023px) {.product-more-info {padding-top: 50px; }}",
         ".more-tab-container {font-size: 15px; color: #010101;}",
         "ul {padding-inline-start: 20px;}",
         "@media (max-width: 991px) {.product-more-info .tab-pane {padding: 20px 5px 0px 5px; } .more-info-tabs__nav-link {background: transparent; border-bottom: 1px solid #e8e8e8; }}",
@@ -258,6 +265,7 @@
       "block_order": [
         "css_FYCBqW"
       ],
+      "disabled": true,
       "custom_css": [
         ".wpbingo-section--image-text .image-text {display: flex; flex-direction: row-reverse; /* 👈 反转顺序，左图右文 */}",
         ".wpbingo-section--image-text .col-content .image-text__image {padding-left: 20px; padding-right: 20px;}"
@@ -267,7 +275,7 @@
         "max_width": "",
         "fullwidth": false,
         "padding": "",
-        "margin": "60px 0 0 0 | | 20px 0 0 0",
+        "margin": "30px 0 60px 0 | | 30px 0 30px 0",
         "title": "Styling Guidance",
         "desc": "Not sure how to bring it all together?\nOur products are designed with versatility in mind, making it easy to create a cohesive look in your home—no extra work needed.",
         "button": "",
@@ -323,6 +331,7 @@
       "block_order": [
         "css_ELAig3"
       ],
+      "disabled": true,
       "custom_css": [
         ".wpbingo-section--image-text .col-content .image-text__image {padding-left: 20px; padding-right: 20px;}"
       ],
@@ -331,7 +340,7 @@
         "max_width": "",
         "fullwidth": false,
         "padding": "",
-        "margin": "80px 0 0 0 | | 30px 0 0 0",
+        "margin": "0px 0 60px 0 | | 30px 0 30px 0",
         "title": "Our Mission",
         "desc": "Seendoor aims to create the scenery behind your door.\n<br>\nWe create a warm connection between people and life with tangible sophistication;\nwe use the perfect balance of light and shadow to outline the contours of your unique life.\n<br>\nOpen the door, encounter the light, and return to your ideal home.",
         "button": "",
@@ -359,7 +368,7 @@
     }
   },
   "order": [
-    "smi_announcement_bar_2_1_ED7fbQ",
+    "smi_announcement_bar_2_1_yNWjQN",
     "breadcrumb",
     "product-template",
     "product-tab",
