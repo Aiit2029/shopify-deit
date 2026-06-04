@@ -97,7 +97,7 @@ const checks = [
       assert(css.includes('--sd-canvas'));
       assert(css.includes('--sd-steel-blue'));
       assert(css.includes('.sd-seasonal-event'));
-      assert(css.includes('.sd-editorial-heading'));
+      assert(css.includes('body.template-index .wpbingo-section--title-button .wpbingo-section__inner'));
       assert(css.includes('.wpbingo-section--products'));
       assert(css.includes('.collection-content'));
     },
@@ -114,7 +114,7 @@ const checks = [
     },
   },
   {
-    name: 'homepage narrative order follows room-first lighting journey',
+    name: 'homepage uses edited native section mix',
     run() {
       const index = JSON.parse(read('templates/index.json'));
       const order = index.order;
@@ -122,7 +122,9 @@ const checks = [
       assert(position('sd_room_selector') > position('slideshow_4PmnVM'));
       assert(position('sd_room_selector') < position('featured_title_yBA3WE'));
       assert(position('featured_title_yBA3WE') < position('smi_collection_list_1_5_GqFER6'));
+      assert(position('slideshow_BKJzH9') < position('featured_product_tabs_bAhayC'));
       assert(position('featured_title_cJLkQ9') < position('featured_product_tabs_bAhayC'));
+      assert(position('slideshow_Erzhph') < position('featured_title_ayiNMR'));
       assert(position('featured_title_ayiNMR') < position('featured_product_tabs_banner_HLWmVx'));
       assert(position('featured_image_with_text_Kr6QBJ') < position('sd_offer_panel'));
       assert(position('sd_offer_panel') < position('slideshow_pCwUPy'));
@@ -131,8 +133,6 @@ const checks = [
       assert(position('featured_title_WigTyG') < position('featured_products_kmRmAj'));
       assert(position('featured_blog_post_L7cwnj') < position('sd_footer_trust'));
       assert(!order.includes('featured_policy_LCEaXC'));
-      assert(!order.includes('slideshow_BKJzH9'));
-      assert(!order.includes('slideshow_Erzhph'));
     },
   },
   {
@@ -150,8 +150,10 @@ const checks = [
         'featured_title_WigTyG',
         'featured_title_48rdnH',
       ]) {
-        assert.equal(index.sections[sectionId].type, 'sd-editorial-heading', sectionId);
+        assert.equal(index.sections[sectionId].type, 'featured-title', sectionId);
       }
+      assert.equal(index.sections.slideshow_BKJzH9.type, 'slideshow');
+      assert.equal(index.sections.slideshow_Erzhph.type, 'slideshow');
       assert.equal(index.sections.smi_collection_list_1_5_GqFER6.type, 'smi-collection-list-1-5');
       assert.equal(index.sections.featured_product_tabs_bAhayC.type, 'featured-product-tabs');
       assert.equal(index.sections.featured_product_tabs_banner_HLWmVx.type, 'featured-product-tabs-banner');
@@ -162,13 +164,11 @@ const checks = [
       const roomSection = read('sections/sd-room-selector.liquid');
       const offerSection = read('sections/sd-offer-panel.liquid');
       const trustSection = read('sections/sd-footer-trust.liquid');
-      const headingSection = read('sections/sd-editorial-heading.liquid');
       assert(roomSection.includes('"type": "collection"'));
       assert(roomSection.includes('"type": "image_picker"'));
       assert(offerSection.includes('data-sd-copy-code'));
       assert(trustSection.includes('"type": "select"'));
-      assert(headingSection.includes('"name": "SD Editorial Heading"'));
-      assert(headingSection.includes('"id": "link_url"'));
+      assert(!JSON.stringify(index).includes('sd-editorial-heading'));
 
       for (const section of Object.values(index.sections)) {
         if (section.type !== 'featured-title') continue;
@@ -181,16 +181,7 @@ const checks = [
     name: 'homepage custom URL settings use relative fallback links',
     run() {
       const index = JSON.parse(read('templates/index.json'));
-      for (const sectionId of [
-        'sd_room_selector',
-        'sd_footer_trust',
-        'featured_title_yBA3WE',
-        'featured_title_cJLkQ9',
-        'featured_title_ayiNMR',
-        'featured_title_PqRnhY',
-        'featured_title_WigTyG',
-        'featured_title_48rdnH',
-      ]) {
+      for (const sectionId of ['sd_room_selector', 'sd_footer_trust']) {
         const section = index.sections[sectionId];
         const encoded = JSON.stringify(section);
         assert(!encoded.includes('shopify://policies/'));
@@ -232,7 +223,7 @@ const checks = [
       const index = read('templates/index.json');
       assert(index.includes('sd-room-selector'));
       assert(index.includes('Shop by room'));
-      assert(index.includes('Start with the space'));
+      assert(index.includes('Shop the room you are finishing'));
       assert(index.includes('Living Room'));
       assert(index.includes('Dining Room'));
       assert(index.includes('sd-footer-trust'));
@@ -252,7 +243,7 @@ const checks = [
       const offer = index.sections.sd_offer_panel;
       const codes = offer.block_order.map((id) => offer.blocks[id].settings.code);
       assert.deepEqual(codes, ['SD10', 'SD13', 'SD15']);
-      assert(indexRaw.includes('Build the edit, save more'));
+      assert(indexRaw.includes('Save more when the room comes together'));
       assert(indexRaw.includes('Use SD10, SD13, or SD15'));
       assert(productCoupon.includes('data-sd-copy-code="SD10"'));
       assert(productCoupon.includes('data-sd-copy-code="SD13"'));
@@ -266,15 +257,16 @@ const checks = [
     name: 'homepage copy follows premium design-store journey',
     run() {
       const index = read('templates/index.json');
-      assert(index.includes('A cleaner way to shape the room'));
-      assert(index.includes('Discover refined pieces for composed rooms, calm corners, and a more considered home.'));
-      assert(index.includes('Start with the space'));
-      assert(index.includes('Then choose the silhouette'));
-      assert(index.includes('Pieces shoppers return to first'));
-      assert(index.includes('Series with a point of view'));
-      assert(index.includes('Designed to feel collected, not crowded'));
-      assert(index.includes('Ready when the project is'));
-      assert(index.includes('Support within 24 hours'));
+      assert(index.includes('Edit the room in fewer decisions'));
+      assert(index.includes('Explore refined lighting and home details by room, category, finish, and availability.'));
+      assert(index.includes('Shop the room you are finishing'));
+      assert(index.includes('Shop by Type'));
+      assert(index.includes('The Shortlist'));
+      assert(index.includes('Popular Right Now'));
+      assert(index.includes('New Forms, Fresh Finishes'));
+      assert(index.includes('A considered home starts with the right edit'));
+      assert(index.includes('Save more when the room comes together'));
+      assert(index.includes('Product support within 24 hours'));
     },
   },
   {
